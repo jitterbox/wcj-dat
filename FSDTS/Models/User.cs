@@ -43,6 +43,12 @@ namespace FSDTS.Models
         public string UserEmail { get; set; }
 
         /// <summary>
+        /// Gets or sets UserPassword: Password of the user.
+        /// </summary>
+        [MinLength(6, ErrorMessage = "Password should be at least 6 characters.")]
+        public string UserPassword { get; set; }
+
+        /// <summary>
         /// Gets or sets UserAddressLine1: Primary address of the user.
         /// </summary>
         [Required(ErrorMessage = "Please enter your address.")]
