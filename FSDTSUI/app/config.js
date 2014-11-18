@@ -27,6 +27,7 @@ fsdtsApp.constant('appConstants', {
         'ADD_USER': 'http://192.168.15.32/api/User/',
         'EDIT_USER': 'http://192.168.15.32/api/User/',
         'GET_USER': 'http://192.168.15.32/api/User/',
+        'PARTICIPANT': 'http://192.168.15.32/api/ProjectOrganization'
 
          //External end point
         //'ADD_COURSE': 'http://203.197.80.136/api/course',

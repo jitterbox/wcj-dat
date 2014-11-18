@@ -43,7 +43,7 @@ fsdtsApp.factory('periodManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.deletePeriod = function (periodInfo) {console.log(periodInfo);
                // var postData = getPostData(periodInfo);
-                 return httpHelper.post(appConstants.API_END_POINTS.DELETE_PERIOD+);
+                 return httpHelper.post(appConstants.API_END_POINTS.DELETE_PERIOD);
         };
 
         /** Return period details by courseId

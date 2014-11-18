@@ -40,6 +40,7 @@
                                 </div>
                             </div>-->
                              <!-- END waiting window  -->
+                             
 
                                 <form class="form-horizontal">
                                     <!-- START confirm window  -->
@@ -69,7 +70,45 @@
                                     <button type="button" class="btn btn-primary" ng-click="onSubmit()" >
                                         Add to Project
                                     </button>
-                                        
+                                   
+                                    <label ng-hide="isEmptyProjectOrganization === true" class="col-md-2 control-label">Organizations</label>         
+                                     
+                                  <!--  
+                                      <div data-ng-repeat="(OrganizationName, projectOrganizationList) in groups">
+                                         <h2>{{OrganizationName}}</h2>        
+                                         <ul>
+                                            <li data-ng-repeat="projectOrganization in projectOrganizationList">
+                                                {{ projectOrganization.Format }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                      -->
+                                          
+                                <!-- <table class="table datatable_simple table-bordered tableStyle">
+                                <tbody>-->
+                                   <div data-ng-repeat="(organizationName, projectOrganization) in projectOrganizationList">
+                                         
+                                      <table class="table datatable_simple table-bordered tableStyle">
+                                       <tbody>
+                                          <tr >
+                                            <td colspan="3"> {{organizationName}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Name</td> <td>Format</td> <td> </td>
+                                          </tr>
+                                         <tr data-ng-repeat="Obj in projectOrganization">
+                                            <td>{{ Obj.name }}</td>
+                                            <td>{{ Obj.format }}</td>
+                                            <td>
+                                              <button type="button" class="btn btn-primary" ng-click="onDelete(Obj)" >Delete</button>
+                                            </td>
+                                         </tr>
+                                       </tbody>
+                                      </table>
+                                      
+                                    </div>
+                                <!--</tbody>
+                              </table>-->
 
                                     </div>
 
