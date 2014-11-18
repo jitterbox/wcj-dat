@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSDTS", "FSDTS\FSDTS.csproj", "{8ACDE237-F799-471A-A001-7463CE3D75B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSDTS_UnitTest", "FSDTS_UnitTest\FSDTS_UnitTest.csproj", "{55E483C8-FBC8-4780-977B-B8EA6546962F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C9B72249-0108-4D79-A2C2-48282C4EE37B}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8ACDE237-F799-471A-A001-7463CE3D75B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACDE237-F799-471A-A001-7463CE3D75B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACDE237-F799-471A-A001-7463CE3D75B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACDE237-F799-471A-A001-7463CE3D75B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E483C8-FBC8-4780-977B-B8EA6546962F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E483C8-FBC8-4780-977B-B8EA6546962F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E483C8-FBC8-4780-977B-B8EA6546962F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E483C8-FBC8-4780-977B-B8EA6546962F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
