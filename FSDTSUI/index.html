@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Data Tracking System </title>
+    <!--START link to angularJs library files-->
+    <script src="atlantPlugins/html/js/plugins/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="scripts/lib/angular.min.js"></script>
+    <script src="scripts/lib/ng-grid.debug.js" type="text/javascript"></script>
+    <script src="scripts/lib/angular-route.min.js"></script>
+    <script src="scripts/lib/angular-mocks.js"></script>
+    <script src="scripts/lib/angular-cookies.js"></script>
+    <!-- START Kendo PLUGINS -->
+    <script src="scripts/kendoLib/kendo.all.min.js" type="text/javascript"></script>
+    <!-- END Kendo PLUGINS -->
+    <!--END link to angularJs library files-->
+    <!--START link to application boot files-->
+    <script src="app/app.js"></script>
+    <script src="app/services/authentication/userProfileService.js"></script>
+    <script src="app/config.js"></script>
+    <!--END link to application boot files-->
+    <!--START link to utility scripts-->
+    <script src="scripts/utility/dateUtility.js"></script>
+    <!--END to utility scripts-->
+    <!--START link to controllers files-->
+    <script src="app/controllers/common/appController.js"></script>
+    <script src="app/controllers/common/authController.js"></script>
+    <script src="app/controllers/adminSite/adminHomeController.js"></script>
+    <script src="app/controllers/adminSite/courseManagementController.js"></script>
+    <script src="app/controllers/adminSite/organizationManagementController.js"></script>
+    <script src="app/controllers/adminSite/programManagementController.js"></script>
+    <script src="app/controllers/adminSite/credentialManagementController.js"></script>
+    <script src="app/controllers/adminSite/userManagementController.js"></script>
+    <script src="app/controllers/adminSite/projectManagementController.js"></script>
+    <script src="app/controllers/adminSite/courseController.js"></script>
+    <script src="app/controllers/adminSite/credentialController.js"></script>
+    <script src="app/controllers/adminSite/organizationController.js"></script>
+    <script src="app/controllers/adminSite/programController.js"></script>
+    <script src="app/controllers/adminSite/userController.js"></script>
+    <script src="app/controllers/adminSite/projectController.js"></script>
+    <script src="app/controllers/adminSite/periodManagementController.js"></script>
+    <script src="app/controllers/adminSite/participantManagementController.js"></script>
+    <!--END link to controllers files-->
+    <!--START link to service files-->
+    <script src="app/services/utils/httpHelper.js"></script>
+    <script src="app/services/authentication/authService.js"></script>
+    <script src="app/services/adminSite/courseManagementService.js"></script>
+    <script src="app/services/adminSite/programManagementService.js"></script>
+    <script src="app/services/adminSite/credentialManagementService.js"></script>
+    <script src="app/services/adminSite/organizationManagementService.js"></script>
+    <script src="app/services/adminSite/userManagementService.js"></script>
+    <script src="app/services/adminSite/projectManagementService.js"></script>
+    <script src="app/services/adminSite/periodManagementService.js"></script>
+   <script src="app/services/adminSite/participantManagementService.js"></script>
+   <!--END link to service files-->
+    <!--START link to directive files-->
+    <script src="app/directives/appHeader.js"></script>
+    <script src="app/directives/customGrid.js"></script>
+    <script src="app/directives/confirmWindow.js"></script>
+    <script src="app/directives/breadcrumb.js"></script>
+   
+    <!--END link to directive files-->
+    <!--START link to atlant library files-->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="atlantPlugins/html/js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="atlantPlugins/html/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="atlantPlugins/html/js/plugins/bootstrap/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="atlantPlugins/html/js/plugins.js"></script>
+    <script type="text/javascript" src="atlantPlugins/html/js/actions.js"></script>
+    <!-- END PLUGINS -->
+    
+    <!--START link to atlant style -->
+    <link rel="stylesheet" type="text/css" id="theme" href="atlantPlugins/html/css/theme-default.css" />
+    <link href="styles/css/ng-grid.css" rel="stylesheet" />
+    <!--END link to  atlant style>
+
+    <!--END link to atlant library files-->
+    <!--START link to kendo style files -->
+    <link href="styles/kendoCss/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/kendoCss/kendo.dataviz.default.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/kendoCss/kendo.dataviz.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/kendoCss/kendo.default.min.css" rel="stylesheet" type="text/css" />
+    <!--END link to kendo style files -->
+    <!--START link to custom style files -->
+    <link href="styles/css/new-style.css" rel="stylesheet" />
+    <!--END link to custom style files -->
+</head>
+<body ng-app="fsdtsApp" ng-controller="appController">
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+        <!-- START PAGE CONTENT -->
+        <div class="page-content">
+            <!--Provide support for application level header-->
+            <app-header></app-header>
+            <div class="page-content-wrap">
+                <div ng-view>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</body>
+</html>

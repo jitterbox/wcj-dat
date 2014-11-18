@@ -1,0 +1,158 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="block">
+                        <!-- START waiting window  -->
+                        <div class="container-popup" ng-show="showSpin">
+                            <div class="popup">
+                                <img src="styles/images/spinImage.gif" />
+                            </div>
+                        </div>
+                        <!-- END waiting window  -->
+                        <form class="form-horizontal" id="tickets" kendo-validator="validator" ng-submit="onSubmit($event)">
+                        <!-- START confirm window  -->
+                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                        <!-- END conform window  -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="firstname">
+                                First Name</label>
+                            <div class="col-md-4">
+                                <input type="text" id="firstname" name="firstname" ng-model="userInfo.firstname"
+                                    class="form-control" pattern=".{1,50}" required data-required-msg="Please enter first name."
+                                    validationmessage="First name should be less than 50 characters." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="lastname">
+                                Last Name</label>
+                            <div class="col-md-4">
+                                <input type="text" id="lastname" name="lastname" ng-model="userInfo.lastname" class="form-control"
+                                    pattern=".{1,50}" required data-required-msg="Please enter last name." validationmessage="Last name should be less than 50 characters." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="Address">
+                                Address Line 1</label>
+                            <div class="col-md-4">
+                                <input type="text" name="Address" class="form-control" ng-model="userInfo.addressLine1"
+                                    pattern=".{1,500}" required data-required-msg="Please enter address." validationmessage="Address should be less than 500 characters." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                Address Line 2</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="userInfo.addressLine2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="City">
+                                City
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="userInfo.city" name="City" required
+                                    data-required-msg="Please enter city." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="State">
+                                State
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="userInfo.state" name="State" required
+                                    data-required-msg="Please enter state." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="Zip code">
+                                Zip
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,20}"
+                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 20 characters." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="tel">
+                                Phone</label>
+                            <div class="col-md-4">
+                                <input type="tel" id="tel" name="tel" pattern="\d{10}" class="form-control" ng-model="userInfo.phoneNumber"
+                                    pattern=".{1,100}" required data-required-msg="Please enter phone number." validationmessage="Please enter a ten digit phone number." />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label required" for="email">
+                                email</label>
+                            <div class="col-md-4">
+                                <input type="email" id="email" name="Email" class="form-control" ng-model="userInfo.emailAddress"
+                                    required data-email-msg="Email format is not valid." />
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-md-2 control-label">
+                                Function</label>
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="userInfo.user" vlaue="Manage Users"/>Manage Users
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="userInfo.project" value="Manage Projects" />Manage
+                                        Projects
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="userInfo.organization" value="Manage Organizations" />Manage
+                                        Organizations
+                                    </label>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                Status</label>
+                            <div class="col-md-4">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" class="iradio" name="iradio" ng-model="userInfo.status" value="Active" />
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" class="iradio" name="iradio" ng-model="userInfo.status" value="Inactive" />
+                                        Inactive (If user will no longer have access to the site)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group pull-right col-md-8 accept">
+                            <button ng-click="onCancel()" type="button" class="btn btn-primary">
+                                Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                Submit</button>
+                            <div class="col-md-1">
+                            </div>
+                            <label class="control-label editedName">
+                                <label class="normaltext">
+                                    Last edited by:</label>
+                                Jim Winter
+                            </label>
+                            <label class="control-label editedName">
+                                <label class="normaltext">
+                                    Last edited:</label>
+                                08/22/14
+                            </label>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿<!--<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul>
+                            <li><a href="" ng-click="onHyperlinkClick('programManagement')">Programs</a></li>
+                            <li><a href="" ng-click="onHyperlinkClick('courseManagement')">Courses</a></li>
+                            <li><a href="" ng-click="onHyperlinkClick('credentialManagement')">Credentials</a></li>
+                            <li><a href="#organization/1">Add New Organization</a></li>
+                            <li><a href="#organization/2">Edit New Organization</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="row">
+        <div class="col-md-12 panel-col">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!-- START CUSTOM CODE -->
+                    <div class="container">
+                        <!--<h2>Kent State University At Trumball: Programs - <span>Add</span></h2>-->
+                        <a style=" float: right; margin: 7px 5px;" href="#course/1">Add New Course</a>
+                        <a style=" float: right; margin: 7px 5px;" href="#organization/1">Add New Organization</a>
+                        <!--<a href="#course/2">Edit New Course</a>-->
+                        <table class="table datatable_simple table-bordered tableStyle">
+                            <thead>
+                                 <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="organization in organizationList">
+                                    <td>
+                                        <a href="" ng-click="onOrganizationSelect(organization)">{{organization.name}}</a>
+                                    </td>
+                                    <td>
+                                         {{organization.type}}
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        {{organization.status}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END CUSTOM CODE -->
+            </div>
+        </div>
+    </div>
+</div>

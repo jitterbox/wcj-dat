@@ -1,0 +1,33 @@
+﻿<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- START CUSTOM CODE -->
+                        <div class="block">
+                             <!-- START waiting window  -->
+                             <div class="container-popup" ng-show="showSpin" >
+                                    <div class="popup">
+                                        <img src="styles/images/spinImage.gif"/>
+                                    </div>
+                             </div>
+                            <!-- END waiting window  -->
+                            <!--<h2>Kent State University At Trumball: Programs - <span>Add</span></h2>-->
+                            <a style=" float: right; margin: 7px 5px;" href="#course/1">Add New Course</a>
+                            <custom-grid  
+                            grid-data="courseList" 
+                            cols="columnDefs"
+                            selected-items="selectedItems"
+                            custom-options="gridOptions"
+                            papulate-grid="papulateGrid"
+                            action-handler="onActionClick(actionObject)">
+                           </custom-grid>
+                      </div>
+                    </div>
+                    <!-- END CUSTOM CODE -->
+                </div>
+            </div>
+        </div>
+    </div></div>

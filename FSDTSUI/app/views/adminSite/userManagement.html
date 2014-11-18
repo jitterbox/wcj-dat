@@ -1,0 +1,36 @@
+﻿<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                       <!-- <a href="#user/1">Add New User</a>
+                        <br />
+                       <a href="#user/2">Edit New User</a>-->
+                       <!-- START CUSTOM CODE -->
+                        <div class="block">
+                             <!-- START waiting window  -->
+                             <div class="container-popup" ng-show="showSpin" >
+                                    <div class="popup">
+                                        <img src="styles/images/spinImage.gif"/>
+                                    </div>
+                             </div>
+                            <!-- END waiting window  -->
+                            <!--<h2>Kent State University At Trumball: Programs - <span>Add</span></h2>-->
+                            <a style=" float: right; margin: 7px 5px;" href="#user/1">Add New User</a>
+                            <custom-grid  
+                            grid-data="userList" 
+                            cols="columnDefs"
+                            selected-items="selectedItems"
+                            custom-options="gridOptions"
+                            papulate-grid="papulateGrid"
+                            action-handler="onActionClick(actionObject)">
+                           </custom-grid>
+                      </div>
+                    </div>
+                    <!-- END CUSTOM CODE -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

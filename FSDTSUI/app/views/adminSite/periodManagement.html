@@ -1,0 +1,163 @@
+﻿<!-- PAGE CONTENT WRAPPER -->
+<!--<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                       
+                            <a style=" float: right; margin: 7px 5px;" href="">Add New Periods</a>
+                           
+                            <table class="table datatable_simple table-bordered tableStyle">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Title
+                                        </th>
+                                        <th>
+                                            Start Date
+                                        </th>
+                                        <th>
+                                            End Date
+                                        </th>
+                                        <th>
+                                           Deadline Date
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button type="button">Delete Period</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div></div>-->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- START CUSTOM CODE -->
+                        <div class="block">
+                            <!-- START waiting window  -->
+                            <div class="container-popup" ng-show="showSpin">
+                                <div class="popup">
+                                    <img src="styles/images/spinImage.gif" />
+                                </div>
+                            </div>
+                            <!-- END waiting window  -->
+                            <form class="form-horizontal" kendo-validator="validator" ng-submit="onSubmit($event)">
+                            <!-- START confirm window  -->
+                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                            <!-- END conform window  -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Period Title">
+                                    Title
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="periodInfo.title" name="Period Title"
+                                        pattern=".{1,100}" required data-required-msg="Please enter period title." validationmessage="Period title should be less than 100 characters." />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Start Date">
+                                    Start Date</label>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control" ng-model="periodInfo.startDate" name="Start Date"
+                                        kendo-date-picker required data-required-msg="Please enter start date."/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="End Date">
+                                    End Date</label>
+                                <!--<datepicker value="periodInfo.endDate" date-type="enddate"></datepicker>-->
+                                <input type="date" class="form-control" ng-model="periodInfo.endDate" name="End Date"
+                                    kendo-date-picker required data-required-msg="Please enter end date." />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Deadline Date">
+                                    Deadline Date</label>
+                                <!-- <datepicker value="periodInfo.deadlineDate" date-type="deadlineDate"></datepicker>-->
+                                <input type="date" class="form-control" ng-model="periodInfo.deadlineDate" name="Deadline Date"
+                                    kendo-date-picker required data-required-msg="Please enter deadline date." />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Year">
+                                    Year</label>
+                                <div class="col-md-2">
+                                    <select ng-model="periodInfo.year" class="form-control select dropdown" name="Year">
+                                        <option required data-required-msg="Please enter year.">2014</option>
+                                    </select>
+                                    <!--<span class="caret caretStyle"></span>-->
+                                </div>
+                            </div>
+                            <div class="btn-group pull-right col-md-10">
+                                <button type="submit" class="btn btn-primary">
+                                    Add Period
+                                </button>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                            <table class="table datatable_simple table-bordered tableStyle">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Title
+                                        </th>
+                                        <th>
+                                            Start Date
+                                        </th>
+                                        <th>
+                                            End Date
+                                        </th>
+                                        <th>
+                                            Deadline Date
+                                        </th>
+                                        <th>
+                                            Year
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="period in periodList">
+                                        <td>{{period.title}}</td>
+                                        <td>{{period.startDate}}</td>
+                                        <td>{{period.endDate}}</td>
+                                        <td>{{period.deadlineDate}}</td>
+                                        <td>{{period.year}}</td>
+                                        <td>
+                                            <button type="button" ng-click="onDelete()">
+                                                Delete Period</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </form>
+                            <!-- <a style="float: right; margin: 7px 5px;" href="#course/1">Add New Period</a>-->
+                            <!--<custom-grid grid-data="periodsList" cols="columnDefs" selected-items="selectedItems"
+                                custom-options="gridOptions" papulate-grid="papulateGrid" action-handler="onActionClick(actionObject)">
+                           </custom-grid>-->
+                        </div>
+                    </div>
+                    <!-- END CUSTOM CODE -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

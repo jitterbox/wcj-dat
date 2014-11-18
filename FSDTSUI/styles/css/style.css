@@ -1,0 +1,644 @@
+﻿/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+html {
+    font-family: sans-serif; /* 1 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+body, html {
+    margin: 0;
+    background: url("../../atlantPlugins/html/img/backgrounds/wall_1.jpg") !important;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding: 0px;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+.outerContainer {
+    float: left;
+    width: 100%;
+    padding: 20px 0;
+    background-size: cover;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block; /* 1 */
+    vertical-align: baseline; /* 2 */
+}
+
+    audio:not([controls]) {
+        display: none;
+        height: 0;
+    }
+
+[hidden],
+template {
+    display: none;
+}
+
+a {
+    background-color: transparent;
+}
+
+    a:active,
+    a:hover {
+        outline: 0;
+    }
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+dfn {
+    font-style: italic;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+small {
+    font-size: 80%;
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+img {
+    border: 0;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+figure {
+    margin: 1em 40px;
+}
+
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
+
+pre {
+    overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit; /* 1 */
+    font: inherit; /* 2 */
+    margin: 0; /* 3 */
+}
+
+button {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button; /* 2 */
+    cursor: pointer; /* 3 */
+}
+
+    button[disabled],
+    html input[disabled] {
+        cursor: default;
+    }
+
+    button::-moz-focus-inner,
+    input::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+
+input {
+    line-height: normal;
+}
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        box-sizing: border-box; /* 1 */
+        padding: 0; /* 2 */
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        height: auto;
+    }
+
+    input[type="search"] {
+        -webkit-appearance: textfield; /* 1 */
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box; /* 2 */
+        box-sizing: content-box;
+    }
+
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+    border: 0; /* 1 */
+    padding: 0; /* 2 */
+}
+
+textarea {
+    overflow: auto;
+}
+
+optgroup {
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td,
+th {
+    padding: 0;
+}
+/*Reset Css End*/
+
+/*Main CSS Start Here*/
+.masterdiv 
+{
+    float: left;
+    margin: 0px auto;
+    padding: 0px;
+    width: 100%;
+    border: 0px solid #e4e4e4;
+}
+/*Header Sction Css Start Here*/
+.header {
+   /* margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    width: 100%;
+    padding-left: 15%;
+    padding-bottom: 40px;
+    background-color: #DA4900;
+    color: white;*/
+    display: inline-block;
+    width: 100%;
+    margin: 0px 16%;
+}
+
+    .header .logo {
+        display: inline;
+        float: left;
+        padding: 5px 5px;
+    }
+
+    .header .titleName {
+        width: 90%;
+        float: left;
+        position: relative;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        margin: 35px 0 0 9px;
+        display: inline;
+        float: left;   
+    }
+
+        .header h1.titleNoBold {
+            font-weight: normal;
+        }
+
+    .header .logout {
+        /*float: left;
+        margin: 0;
+        padding: 10px 0;
+        width: 49%;
+        padding-left: 22%;
+        float:right;*/
+        float: left;
+        margin: 7px 0 0 0;
+        padding: 0;
+        width: 50%
+    }
+
+        .header .logout ul {
+            /*list-style-type: none;
+            padding: 0px;
+            margin: 0px;*/
+            list-style-type: none;
+            float: right;
+            width: 70%;
+        }
+
+            .header .logout ul li {
+                display: inline-block;
+                margin: 10px -5px 0 0;
+                padding: 10px;
+                border: 2px solid #434a54;
+                /*display: inline-block;
+                float: left;
+                margin: 10px 0 0 0;
+                padding: 10px;
+                border: 2px solid #434a54;
+                border-right: 0;*/
+            }
+            
+            .header .logout ul li:last-child 
+            {
+                 border-right: 2px solid #434a54;
+            }
+
+                .header .logout ul li a, .navigation ul li a {
+                    color: #434a54;
+                    text-decoration: none;
+                    font-size: 16px;
+                }
+
+                    .header .logout ul li a:hover, .navigation ul li a:hover {
+                        text-decoration: underline;
+                    }
+
+.navigation {
+   /* border-bottom: 2px solid #434a54;
+    display: inline-block;
+    margin: 20px 10px 10px;
+    padding: 0 0 5px;
+    width: 85%;*/
+    border-bottom: 2px solid #434a54;
+    display: inline-block;
+    margin: 20px 10px 10px;
+    padding: 0 0 5px;
+    width: 77.6%;
+}
+
+    .navigation ul {
+        display: inline-block;
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .navigation ul li {
+            float: left;
+            margin: 0 25px 0 0;
+        }
+/*Header Section CSS End Here*/
+
+/*Body Section CSS Start Here*/
+.panel-col
+{
+    margin: 10px 0 0 20%;
+    width: 62%;
+}
+
+.container 
+{
+    width:100%;
+   /* padding: 0 0 10px;
+    margin: 0 0 0 8%;
+    background-color: #FF9933;*/
+}
+
+    .container h2 {
+        font-size: 20px;
+        margin: 15px 15px 25px 15px;
+        padding: 0px;
+    }
+
+    .container .inner-content {
+        margin: 15px;
+        padding: 0 0 0 0px;
+        padding-top: 20px;
+    }
+
+        .container .inner-content ul li {
+            list-style: none outside none;
+            margin: 0px 0px 15px;
+        }
+
+.loginContainer {
+    /*position: relative;
+    width: 100%;
+    float: left;
+    margin: 5% auto 4% 10%;
+    float: left;
+    width: 100%;
+    min-height: 100%;*/
+   background: none;
+}
+
+
+.login-body {
+    /*width: 400px;
+    float: left;
+    background: rgba(16, 16, 16,.1);
+    padding: 35px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin: 0 0 0 15%;*/
+    width: 100%;
+    float: left;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.login-title {
+   /* color: #FFF;
+    font-size: 19px;
+    font-weight: 300;
+    margin-bottom: 20px;*/
+    color: #FFF;
+    font-size: 19px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+/*.container .inner-content ul li label {
+                display: block;
+                padding: 0 0 3px;
+                font-size: 22px;
+                color: #fff;
+                font-weight: bold;
+}*/
+
+/*.container .inner-content ul li input {
+                border: 1px solid #a9a9a9;
+                padding: 7px 5px;
+                font-size: 12px;
+                width: 40%;
+}*/
+
+.dropdown {
+    width: 30%!important;
+    position: relative;
+}
+
+.caretStyle {
+    position: absolute;
+    /*right: 1000px;
+                    top:295px;*/
+    right: 57%;
+    top: 60%;
+}
+
+.editedName {
+    float: right;
+    padding-right: 30px;
+}
+
+.editedSection {
+   width: 100%;
+}
+
+.btnStyle {
+    padding: 4px 30px!important;
+}
+
+.breadcrumbsStyle {
+    padding: 1%;
+    float: left;
+    width: 100%;
+    color: #ffffff;
+}
+
+.container .inner-content input.namefidel {
+    width: 60%;
+}
+
+.container .inner-content ul li input[type="radio"] {
+    /*display:block;*/
+    margin: 0 10px 0 0;
+    padding: 0;
+    vertical-align: middle;
+    width: auto;
+}
+
+.container .inner-content ul li input[type="checkbox"] {
+    /*display:block;*/
+    margin: 0 10px 0 0;
+    padding: 0;
+    vertical-align: middle;
+    width: auto;
+}
+
+.container .inner-content ul li ul {
+    margin: 5px 0 20px;
+    padding: 0px;
+}
+
+    .container .inner-content ul li ul li {
+        margin: 0 0 7px;
+    }
+
+        .container .inner-content ul li ul li span {
+            font-size: 13px;
+            padding: 0;
+            vertical-align: middle;
+            color: #fff;
+        }
+
+.bottombtn {
+    padding: 1px 0px 0px;
+    margin: 0px;
+}
+
+.container .inner-content .bottombtn ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 20px 0 0;
+}
+
+    .container .inner-content .bottombtn ul li.lasteditable {
+        float: right;
+    }
+
+/*.container .inner-content .bottombtn ul li.lasteditable ul li {
+            font-size: 13px;
+            color: #FFFF00;
+        }
+            .container .inner-content .bottombtn ul li.lasteditable ul li span {           
+                color: #FFFF00;
+        	}*/
+
+/*custom radio button css starts here*/
+input[type=radio].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+    input[type=radio].css-checkbox + label.css-label {
+        padding-left: 26px;
+        height: 18px;
+        display: inline-block;
+        line-height: 21px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 13px;
+        vertical-align: middle;
+        cursor: pointer;
+        font-weight: normal;
+    }
+
+    input[type=radio].css-checkbox:checked + label.css-label {
+        background-position: 0 -21px;
+    }
+
+label.css-label {
+    background-image: url("../images/radiobutton.png");
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/*custom radio button css ends here*/
+/*Program Section CSS Start Here*/
+
+.container .inner-content ul li textarea {
+    border: 1px solid #a9a9a9;
+    padding: 7px 5px;
+    font-size: 12px;
+    width: 60%;
+}
+
+    .container .inner-content ul li textarea.textareamin {
+        width: 40%;
+    }
+
+.container .inner-content ul li select {
+    border: 1px solid #a9a9a9;
+    padding: 7px 5px;
+    font-size: 12px;
+    width: 40%;
+}
+
+/*Program Section CSS End Here*/
+
+
+/*Common Button Section*/
+.button {
+    border-top: 0px solid #3b3b3b;
+    background: #6e6e6e;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#C0B8B8));
+    background: -webkit-linear-gradient(top, #FFFFFF, #C0B8B8);
+    background: -moz-linear-gradient(top, #FFFFFF, #C0B8B8);
+    background: -ms-linear-gradient(top, #FFFFFF, #C0B8B8);
+    background: -o-linear-gradient(top, #FFFFFF, #C0B8B8);
+    padding: 6px 25px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: rgba(0,0,0,0) 0 0px 0;
+    -moz-box-shadow: rgba(0,0,0,0) 0 0px 0;
+    box-shadow: rgba(0,0,0,0) 0 0px 0;
+    text-shadow: rgba(0,0,0,0) 0 0px 0;
+    color: #000000;
+    font-size: 14px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+    .button:hover {
+        border-top-color: #3b3b3b;
+        background: #3b3b3b;
+        color: #ffffff;
+    }
+
+    .button:active {
+        border-top-color: #3b3b3b;
+        background: #3b3b3b;
+    }
+
+/*Common Button Section End Here*/
+
+/*Table section Start here*/
+    .tableStyle
+    {
+        margin:10px 0 0 0;
+    }
+/* Table section End here*/

@@ -1,0 +1,148 @@
+﻿<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 panel-col">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- START CUSTOM CODE -->
+                        <div class="block">
+                            <!-- START waiting window  -->
+                            <div class="container-popup" ng-show="showSpin">
+                                <div class="popup">
+                                    <img src="styles/images/spinImage.gif" />
+                                </div>
+                            </div>
+                            <!-- END waiting window  -->
+
+                            <form class="form-horizontal" kendo-validator="validator" ng-submit="onSubmit($event)">
+                                <!-- START confirm window  -->
+                                <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                                <!-- END conform window  -->
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required" for="Organization Name">
+                                        Name
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.name" name="Organization Name"
+                                               pattern=".{1,100}" required data-required-msg="Please enter organization name."
+                                               validationmessage="Organization name should be less than 100 characters." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required" for="Address">
+                                        Address Line 1
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.addressLine1" name="Address"
+                                               pattern=".{1,500}" required data-required-msg="Please enter address."
+                                               validationmessage="Address should be less than 500 characters." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        Address Line 2
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.addressLine2" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required" for="City">
+                                        City
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.city" name="City"
+                                               required data-required-msg="Please enter city." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required" for="State">
+                                        State
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.state" name="State"
+                                               required data-required-msg="Please enter state." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label required" for="Zip code">
+                                        Zip
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="organizationInfo.zip" name="Zip code"
+                                               pattern=".{1,20}" required data-required-msg="Please enter zip code."
+                                               validationmessage="Zip code should be less than 20 characters." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        Type
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="iradio" name="iradio" ng-model="organizationInfo.type"
+                                                       value="TP" />Training Provider
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="iradio" name="iradio" ng-model="organizationInfo.type"
+                                                       value="WIB" />
+                                                Workforce Invesment Board
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="iradio" name="iradio" ng-model="organizationInfo.type"
+                                                       value="TPE" />
+                                                3rd Party Evaluator
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        Status
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="iradio" name="status" ng-model="organizationInfo.status"
+                                                       value="Active" />Active
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="iradio" name="status" ng-model="organizationInfo.status"
+                                                       value="Inactive" />Inactive (If Organization will no longer participate in any
+                                                Projects)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group pull-right col-md-8">
+                                    <button type="button" class="btn btn-primary" ng-click="onCancel()">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                    <div class="col-md-1"></div>
+                                    <!-- Edited informations is only for edit operation-->
+                                    <div ng-if="actionType===OPERATION_TYPE.EDIT">
+                                        <label class="control-label editedName"><label class="normaltext">Last edited:</label>  {{organizationInfo.editedOn | date:'MM/dd/yyyy'}}</label>
+                                        <label class="control-label editedName"><label class="normaltext">Last edited by:</label>  {{organizationInfo.editedBy}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END CUSTOM CODE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END  CONTENT WRAPPER -->
