@@ -27,7 +27,9 @@ fsdtsApp.constant('appConstants', {
         'ADD_USER': 'http://192.168.15.32/api/User/',
         'EDIT_USER': 'http://192.168.15.32/api/User/',
         'GET_USER': 'http://192.168.15.32/api/User/',
-
+        'PARTICIPANT': 'http://192.168.15.32/api/ProjectOrganization/',
+        'PARTICIPANT_TEST': 'http://192.168.15.90:8090/api/ProjectOrganization/'
+       
          //External end point
         //'ADD_COURSE': 'http://203.197.80.136/api/course',
         //'EDIT_COURSE': 'http://203.197.80.136/api/course/',
@@ -49,7 +51,7 @@ fsdtsApp.constant('appConstants', {
     'OPERATION_TYPE': {
         'ADD': '1',
         'EDIT': '2',
-        'DELETE': '3'
+        'DELETE':'3'
     },
     'USER_ROLES': {
         'ALL': '*',

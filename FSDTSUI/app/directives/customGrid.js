@@ -91,7 +91,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 //}
 
                 if (!$scope.$$phase) {
-                    //   $scope.$apply();
+                      // $scope.$apply();
                 }
             };
             $scope.getPagedDataAsync = function (pageSize, page, searchText) {

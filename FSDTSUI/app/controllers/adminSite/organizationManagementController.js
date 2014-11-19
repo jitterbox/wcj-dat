@@ -14,7 +14,7 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
                                    '<a href="" ng-click="onActionClick(row.entity,\'credentialManagement\')">Credentials</a> |' +
                                    '<a href="" ng-click="onActionClick(row.entity,\'userManagement\')">Users</a></div>';
     $scope.columnDefs = [{ field: 'name', displayName: 'Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'organization\')">{{row.getProperty(\'name\')}}</a></div>' },
-                         { field: 'type', displayName: 'Type', width: 'auto', cellClass: 'gridColumn-align' },
+                         { field: 'type', displayName: 'Type', width: 80, cellClass: 'gridColumn-align' },
                          { displayName: 'Actions', cellTemplate: actionColumn, width: 240, cellClass: 'gridColumn-align' },
                          { field: 'status', displayName: 'Status', width: 80 , cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
