@@ -19,7 +19,7 @@ function (appConstants, $location, userProfileService) {
         restrict: 'E',
         template: '<div class="container-popup" ng-show="option.showConfirm">\
                     <div class="popup">\
-                        <ul class="i-am-new" id="noty_topRight_layout_container" style="top: 317px; left: 490px; position: fixed; width: 310px; height: auto; margin: 0px; padding: 0px; list-style-type: none;z-index: 10000000;">\
+                        <ul class="i-am-new" id="noty_topRight_layout_container" style="top: 317px; left: 41%; position: fixed; width: 310px; height: auto; margin: 0px; padding: 0px; list-style-type: none;z-index: 10000000;">\
                             <li style="overflow: hidden; border-top-left-radius: 3px; border-top-right-radius: 3px;border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border: 1px solid rgb(51, 51, 51);box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px; color: rgb(255, 255, 255); opacity: 1;width: 310px; background: rgb(51, 51, 51);">\
                                     <div class="noty_bar noty_type_alert" id="noty_1111981354166183400">\
                                         <div class="noty_message" style="font-size: 11px; line-height: 14px; text-align: left;padding: 8px 10px 9px; width: auto; position: relative;">\
