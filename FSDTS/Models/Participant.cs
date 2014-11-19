@@ -8,6 +8,7 @@ namespace FSDTS.Models
 {
     public class Participant
     {
+        public int ProjOrgId { get; set; }
         public string ProjectName { get; set; }
         public string OrganizationName { get; set; }
         public string Format { get; set; }
