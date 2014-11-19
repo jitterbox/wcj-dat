@@ -103,8 +103,8 @@ function (httpHelper, $q, appConstants, userProfileService) {
             'ProjectEndYear': projectInfo.endYear,
             'ProjectSponsor': projectInfo.sponcer,
             'ProjectStatus': projectInfo.status,
-            "ProjectsLastEditedOn":new Date().yyyymmdd(),//"2014-11-05T12:31:29.5629962+05:30",
-            "ProjectsLastEditedBy": userProfileService.profile.credentials.userName
+            'ProjectsLastEditedOn':new Date().yyyymmdd(),//"2014-11-05T12:31:29.5629962+05:30",
+            'ProjectsLastEditedBy': userProfileService.profile.credentials.userName
         };
         if (actionType === appConstants.OPERATION_TYPE.EDIT) {
             postData.ProjectId = userProfileService.profile.params.projectId;

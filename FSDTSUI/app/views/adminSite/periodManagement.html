@@ -32,10 +32,9 @@
                                     Start Date</label>
                                 <div class="col-md-2">
                                     <input type="text" data-role='datepicker' id="StartDate" data-type="date" name="StartDate"
-                                        kendo-date-picker required="required" ng-model="periodInfo.startDate" 
-                                        ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
-                                    <span data-for='StartDate'  ng-show="!isValidDate">
-                                        <span class="k-warning"> </span>Start date should not be greater than end date</span>
+                                        kendo-date-picker required="required" ng-model="periodInfo.startDate" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" /><br />
+                                    <span data-for='StartDate' ng-show="!isValidDate">Start date should not be greater than
+                                        end date </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -43,8 +42,7 @@
                                     End Date</label>
                                 <div class="col-md-2">
                                     <input type="text" data-role='datepicker' id="EndDate" data-type="date" name="EndDate"
-                                        kendo-date-picker required="required" ng-model="periodInfo.endDate" 
-                                        ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
+                                        kendo-date-picker required="required" ng-model="periodInfo.endDate" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
                                     <span data-for='EndDate' class='k-invalid-msg'></span>
                                 </div>
                             </div>
@@ -54,9 +52,9 @@
                                 <div class="col-md-2">
                                     <!-- <datepicker value="periodInfo.deadlineDate" date-type="deadlineDate"></datepicker>-->
                                     <input type="date" class="form-control" ng-model="periodInfo.deadlineDate" name="DeadlineDate"
-                                        kendo-date-picker required="required" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)"/>                              
-                                        <span data-for='DeadlineDate'  ng-show="!isValidDadeLineDate">
-                                        <span class="k-warning"> </span>Deadline date should be between start date and end date.</span>
+                                        kendo-date-picker required="required" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
+                                    <span data-for='DeadlineDate' ng-show="!isValidDadeLineDate"><span class="k-warning">
+                                    </span>Deadline date should be between start date and end date.</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -65,9 +63,9 @@
                                 <div class="col-md-2">
                                     <!--<select ng-model="periodInfo.year" class="form-control select dropdown"
                                             name="Year"><option>2014</option></select>-->
-                                     <select ng-model="periodInfo.year" ng-options="year for year in yearList" 
-                                         class="form-control select dropdown"
-                                         name="Year"></select>
+                                    <select ng-model="periodInfo.year" ng-options="year for year in yearList" class="form-control select dropdown"
+                                        name="Year">
+                                    </select>
                                     <!--<span class="caret caretStyle"></span>-->
                                 </div>
                             </div>

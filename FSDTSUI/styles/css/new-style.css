@@ -202,3 +202,8 @@
 .gridTextRight{
   text-align: left;
 }
+
+.k-widget.k-tooltip-validation 
+{
+    float:left;
+}

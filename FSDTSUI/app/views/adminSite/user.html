@@ -20,8 +20,8 @@
                                 First Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="firstname" name="firstname" ng-model="userInfo.firstname"
-                                    class="form-control" pattern=".{1,50}" required data-required-msg="Please enter first name."
-                                    validationmessage="First name should be less than 50 characters." />
+                                    class="form-control" pattern=".{1,100}" required data-required-msg="Please enter first name."
+                                    validationmessage="First name should be less than 100 characters." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,7 +29,7 @@
                                 Last Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="lastname" name="lastname" ng-model="userInfo.lastname" class="form-control"
-                                    pattern=".{1,50}" required data-required-msg="Please enter last name." validationmessage="Last name should be less than 50 characters." />
+                                    pattern=".{1,100}" required data-required-msg="Please enter last name." validationmessage="Last name should be less than 100 characters." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,8 +52,9 @@
                                 City
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.city" name="City" required
-                                    data-required-msg="Please enter city." />
+                                <input type="text" class="form-control" ng-model="userInfo.city" name="City"
+                                 pattern=".{1,50}" required data-required-msg="Please enter city." 
+                                 validationmessage="City should be less than 50 characters."/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,8 +62,9 @@
                                 State
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.state" name="State" required
-                                    data-required-msg="Please enter state." />
+                                <input type="text" class="form-control" ng-model="userInfo.state" name="State"
+                                    pattern=".{1,50}" required data-required-msg="Please enter state."
+                                    validationmessage="State should be less than 50 characters." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -70,8 +72,8 @@
                                 Zip
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,20}"
-                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 20 characters." />
+                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,50}"
+                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 50 characters." />
                             </div>
                         </div>
                         <div class="form-group">

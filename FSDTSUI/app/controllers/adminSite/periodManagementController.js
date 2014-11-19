@@ -51,8 +51,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          } else {
              $scope.isValidDate = true;
          }
-         console.log(deadLineDate <= startDate);
-         if (deadLineDate && (deadLineDate >= endDate || deadLineDate <= startDate)) {
+         if (deadLineDate && (deadLineDate > endDate || deadLineDate < startDate)) {
              $scope.isValidDadeLineDate = false;
          } else {
              $scope.isValidDadeLineDate = true;
