@@ -48,7 +48,8 @@ fsdtsApp.constant('appConstants', {
     },
     'OPERATION_TYPE': {
         'ADD': '1',
-        'EDIT': '2'
+        'EDIT': '2',
+        'DELETE': '3'
     },
     'USER_ROLES': {
         'ALL': '*',

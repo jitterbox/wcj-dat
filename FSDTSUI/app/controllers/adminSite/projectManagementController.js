@@ -23,6 +23,8 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
         //On select action from grid
         $scope.onActionClick = function (actionObject) {
             userProfileService.profile.params.projectId = actionObject.selectedRow.projectId;
+            userProfileService.profile.params.startYear = actionObject.selectedRow.startYear;
+            userProfileService.profile.params.endYear = actionObject.selectedRow.endYear;
             if (actionObject.actionName === 'periodManagement') {
                 $location.path('/periodManagement');
             } else if (actionObject.actionName === 'participantManagement') {

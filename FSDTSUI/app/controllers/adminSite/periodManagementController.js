@@ -5,10 +5,12 @@ Is used to provide all event handling logic for user management view i.e periodM
 'use strict';
 fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'appConstants', 'periodManagementService', '$location', 'userProfileService',
  function ($scope, $routeParams, appConstants, periodManagementService, $location, userProfileService) {
-     $scope.value = " ";
 
      //TODO: Optimization : Dummy implementation need to be removed
+     $scope.value = " ";
      $scope.periodList = [];
+     $scope.selectedPeriod = null;
+
      //Submit button click handler
      $scope.onSubmit = function (event) {
          event.preventDefault();
@@ -22,7 +24,8 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      };
 
      //Delete button click handler
-     $scope.onDelete = function () {
+     $scope.onDelete = function (period) {
+         $scope.selectedPeriod = period;
          $scope.confirmWindowOption.actionType = "Delete";
          $scope.confirmWindowOption.showConfirm = true;
      };
@@ -33,7 +36,26 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
              //code for submit
              addPeriod();
          } else if ((actionType === 'Delete') && (isConfirmed === true)) { //code for delete
-             deletePeriod();
+             deletePeriod($scope.selectedPeriod);
+         }
+         //Clear selected Row
+         $scope.selectedPeriod = null;
+     };
+
+     //custom validator for start date and end date
+     $scope.isValidDate = true;
+     $scope.isValidDadeLineDate = true;
+     $scope.validateDate = function (startDate, endDate, deadLineDate) {
+         if (startDate > endDate) {
+             $scope.isValidDate = false;
+         } else {
+             $scope.isValidDate = true;
+         }
+         console.log(deadLineDate <= startDate);
+         if (deadLineDate && (deadLineDate >= endDate || deadLineDate <= startDate)) {
+             $scope.isValidDadeLineDate = false;
+         } else {
+             $scope.isValidDadeLineDate = true;
          }
      };
 
@@ -47,11 +69,10 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          };
          $scope.periodList = [];
          getAllPeriods();
-         // $location.path('/periodManagement');
      };
 
 
-     //Service call to add course
+     //Service call to add period
      var addPeriod = function () {
          //Show spin window
          $scope.showSpin = true;
@@ -65,11 +86,11 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          });
      };
 
-     //Service call to delete course
-     var deletePeriod = function () {
+     //Service call to delete period
+     var deletePeriod = function (selectedPeriod) {
          //Show spin window
          $scope.showSpin = true;
-         periodManagementService.deletePeriod($scope.periodInfo).then(function (result) {
+         periodManagementService.deletePeriod(selectedPeriod).then(function (result) {
              console.log(result);
              //Hide spin window
              $scope.showSpin = false;
@@ -93,12 +114,23 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          }, function (error) {
              console.log(error);
          });
-     }
+     };
+
+     //Return year list from current year to current year+10 
+     var getYearList = function (startYear, endYear) {
+         var yearList = [];
+         for (var i = startYear; i <= endYear; i++) {
+             yearList.push((i).toString());
+         }
+         return yearList;
+     };
 
      //used for initializing the controller
      var init = function () {
          //#region initialize scope variables
+         $scope.yearList = getYearList(userProfileService.profile.params.startYear, userProfileService.profile.params.endYear);
          $scope.actionType = $routeParams.actionType;
+         $scope.periodInfo = { 'endYear': new Date().getFullYear().toString() };
          $scope.confirmWindowOption = {
              actionType: null,
              showConfirm: false

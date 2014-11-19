@@ -51,7 +51,6 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         //Show spin window
         $scope.showSpin = true;
         userManagementService.addUser($scope.userInfo).then(function (result) {
-            console.log(result);
             //Hide spin window
             $scope.showSpin = false;
             //After adding user redirect to course management page

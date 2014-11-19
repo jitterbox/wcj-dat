@@ -46,7 +46,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @return   promise
     */
     serviceInstance.editUser = function (userInfo) {
-        var postData = getPostData(courseInfo, appConstants.OPERATION_TYPE.EDIT);
+        var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
         return httpHelper.put(appConstants.API_END_POINTS.EDIT_USER + userProfileService.profile.params.userId, postData);
     };
 
@@ -70,21 +70,25 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @param    User details server  response
     * @return   userInfo object
     */
-    serviceInstance.populateCourseModel = function (serverResponseObj) {
+    serviceInstance.populateUserModel = function (serverResponseObj) {
         var userInfo = {};
         if (serverResponseObj) {
             userInfo = {
-                'userId': serverResponseObj.UserId || '', //If userId is null or undefine then initialized with empty string
-                'firstname': serverResponseObj.UserFirstName || '',
-                'lastname': serverResponseObj.UserLastName || '',
-                'emailAddress': serverResponseObj.UserEmail || '',
+                'userId': serverResponseObj.UserId, //If userId is null or undefine then initialized with empty string
+                'firstname': serverResponseObj.UserFirstName,
+                'lastname': serverResponseObj.UserLastName,
+                'emailAddress': serverResponseObj.UserEmail,
                 'addressLine1': serverResponseObj.UserAddressLine1,
                 'addressLine2': serverResponseObj.UserAddressLine2,
                 'city': serverResponseObj.UserCity,
                 'state': serverResponseObj.UserState,
                 'zip': serverResponseObj.UserZip,
-                'phoneNumber': serverResponseObj.UserPhone,
+                'phoneNumber': serverResponseObj.UserPhoneNumber,
                 'status': serverResponseObj.UserStatus,
+                'password': serverResponseObj.UserPassword,
+                'editedOn': serverResponseObj.UserLastEditedOn,
+                'editedBy': serverResponseObj.UserLastEditedBy
+
             };
         }
         return userInfo;
@@ -98,21 +102,33 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @param    userInfo object
     * @return   postData object
     */
-    var getPostData = function (userInfo) {
-        var postData = {
-            'UserFirstName': userInfo.firstname,
-            'UserLastName': userInfo.lastname,
-            'UserEmail': userInfo.emailAddress,
-            'UserAddressLine1': userInfo.addressLine1,
-            'UserAddressLine2': userInfo.addressLine2,
-            'UserCity': userInfo.city,
-            'UserState': userInfo.state,
-            'UserZip': userInfo.zip,
-            'UserPhone': userInfo.phoneNumber,
-            'UserStatus': userInfo.status,
-            'OrganizationId': userProfileService.profile.params.organizationId
-        };
-       return postData;
+    var getPostData = function (userInfo, actionType) {
+        var postData = null;
+        try {
+            postData = {
+                'UserFirstName': userInfo.firstname,
+                'UserLastName': userInfo.lastname,
+                'UserEmail': userInfo.emailAddress,
+                'UserAddressLine1': userInfo.addressLine1,
+                'UserAddressLine2': userInfo.addressLine2,
+                'UserCity': userInfo.city,
+                'UserState': userInfo.state,
+                'UserZip': userInfo.zip,
+                'UserPhoneNumber': userInfo.phoneNumber,
+                'UserStatus': userInfo.status,
+                'UserLastEditedOn': new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30"
+                'UserLastEditedBy': userProfileService.profile.credentials.userName,
+                'OrganizationId': userProfileService.profile.params.organizationId,
+                'UserNotes': " ",
+                'UserPassword': userInfo.password
+            };
+            if (actionType === appConstants.OPERATION_TYPE.EDIT) {
+                postData.UserId = userProfileService.profile.params.userId;
+            }
+        } catch (e) {
+            console.log('Error on creating postData', e);
+        }
+        return postData;
     };
 
     return serviceInstance;

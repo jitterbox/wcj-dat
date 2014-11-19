@@ -13,7 +13,7 @@
                         <!-- END waiting window  -->
                         <form class="form-horizontal" id="tickets" kendo-validator="validator" ng-submit="onSubmit($event)">
                         <!-- START confirm window  -->
-                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                        <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
                         <!-- END conform window  -->
                         <div class="form-group">
                             <label class="col-md-2 control-label required" for="firstname">
@@ -84,10 +84,20 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label required" for="email">
-                                email</label>
+                                Email</label>
                             <div class="col-md-4">
                                 <input type="email" id="email" name="Email" class="form-control" ng-model="userInfo.emailAddress"
-                                    required data-email-msg="Email format is not valid." />
+                                    required data-required-msg="Please enter email id." data-email-msg="Email format is not valid." />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="actionType === OPERATION_TYPE.ADD">
+                            <label class="col-md-2 control-label required" for="password">
+                                Password</label>
+                            <div class="col-md-4">
+                                <input type="password" id="password1" name="Password" class="form-control" ng-model="userInfo.password"
+                                    pattern=".{6,10}" required data-required-msg="Please enter password." 
+                                    validationmessage="Password length should be between 6 to 10 digit."
+                                    />
                             </div>
                         </div>
                         <!--<div class="form-group">
@@ -138,16 +148,19 @@
                                 Submit</button>
                             <div class="col-md-1">
                             </div>
-                            <label class="control-label editedName">
-                                <label class="normaltext">
-                                    Last edited by:</label>
-                                Jim Winter
-                            </label>
-                            <label class="control-label editedName">
-                                <label class="normaltext">
-                                    Last edited:</label>
-                                08/22/14
-                            </label>
+                            <!-- Edited informations is only for edit operation-->
+                            <div ng-if="actionType === OPERATION_TYPE.EDIT">
+                                <label class="control-label editedName">
+                                    <label class="normaltext">
+                                        Last edited:</label>
+                                    {{courseInfo.editedOn | date:'MM/dd/yyyy'}}
+                                </label>
+                                <label class="control-label editedName">
+                                    <label class="normaltext">
+                                        Last edited by:</label>
+                                    {{courseInfo.editedBy}}
+                                </label>
+                            </div>
                         </div>
                         </form>
                     </div>
