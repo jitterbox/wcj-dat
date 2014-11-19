@@ -13,51 +13,61 @@
                                 </div>
                             </div>
                             <!-- END waiting window  -->
+                              <a href="#projectManagement" style="float:right;">Return to Project</a>
                             <form class="form-horizontal">
-                                    <!-- START confirm window  -->
+                                <!-- START confirm window  -->
                                     <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
-                                    <!-- END conform window  -->
-                                    Add Participating Organizations
-                                    <div class="form-group">
-
+                                <!-- END conform window  -->    
+                                    <h5>Add Participating Organizations</h5>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Organizations</label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <select ng-model="participantInfo.selectedOrganization" ng-change="onOrganizationSelect()"
-                                            ng-options="obj as obj.name for obj in organizationDDLList">
+                                            ng-options="obj as obj.name for obj in organizationDDLList" class="form-control select dropdown">
                                         </select>
                                     </div>
-
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Formats</label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <select  ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS" class="form-control select dropdown" >
                                             <option value=""  selected >Select a format</option>
                                         </select>
-
                                     </div>
-
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Tracking Items</label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <select ng-model="participantInfo.selectedTrackingItem" ng-options="obj as obj.name for obj in trackingItemDDLList" class="form-control select dropdown">
                                             <option value="" disabled selected>Select an item to include in this project</option>
                                         </select>
                                     </div>
-
-                                    <div class="btn-group pull-right col-md-8">
+                                </div>
+                                <div class="btn-group pull-right col-md-8">
                                     <button type="button" class="btn btn-primary" ng-click="onSubmit()">
                                         Add to Project
                                     </button>
-                                   
-                                    <label ng-hide="isEmptyProjectOrganization === true" class="col-md-2 control-label">Organizations</label>         
-                                     
-                                  <!-- START prtivipant grid view  -->
+                                  <div class="col-md-1">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-8">
+                                <div class="organizationhead">
+                                    <h5 ng-hide="isEmptyProjectOrganization === true" class="control-label">Organizations</h5>
+                                </div>
+                                    <!-- START prtivipant grid view  -->
                                    <div data-ng-repeat="(organizationName, projectOrganization) in projectOrganizationList">
                                       <table class="table datatable_simple table-bordered tableStyle">
                                        <tbody>
                                           <tr >
-                                            <td colspan="3"> {{organizationName}}</td>
+                                            <td colspan="3" class="participant_heading"> {{organizationName}}</td>
                                           </tr>
                                           <tr>
-                                            <td>Name</td> <td>Format</td> <td> </td>
+                                            <td class="participant_heading">Name</td> 
+                                             <td class="participant_heading">Format</td> 
+                                              <td> </td>
                                           </tr>
                                          <tr data-ng-repeat="Obj in projectOrganization">
                                             <td>{{ Obj.name }}</td>
@@ -69,14 +79,10 @@
                                        </tbody>
                                       </table>
                                     </div>
-                                <!-- START prtivipant grid view  -->
-                                    </div>
-
-                                   </div>
-                                    <a href="#projectManagement">Return to Project</a>
-                                    
-                                </form>
+                                </div>
+                           </form>
                         </div>
+                        
                     </div>
                 </div>
             </div>

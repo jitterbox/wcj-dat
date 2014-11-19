@@ -104,7 +104,7 @@ function ($routeProvider, $locationProvider, appConstants) {
         controller: 'userManagementController',
         data: {
             breadcrumb: {
-                menuType: 'parent',
+              //  menuType: 'parent',
                 label: 'Users'
             },
             authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
