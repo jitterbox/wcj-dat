@@ -18,6 +18,7 @@ namespace FSDTS.Controllers
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Description;
+    using System.Web.Http.OData;
     using FSDTS.Common;
     using FSDTS.Models;
     using log4net;
@@ -139,6 +140,20 @@ namespace FSDTS.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [AcceptVerbs("PATCH")]
+        public HttpResponseMessage PatchProjectOrganization(int id, Delta<ProjectOrganization> projectorganization)
+        {
+                FSDTSContext objContext = new FSDTSContext();
+                ProjectOrganization doc = objContext.ProjectOrganization.SingleOrDefault(p => p.ProjectOrganizationId == id);
+                if (doc == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                projectorganization.Patch(doc);
+                objContext.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         // POST api/ProgramOrganization

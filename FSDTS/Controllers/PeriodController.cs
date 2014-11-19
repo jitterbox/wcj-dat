@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using FSDTS.Models;
 using log4net;
 using FSDTS.Common;
+using System.Web.Http.OData;
 
 namespace FSDTS.Controllers
 {
@@ -98,6 +99,21 @@ namespace FSDTS.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [AcceptVerbs("PATCH")]
+        public HttpResponseMessage PatchPeriod(int id, Delta<Period> period)
+        {
+            FSDTSContext objContext = new FSDTSContext();
+                Period doc = objContext.Period.SingleOrDefault(p => p.PeriodId == id);
+                if (doc == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                period.Patch(doc);
+                objContext.SaveChanges();
+            
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         // POST api/Period
