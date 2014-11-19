@@ -76,6 +76,27 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
             return defer.promise;
         }
 
+        //PATCH:
+        function makePatchRequest(uri, postData, headers) {
+            var defer = $q.defer();
+            if (postData) {
+                $http({
+                    method: 'PATCH',
+                    url: uri,
+                    data: postData
+                }).
+                 success(function (data, status, headers, config) {
+                     defer.resolve(data);
+                }).
+                error(function (data, status, headers, config) {
+                    defer.reject('HTTP Error: ' + status);
+                });
+
+            } else {
+                defer.reject('Invalid postData');
+            }
+            return defer.promise;
+        }
         return {
             get: function (uri, headers) {
                 return makeGetRequest(uri);
@@ -83,8 +104,10 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                 return makePostRequest(uri, postData, headers);
             }, put: function (uri, postData, headers) {
                 return makePutRequest(uri, postData, headers);
-            }, delete: function(uri, postData, headers) {
+            }, delete: function (uri, postData, headers) {
                 return makeDeleteRequest(uri, postData, headers);
+            }, patch: function (uri, postData, headers) {
+                return makePatchRequest(uri, postData, headers);
             }
 
         };

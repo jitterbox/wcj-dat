@@ -5,89 +5,52 @@
             <div class="col-md-12 panel-col">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <!-- START CUSTOM CODE -->
-                        
-                            <!--<h2>Kent State University At Trumball: Programs - <span>Add</span></h2>-->
-                          <!--  <a style=" float: right; margin: 7px 5px;" href="">Add New Participants</a>-->
-                            <!--<a href="#course/2">Edit New Course</a>-->
-                           <!-- <table class="table datatable_simple table-bordered tableStyle">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="" ></a>
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>-->
                          <div class="block">
                             <!-- START waiting window  -->
-                            <!--<div class="container-popup" ng-show="showSpin">
+                            <div class="container-popup" ng-show="showSpin">
                                 <div class="popup">
                                     <img src="styles/images/spinImage.gif" />
                                 </div>
-                            </div>-->
-                             <!-- END waiting window  -->
-                             
-
-                                <form class="form-horizontal">
+                            </div>
+                            <!-- END waiting window  -->
+                            <form class="form-horizontal">
                                     <!-- START confirm window  -->
                                     <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
-                                <!-- END conform window  -->
+                                    <!-- END conform window  -->
                                     Add Participating Organizations
                                     <div class="form-group">
+
                                     <label class="col-md-2 control-label">Organizations</label>
                                     <div class="col-md-3">
                                         <select ng-model="participantInfo.selectedOrganization" ng-change="onOrganizationSelect()"
                                             ng-options="obj as obj.name for obj in organizationDDLList">
                                         </select>
                                     </div>
+
                                     <label class="col-md-2 control-label">Formats</label>
                                     <div class="col-md-3">
-                                        <select ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS" class="form-control select dropdown">
-                                            <option value="" disabled selected>Select a format</option>
+                                        <select  ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS" class="form-control select dropdown" >
+                                            <option value=""  selected >Select a format</option>
                                         </select>
+
                                     </div>
+
                                     <label class="col-md-2 control-label">Tracking Items</label>
                                     <div class="col-md-3">
                                         <select ng-model="participantInfo.selectedTrackingItem" ng-options="obj as obj.name for obj in trackingItemDDLList" class="form-control select dropdown">
                                             <option value="" disabled selected>Select an item to include in this project</option>
                                         </select>
                                     </div>
+
                                     <div class="btn-group pull-right col-md-8">
-                                    <button type="button" class="btn btn-primary" ng-click="onSubmit()" >
+                                    <button type="button" class="btn btn-primary" ng-click="onSubmit()">
                                         Add to Project
                                     </button>
                                    
                                     <label ng-hide="isEmptyProjectOrganization === true" class="col-md-2 control-label">Organizations</label>         
                                      
-                                  <!--  
-                                      <div data-ng-repeat="(OrganizationName, projectOrganizationList) in groups">
-                                         <h2>{{OrganizationName}}</h2>        
-                                         <ul>
-                                            <li data-ng-repeat="projectOrganization in projectOrganizationList">
-                                                {{ projectOrganization.Format }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                      -->
-                                          
-                                <!-- <table class="table datatable_simple table-bordered tableStyle">
-                                <tbody>-->
+                                  <!-- START prtivipant grid view  -->
                                    <div data-ng-repeat="(organizationName, projectOrganization) in projectOrganizationList">
-                                         
                                       <table class="table datatable_simple table-bordered tableStyle">
                                        <tbody>
                                           <tr >
@@ -105,11 +68,8 @@
                                          </tr>
                                        </tbody>
                                       </table>
-                                      
                                     </div>
-                                <!--</tbody>
-                              </table>-->
-
+                                <!-- START prtivipant grid view  -->
                                     </div>
 
                                    </div>
@@ -118,7 +78,6 @@
                                 </form>
                         </div>
                     </div>
-                    <!-- END CUSTOM CODE -->
                 </div>
             </div>
         </div>
