@@ -104,7 +104,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                     //                        return (JSON.stringify(item).toLowerCase().indexOf(ft) != -1);
                     //                    });
                     data = $scope.gridData.filter(function (item) { // filter by name
-                        return (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1);
+                        return ((JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1) && (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1));
                     });
                     $scope.setPagingData(data, page, pageSize);
                     //  });

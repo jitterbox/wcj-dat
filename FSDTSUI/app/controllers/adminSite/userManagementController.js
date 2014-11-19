@@ -9,8 +9,8 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
     $scope.userList = [];
     //#region Grid initialization
     $scope.columnDefs = [{ field: 'lastname', displayName: 'LastName', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'user\')">{{row.getProperty(\'lastname\')}}</a></div>' },
-                         { field: 'firstname', displayName: 'FirstName', width: 80, cellClass: 'gridColumn-align' },
-                         { field: 'emailAddress', displayName: 'Email', width: 80, cellClass: 'gridColumn-align' },
+                         { field: 'firstname', displayName: 'FirstName'},
+                         { field: 'emailAddress', displayName: 'Email'},
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
     $scope.papulateGrid = false;
