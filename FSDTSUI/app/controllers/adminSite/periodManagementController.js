@@ -130,7 +130,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          //#region initialize scope variables
          $scope.yearList = getYearList(userProfileService.profile.params.startYear, userProfileService.profile.params.endYear);
          $scope.actionType = $routeParams.actionType;
-         $scope.periodInfo = { 'endYear': new Date().getFullYear().toString() };
+         $scope.periodInfo = { 'year': new Date().getFullYear().toString() };
          $scope.confirmWindowOption = {
              actionType: null,
              showConfirm: false
