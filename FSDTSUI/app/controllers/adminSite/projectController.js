@@ -50,6 +50,13 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
 
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //custom validation logic goes here
     var customVlaidate = function () {
         return $scope.isValidYear;
@@ -73,7 +80,8 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
             //After adding course redirect to course management page
             $location.path('/projectManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
+
         });
     };
 
@@ -87,7 +95,8 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
             //After updating course redirect to course management page
             $location.path('/projectManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
+
         });
     };
 
@@ -100,7 +109,7 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -123,6 +132,10 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
         $scope.confirmWindowOption = {
             actionType: null,
             showConfirm: false
+        };
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
         };
         //#endregion
         //All the special initialization for Add/Edit goes here

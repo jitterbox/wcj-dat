@@ -21,7 +21,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                defer.resolve(data);
            })
            .error(function (data, status, headers, config) {
-               defer.reject('HTTP Error: ' + status);
+               defer.reject('HTTP Error: ' + data.Message);
            });
             return defer.promise;
         }
@@ -34,7 +34,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                         defer.resolve(data);
                     })
                     .error(function (data, status, headers, config) {
-                        defer.reject('HTTP Error: ' + status);
+                        defer.reject('HTTP Error: ' + data.Message);
                     });
             } else {
                 defer.reject('Invalid postData');
@@ -51,7 +51,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                     defer.resolve(data);
                 })
                 .error(function (data, status, headers, config) {
-                    defer.reject('HTTP Error: ' + status);
+                    defer.reject('HTTP Error: ' + data.Message);
                 });
             } else {
                 defer.reject('Invalid postData');
@@ -68,7 +68,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                     defer.resolve(data);
                 })
                 .error(function (data, status, headers, config) {
-                    defer.reject('HTTP Error: ' + status);
+                    defer.reject('HTTP Error: ' + data.Message);
                 });
             } else {
                 defer.reject('Invalid postData');
@@ -89,7 +89,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                      defer.resolve(data);
                 }).
                 error(function (data, status, headers, config) {
-                    defer.reject('HTTP Error: ' + status);
+                    defer.reject('HTTP Error: ' + data.Message);
                 });
 
             } else {

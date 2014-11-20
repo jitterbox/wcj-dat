@@ -70,6 +70,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
             $scope.dataLoaded = false;
             angular.extend($scope.gridOptions, defaultOptions);
 
+            //If custom placeholder is provided
             if ($scope.customOptions && $scope.customOptions.searchPlaceHolder) {
                 $scope.searchPlaceHolder = $scope.customOptions.searchPlaceHolder;
             }
@@ -104,14 +105,14 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 var data;
                 if (searchText) {
                     var ft = searchText.toLowerCase();
-                    // $http.get('largeLoad.json').success(function (largeLoad) {
-                    //                    data = $scope.gridData.filter(function (item) {
-                    //                        return (JSON.stringify(item).toLowerCase().indexOf(ft) != -1);
-                    //                    });
-                    data = $scope.gridData.filter(function (item) { // filter by name
+                    
+                    data = $scope.gridData.filter(function (item) {
+                        //Custom search by column
                         if ($scope.customOptions && $scope.customOptions.searchByColumn) {
                             return (JSON.stringify(item[$scope.customOptions.searchByColumn]).toLowerCase().indexOf(ft) != -1);
                         }
+
+                        //By default seach by column is name
                         return (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1);
                     });
                     $scope.setPagingData(data, page, pageSize);
@@ -129,8 +130,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
                 //  }
             }, true);
-            // $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-
+            
             $scope.$watch('pagingOptions', function (newVal, oldVal) {
                 if (newVal !== oldVal) {
                     $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -147,11 +147,14 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 $scope.gridOptions.filterOptions.filterText = value;
             });
 
+            //OnAction button click handler
             $scope.onActionClick = function (selectedRow, actionName) {
                 var actionObject = { 'selectedRow': selectedRow, 'actionName': actionName }
+                //Call to callBack method
                 $scope.actionHandler({ 'actionObject': actionObject });
             };
 
+            //OnRow
             $scope.rowSelection = function () {
                 //Need to be implemented as required 
             };

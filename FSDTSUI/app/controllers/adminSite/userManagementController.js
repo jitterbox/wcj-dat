@@ -25,6 +25,13 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     var populateUserList = function (userList) {
         angular.forEach(userList, function (user) {
             $scope.userList.push(userManagementService.populateUserModel(user));
@@ -44,12 +51,16 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
     //used for initializing the controller
     var init = function () {
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
         getAllUsers();
     } ();
 

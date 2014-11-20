@@ -23,6 +23,13 @@ fsdtsApp.controller('programManagementController', ['$scope', 'appConstants', '$
             }
         };
 
+        //Showing error window
+        var showErrorWindow = function (errorMessage) {
+            $scope.errorWindowOption.showError = true;
+            $scope.errorWindowOption.errorMessage = errorMessage;
+            $scope.showSpin = false;
+        };
+
         var populateProgramList = function (programList) {
             angular.forEach(programList, function (program) {
                 $scope.programList.push(programManagementService.populateProgramModel(program));
@@ -42,12 +49,16 @@ fsdtsApp.controller('programManagementController', ['$scope', 'appConstants', '$
                 //Hide spin window
                 $scope.showSpin = false;
             }, function (error) {
-                console.log(error);
+                showErrorWindow(error);
             });
         };
 
         //Used for initializing the controller
         var init = function () {
+            $scope.errorWindowOption = {
+                showError: false,
+                errorMessage: null
+            };
             getAllPrograms();
         }();
 

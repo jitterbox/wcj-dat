@@ -70,6 +70,13 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.selectedParticipant = selectedRow;
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     var customValidate = function () {
         var isValid = true;
         if ($scope.participantInfo.selectedTrackingItem) {
@@ -100,7 +107,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
             //Refresh the grid
             loadParticipantList();
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -127,7 +134,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
             //Refresh the grid
             loadParticipantList();
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
 
     };
@@ -143,7 +150,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
             $scope.organizationDDLList = result;
             $scope.participantInfo.selectedOrganization = $scope.organizationDDLList[0];
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -158,7 +165,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
             //Checking for empty object
             $scope.isEmptyProjectOrganization = isEmptyDict($scope.projectOrganizationList);
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -168,6 +175,10 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.confirmWindowOption = {
             actionType: null,
             showConfirm: false
+        };
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
         };
         //#endregion
         loadOrganizationDDL();

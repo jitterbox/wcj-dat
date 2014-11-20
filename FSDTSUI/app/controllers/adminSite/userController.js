@@ -38,6 +38,13 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Reset the form control
     var resetForm = function () {
         $scope.userInfo = {
@@ -56,7 +63,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             //After adding user redirect to course management page
             $location.path('/userManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -70,7 +77,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             //After updating user redirect to course management page
             $location.path('/userManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -84,7 +91,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             //Show spin window
             $scope.showSpin = false;
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
     //Used for initializing the controller
@@ -95,6 +102,11 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             actionType: null,
             showConfirm: false
         };
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
+
         //#endregion
 
         //All the special initialization for Add/Edit goes here
