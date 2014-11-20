@@ -78,7 +78,7 @@ fsdtsApp.factory('participantManagementService', ['httpHelper', 'organizationMan
         serviceInstance.getParticipantList = function () {
             var defer = $q.defer();
             httpHelper.get(appConstants.API_END_POINTS.PARTICIPANT + '?pid=' + userProfileService.profile.params.projectId).then(function (result) {
-                var projectOrganizationList = _.groupBy(getParticipantMapList(result), "organizationName");
+                var projectOrganizationList = _.groupBy(getParticipantMapList(result), "organizationId");
                 defer.resolve(projectOrganizationList);
             }, function (error) {
                 console.log(error);
@@ -108,6 +108,7 @@ fsdtsApp.factory('participantManagementService', ['httpHelper', 'organizationMan
             angular.forEach(organizationParticipantList, function (organizationParticipant) {
                 var organizationParticipantModel = {
                     'projOrgId': organizationParticipant.ProjOrgId,
+                    'organizationId': organizationParticipant.OrgId,
                     'projectName':organizationParticipant.ProjectName,
                     'organizationName':organizationParticipant.OrganizationName,
                     'format':organizationParticipant.Format
