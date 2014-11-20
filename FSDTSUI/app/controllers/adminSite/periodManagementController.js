@@ -16,7 +16,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      //Submit button click handler
      $scope.onSubmit = function (event) {
          event.preventDefault();
-         if ($scope.validator.validate()) {  // code for validation
+         if ($scope.validator.validate() && customVlaidate()) {  // code for validation
              $scope.validationClass = "valid";
              $scope.confirmWindowOption.actionType = "Submit";
              $scope.confirmWindowOption.showConfirm = true;
@@ -46,7 +46,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
 
      //custom validator for start date and end date
      $scope.isValidDate = true;
-     $scope.isValidDadeLineDate = true;
+     $scope.isValideDeadLineDate = true;
      $scope.validateDate = function (startDate, endDate, deadLineDate) {
          if (Date.parse(startDate) > Date.parse(endDate)) {
              $scope.isValidDate = false;
@@ -54,11 +54,16 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
              $scope.isValidDate = true;
          }
          if (Date.parse(deadLineDate) && (Date.parse(deadLineDate) > Date.parse(endDate) || Date.parse(deadLineDate) < Date.parse(startDate))) {
-             $scope.isValidDadeLineDate = false;
+             $scope.isValideDeadLineDate = false;
          } else {
-             $scope.isValidDadeLineDate = true;
+             $scope.isValideDeadLineDate = true;
          }
      };
+
+     //custom validation logic goes here
+     var customVlaidate = function () {
+         return $scope.isValidDate && $scope.isValideDeadLineDate;
+     }
 
      //Showing error window
      var showErrorWindow = function (errorMessage) {
@@ -111,7 +116,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
 
      var populatePeriodList = function (periodList) {
          angular.forEach(periodList, function (period) {
-          $scope.periodList.push(periodManagementService.populatePeriodModel(period));
+             $scope.periodList.push(periodManagementService.populatePeriodModel(period));
          });
      };
 
