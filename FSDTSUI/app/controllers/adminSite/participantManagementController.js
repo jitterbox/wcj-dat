@@ -12,21 +12,17 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
     $scope.participantInfo = {};
     $scope.isEmptyProjectOrganization = false;
     $scope.selectedParticipant = null;
+    $scope.isValidTrackingItem = true;
+    $scope.isValidFormat = true;
     //#endregion
 
     //Submit button click handler
     $scope.onSubmit = function (event) {
-        //Showing confirmation window
-        $scope.confirmWindowOption.actionType = "Submit";
-        $scope.confirmWindowOption.showConfirm = true;
-        //event.preventDefault();
-        //if ($scope.validator.validate()) {  // code for validation
-        //    $scope.validationClass = "valid";
-        //    $scope.confirmWindowOption.actionType = "Submit";
-        //    $scope.confirmWindowOption.showConfirm = true;
-        //} else {
-        //    $scope.validationClass = "invalid";
-        //}
+        if (customValidate()) { 
+            $scope.confirmWindowOption.actionType = "Submit";
+            $scope.confirmWindowOption.showConfirm = true;
+        }
+
     };
 
     //call back handler for confirmation window
@@ -48,10 +44,22 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
     $scope.onFormatSelect = function (selectedFormat) {
         if (selectedFormat !== null) {
             loadTrackingItemDDL(selectedFormat);
+            $scope.isValidFormat = true;
         } else {
+            $scope.isValidFormat = false;
             resetDependentDDL('format');
         }
 
+    };
+
+    //OnChange tracking DDL
+    $scope.onTrackingItemSelect = function () {
+        //Checking for null value
+        if ($scope.participantInfo.selectedTrackingItem !== null) {
+            $scope.isValidTrackingItem = true;
+        } else {
+            $scope.isValidTrackingItem = false;
+        }
     };
 
     //OnClick delete button
@@ -60,6 +68,26 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.confirmWindowOption.actionType = "Delete";
         $scope.confirmWindowOption.showConfirm = true;
         $scope.selectedParticipant = selectedRow;
+    };
+
+    var customValidate = function () {
+        var isValid = true;
+        if ($scope.participantInfo.selectedTrackingItem) {
+            $scope.isValidTrackingItem = true;
+            
+        } else {
+            $scope.isValidTrackingItem = false;
+            isValid = false;
+        }
+
+        if ($scope.participantInfo.format) {
+            $scope.isValidFormat = true;
+        } else {
+            
+            $scope.isValidFormat = false;
+            isValid = false;
+        }
+        return isValid;
     };
 
     //Service call to delete the selected participant
@@ -86,7 +114,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
             $scope.trackingItemDDLList = [];
             $scope.participantInfo.selectedTrackingItem = null;
         }
-       
+
     };
 
     //Service call to add participant to the project

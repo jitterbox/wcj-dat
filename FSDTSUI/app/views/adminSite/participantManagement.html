@@ -30,17 +30,25 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Formats</label>
                                     <div class="col-md-4">
-                                        <select  ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS" class="form-control select dropdown" >
+                                        <select  ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS"  class="form-control select dropdown" >
                                             <option value=""  selected >Select a format</option>
                                         </select>
+                                        <span class=""  role="alert" ng-show="!isValidFormat">
+                                             <span class="k-icon k-warning"> </span>
+                                             Select a format.
+                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Tracking Items</label>
                                     <div class="col-md-4">
-                                        <select ng-model="participantInfo.selectedTrackingItem" ng-options="obj as obj.name for obj in trackingItemDDLList" class="form-control select dropdown">
+                                        <select ng-model="participantInfo.selectedTrackingItem" ng-change="onTrackingItemSelect()"  ng-options="obj as obj.name for obj in trackingItemDDLList" class="form-control select dropdown">
                                             <option value="" disabled selected>Select an item to include in this project</option>
                                         </select>
+                                         <span class=""  role="alert" ng-show="!isValidTrackingItem">
+                                             <span class="k-icon k-warning"> </span>
+                                             Select an item.
+                                         </span>
                                     </div>
                                 </div>
                                 <div class="btn-group pull-right col-md-8">

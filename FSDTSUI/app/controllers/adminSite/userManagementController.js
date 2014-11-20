@@ -14,6 +14,7 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
     $scope.papulateGrid = false;
+    $scope.gridOptions = { 'searchByColumn': 'lastname','searchPlaceHolder' : 'Last Name'};
     //#endregion
 
     //On select action from grid

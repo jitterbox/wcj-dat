@@ -21,7 +21,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
         template: '<div>\
                     <!--Grid window-->\
                     <div  >\
-                        <div class="searchbtn"><input type="text" ng-model="filterOptions.search" placeholder="Search by Name" class="form-control" /></div>\
+                        <div class="searchbtn"><input type="text" ng-model="filterOptions.search" placeholder="Search by {{searchPlaceHolder}}" class="form-control" /></div>\
                         <div class="gridStyle" ng-grid="gridOptions" ></div>\
                     </div>\
                   </div>',
@@ -41,6 +41,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
             // console.log($scope);
         },
         controller: function ($scope, $attrs, $element) {
+            $scope.searchPlaceHolder = 'Name';
             $scope.totalServerItems = 0;
             $scope.filterOptions = {
                 filterText: "",
@@ -68,6 +69,10 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
             $scope.gridOptions = {};
             $scope.dataLoaded = false;
             angular.extend($scope.gridOptions, defaultOptions);
+
+            if ($scope.customOptions && $scope.customOptions.searchPlaceHolder) {
+                $scope.searchPlaceHolder = $scope.customOptions.searchPlaceHolder;
+            }
 
             $scope.setPagingData = function (data, page, pageSize) {
                 var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
@@ -104,7 +109,10 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                     //                        return (JSON.stringify(item).toLowerCase().indexOf(ft) != -1);
                     //                    });
                     data = $scope.gridData.filter(function (item) { // filter by name
-                        return ((JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1) && (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1));
+                        if ($scope.customOptions && $scope.customOptions.searchByColumn) {
+                            return (JSON.stringify(item[$scope.customOptions.searchByColumn]).toLowerCase().indexOf(ft) != -1);
+                        }
+                        return (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1);
                     });
                     $scope.setPagingData(data, page, pageSize);
                     //  });
