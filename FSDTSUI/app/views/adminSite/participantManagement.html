@@ -34,7 +34,7 @@
                                         <select  ng-model="participantInfo.format" ng-change="onFormatSelect(participantInfo.format)" ng-options="format for format in COMMON_FORMATS"  class="form-control select dropdown" >
                                             <option value=""  selected >Select a format</option>
                                         </select>
-                                        <span class=""  role="alert" ng-show="!isValidFormat">
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg"  role="alert" ng-show="!isValidFormat">
                                              <span class="k-icon k-warning"> </span>
                                              Select a format.
                                          </span>
@@ -46,7 +46,7 @@
                                         <select ng-model="participantInfo.selectedTrackingItem" ng-change="onTrackingItemSelect()"  ng-options="obj as obj.name for obj in trackingItemDDLList" class="form-control select dropdown">
                                             <option value="" disabled selected>Select an item to include in this project</option>
                                         </select>
-                                         <span class=""  role="alert" ng-show="!isValidTrackingItem">
+                                         <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg"  role="alert" ng-show="!isValidTrackingItem">
                                              <span class="k-icon k-warning"> </span>
                                              Select an item.
                                          </span>
@@ -78,7 +78,7 @@
                                              <td class="participant_heading">Format</td> 
                                               <td> </td>
                                           </tr>
-                                         <tr data-ng-repeat="Obj in projectOrganization">
+                                         <tr data-ng-repeat="Obj in projectOrganization" class={{selectedRow}} ng-click="onRowSelect(this)">
                                             <td>{{ Obj.name }}</td>
                                             <td>{{ Obj.format }}</td>
                                             <td>

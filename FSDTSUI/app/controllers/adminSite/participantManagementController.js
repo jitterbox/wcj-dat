@@ -70,6 +70,16 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.selectedParticipant = selectedRow;
     };
 
+    //OnSelect Row
+    $scope.onRowSelect = function () {
+        //Highlight row style
+        if ($scope.lastSelected) {
+            $scope.lastSelected.selectedRow = '';
+        }
+        this.selectedRow = 'selectedRow';
+        $scope.lastSelected = this;
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessage) {
         $scope.errorWindowOption.showError = true;

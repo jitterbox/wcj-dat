@@ -236,6 +236,10 @@ word-wrap:break-word;
 background-image: url('../images/error.png')
 }
 
+.selectedRow {
+  background-color: #c9dde1;
+}
+
 @media only screen and (min-width : 320px) and (max-width : 800px) {
 
     .panel-default h1, .panel-default h2 {
