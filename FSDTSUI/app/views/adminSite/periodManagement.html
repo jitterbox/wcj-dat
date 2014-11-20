@@ -16,7 +16,7 @@
                             <!-- END waiting window  -->
                             <form class="form-horizontal" kendo-validator="validator" ng-submit="onSubmit($event)">
                             <!-- START confirm window  -->
-                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                                <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
                             <!-- END conform window  -->
                             <div class="form-group">
                                 <label class="col-md-2 control-label required" for="Period Title">
@@ -50,19 +50,17 @@
                                 <label class="col-md-2 control-label required" for="DeadlineDate">
                                     Deadline Date</label>
                                 <div class="col-md-2">
-                                    <!-- <datepicker value="periodInfo.deadlineDate" date-type="deadlineDate"></datepicker>-->
                                     <input type="date" class="form-control" ng-model="periodInfo.deadlineDate" name="DeadlineDate"
                                         kendo-date-picker required="required" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
-                                    <span data-for='DeadlineDate' ng-show="!isValidDadeLineDate"><span class="k-warning">
-                                    </span>Deadline date should be between start date and end date.</span>
+                                    <span data-for='DeadlineDate' ng-show="!isValidDadeLineDate"><span class="k-icon k-warning"> </span>Deadline date should be
+                                        between start date and end date.</span>
                                 </div>
                             </div>
+                             
                             <div class="form-group">
                                 <label class="col-md-2 control-label required" for="Year">
                                     Year</label>
                                 <div class="col-md-2">
-                                    <!--<select ng-model="periodInfo.year" class="form-control select dropdown"
-                                            name="Year"><option>2014</option></select>-->
                                     <select ng-model="periodInfo.year" ng-options="year for year in yearList" class="form-control select dropdown"
                                         name="Year">
                                     </select>
@@ -76,24 +74,25 @@
                                 <div class="col-md-1">
                                 </div>
                             </div>
-                                <div class="col-md-1">&nbsp;
-                                </div>
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
                             <table class="table datatable_simple table-bordered tableStyle">
                                 <thead>
                                     <tr>
                                         <th>
                                             Title
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align: center;">
                                             Start Date
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align: center;">
                                             End Date
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align: center;">
                                             Deadline Date
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align: center;">
                                             Year
                                         </th>
                                         <th>
@@ -105,20 +104,20 @@
                                         <td>
                                             {{period.title}}
                                         </td>
-                                        <td style="text-align:center;">
+                                        <td style="text-align: center;">
                                             {{period.startDate}}
                                         </td>
-                                        <td style="text-align:center;">
+                                        <td style="text-align: center;">
                                             {{period.endDate}}
                                         </td>
-                                        <td style="text-align:center;">
+                                        <td style="text-align: center;">
                                             {{period.deadlineDate}}
                                         </td>
-                                        <td style="text-align:center;">
+                                        <td style="text-align: center;">
                                             {{period.year}}
                                         </td>
                                         <td>
-                                            <button type="button"  class="btn btn-primary" ng-click="onDelete(period)">
+                                            <button type="button" class="btn btn-primary" ng-click="onDelete(period)">
                                                 Delete Period</button>
                                         </td>
                                     </tr>

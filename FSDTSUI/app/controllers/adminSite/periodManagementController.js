@@ -9,6 +9,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      //TODO: Optimization : Dummy implementation need to be removed
      $scope.value = " ";
      $scope.periodList = [];
+     $scope.periodStartDate = [];
      $scope.selectedPeriod = null;
      $scope.periodInfo = {};
 
@@ -47,12 +48,12 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      $scope.isValidDate = true;
      $scope.isValidDadeLineDate = true;
      $scope.validateDate = function (startDate, endDate, deadLineDate) {
-         if (startDate > endDate) {
+         if (Date.parse(startDate) > Date.parse(endDate)) {
              $scope.isValidDate = false;
          } else {
              $scope.isValidDate = true;
          }
-         if (deadLineDate && (deadLineDate > endDate || deadLineDate < startDate)) {
+         if (Date.parse(deadLineDate) && (Date.parse(deadLineDate) > Date.parse(endDate) || Date.parse(deadLineDate) < Date.parse(startDate))) {
              $scope.isValidDadeLineDate = false;
          } else {
              $scope.isValidDadeLineDate = true;
@@ -103,6 +104,15 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
 
      var populatePeriodList = function (periodList) {
          angular.forEach(periodList, function (period) {
+//             $scope.periodStartDate.push(period.PeriodStartDate);
+//             angular.forEach($scope.periodStartDate, function (period1) {
+//                 console.log(period1);
+//                 //                 if (period1 != period.PeriodStartDate) {
+//                 //                     console.log(period1);
+//                 //                     //$scope.periodList.push(periodManagementService.populatePeriodModel(period));
+//                 //                 }
+//             });
+
              $scope.periodList.push(periodManagementService.populatePeriodModel(period));
          });
      };
