@@ -1020,8 +1020,9 @@ var ngEventProvider = function (grid, $scope, domUtilityService, $timeout) {
             });
         }
 
-        $scope.$on('$destroy', $scope.$watch('renderedColumns', function() {
-            $timeout(self.setDraggables);
+        $scope.$on('$destroy', $scope.$watch('renderedColumns', function () {
+            //TODO: Not required the draggables functionality
+           $timeout(self.setDraggables);
         }));
     };
     self.dragStart = function(evt){		
@@ -1032,8 +1033,9 @@ var ngEventProvider = function (grid, $scope, domUtilityService, $timeout) {
         evt.preventDefault();
     };
     //For JQueryUI
-    self.setDraggables = function() {
-        if (!grid.config.jqueryUIDraggable) {
+    self.setDraggables = function () {
+        //NOTE:grid.$root added in the condition to avoid "Cannot call method 'find' of null at self.setDraggables" error
+        if (!grid.config.jqueryUIDraggable && grid.$root) {
             //Fix for FireFox. Instead of using jQuery on('dragstart', function) on find, we have to use addEventListeners for each column.
             var columns = grid.$root.find('.ngHeaderSortColumn'); //have to iterate if using addEventListener
             angular.forEach(columns, function(col){

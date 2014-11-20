@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Http;
 
@@ -56,6 +57,29 @@ namespace FSDTS.Common
                     break;
             }
             throw new HttpResponseException(httpResponseMessage);
+        }
+
+
+        public static bool SendEmail(string toEmailId, string subject, string body)
+        {
+           // FsdtsCommonMethods.SendEmail("sender's email id", "testsubject", "testbody");
+             NetworkCredential NetworkCredentials = new System.Net.NetworkCredential(FsdtsConstants.SenderEmailId, FsdtsConstants.SenderPassword);
+            
+                SmtpClient smtpClient = new SmtpClient
+                {
+                    Host = FsdtsConstants.SMTPHost,
+                    Port = FsdtsConstants.SMTPPort,
+                    EnableSsl = true,
+                    DeliveryMethod = FsdtsConstants.SMTPDeliveryMethod,
+                    Credentials = NetworkCredentials,
+                    Timeout = 30000,
+                };
+
+                MailMessage message = new MailMessage(FsdtsConstants.SenderEmailId, toEmailId, subject, body);
+
+                smtpClient.Send(message);
+
+                return true;
         }
     }
 }
