@@ -34,7 +34,8 @@
                                 <div class="col-md-2">
                                     <input type="text" data-role='datepicker' id="StartDate" data-type="date" name="StartDate"
                                         kendo-date-picker required="required" ng-model="periodInfo.startDate" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" /><br />
-                                    <span data-for='StartDate' ng-show="!isValidDate">Start date should not be greater than
+                                    <span data-for='StartDate' ng-show="!isValidDate" class="k-widget k-tooltip k-tooltip-validation">
+                                    <span class="k-icon k-warning"></span>Start date should not be greater than
                                         end date </span>
                                 </div>
                             </div>
@@ -53,7 +54,8 @@
                                 <div class="col-md-2">
                                     <input type="date" class="form-control" ng-model="periodInfo.deadlineDate" name="DeadlineDate"
                                         kendo-date-picker required="required" ng-blur="validateDate(periodInfo.startDate,periodInfo.endDate,periodInfo.deadlineDate)" />
-                                    <span data-for='DeadlineDate' ng-show="!isValidDadeLineDate"><span class="k-icon k-warning"> </span>Deadline date should be
+                                    <span data-for='DeadlineDate' ng-show="!isValidDadeLineDate" class="k-widget k-tooltip k-tooltip-validation">
+                                    <span class="k-icon k-warning"> </span>Deadline date should be
                                         between start date and end date.</span>
                                 </div>
                             </div>
