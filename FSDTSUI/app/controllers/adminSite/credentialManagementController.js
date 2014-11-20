@@ -24,6 +24,13 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     var populateCredentialList = function (credentialList) {
         angular.forEach(credentialList, function (credential) {
             $scope.credentialList.push(credentialManagementService.populateCredentialModel(credential));
@@ -43,12 +50,17 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
     //Used for initializing the controller
     var init = function () {
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
+
         getAllCredentials();
     }();
 

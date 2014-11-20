@@ -60,6 +60,13 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          }
      };
 
+     //Showing error window
+     var showErrorWindow = function (errorMessage) {
+         $scope.errorWindowOption.showError = true;
+         $scope.errorWindowOption.errorMessage = errorMessage;
+         $scope.showSpin = false;
+     };
+
      //Reset the form control
      var resetForm = function () {
          $scope.periodInfo = {
@@ -83,7 +90,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
              //After adding course redirect to course management page
              resetForm();
          }, function (error) {
-             alert(error);
+             showErrorWindow(error);
          });
      };
 
@@ -98,7 +105,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
              //After adding course redirect to course management page
              resetForm();
          }, function (error) {
-             alert(error);
+             showErrorWindow(error);
          });
      };
 
@@ -122,7 +129,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          periodManagementService.getPeriodDetails().then(function (result) {
              populatePeriodList(result);
          }, function (error) {
-             console.log(error);
+             showErrorWindow(error);
          });
      };
 
@@ -144,6 +151,10 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          $scope.confirmWindowOption = {
              actionType: null,
              showConfirm: false
+         };
+         $scope.errorWindowOption = {
+             showError: false,
+             errorMessage: null
          };
          //#endregion
          getAllPeriods();

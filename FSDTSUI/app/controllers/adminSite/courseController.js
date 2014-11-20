@@ -14,6 +14,7 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         } else {
             $scope.validationClass = "invalid";
         }
+        
     };
 
     //On cancel button click handler
@@ -36,6 +37,13 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Reset the form control
     var resetForm = function () {
         $scope.courseInfo = {
@@ -54,7 +62,7 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
             //After adding course redirect to course management page
             $location.path('/courseManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -68,7 +76,7 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
             //After updating course redirect to course management page
             $location.path('/courseManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -81,7 +89,7 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
             //Show spin window
             $scope.showSpin = false;
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -92,6 +100,11 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         $scope.confirmWindowOption = {
             actionType: null,
             showConfirm: false
+        };
+
+        $scope.errorWindowOption = {
+            showError:false,
+            errorMessage:null
         };
         //#endregion
 
