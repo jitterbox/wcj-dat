@@ -38,6 +38,13 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Reset the form control
     var resetForm = function () {
         $scope.programInfo = {
@@ -56,7 +63,7 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
             //After adding program redirect to program management page
             $location.path('/programManagement');
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -65,12 +72,12 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         //Show spin window
         $scope.showSpin = true;
         programManagementService.editProgram($scope.programInfo).then(function () {
-           //Hide spin window
+            //Hide spin window
             $scope.showSpin = false;
             //After updating program redirect to program management page
             $location.path('/programManagement');
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -83,7 +90,7 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -94,6 +101,10 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         $scope.confirmWindowOption = {
             actionType: null,
             showConfirm: false
+        };
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
         };
         //#endregion
 

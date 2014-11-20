@@ -37,6 +37,13 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Reset the form control
     var resetForm = function () {
         $scope.credentialInfo = {
@@ -55,7 +62,7 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
             //After adding credential redirect to credential management page
             $location.path('/credentialManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -69,7 +76,7 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
             //After updating credential redirect to credential management page
             $location.path('/credentialManagement');
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -82,7 +89,7 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            alert(error);
+            showErrorWindow(error);
         });
     };
 
@@ -94,6 +101,12 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
             actionType: null,
             showConfirm: false
         };
+
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
+
         //#endregion
 
         //All the special initialization for Add/Edit goes here

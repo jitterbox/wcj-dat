@@ -40,6 +40,13 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Service call to add organization
     var addOrganization = function () {
         //Show spin window
@@ -49,7 +56,7 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
             $scope.showSpin = false;
             $location.path('/organizationManagement');
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -62,7 +69,7 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
             $scope.showSpin = false;
             $location.path('/organizationManagement');
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -75,7 +82,7 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
@@ -93,6 +100,12 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
             actionType: null,
             showConfirm: false
         };
+
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
+
         //#endregion
         //All the special initalization for Add/Edit goes here
         if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {

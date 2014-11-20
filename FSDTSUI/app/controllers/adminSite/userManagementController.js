@@ -8,12 +8,13 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
     //TODO: Optimization : Dummy implementation need to be removed
     $scope.userList = [];
     //#region Grid initialization
-    $scope.columnDefs = [{ field: 'lastName', displayName: 'LastName', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'course\')">{{row.getProperty(\'name\')}}</a></div>' },
-                         { field: 'firstName', displayName: 'FirstName', width: 80, cellClass: 'gridColumn-align' },
-                         { field: 'email', displayName: 'Email', width: 80, cellClass: 'gridColumn-align' },
+    $scope.columnDefs = [{ field: 'lastname', displayName: 'Last Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'user\')">{{row.getProperty(\'lastname\')}}</a></div>' },
+                         { field: 'firstname', displayName: 'First Name'},
+                         { field: 'emailAddress', displayName: 'Email'},
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
     $scope.papulateGrid = false;
+    $scope.gridOptions = { 'searchByColumn': 'lastname','searchPlaceHolder' : 'Last Name'};
     //#endregion
 
     //On select action from grid
@@ -22,6 +23,13 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
         if (actionObject.actionName === 'user') {
             $location.path('/user/2');
         }
+    };
+
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
     };
 
     var populateUserList = function (userList) {
@@ -34,7 +42,7 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
         }
     };
 
-    //Get all programs
+    //Get all users
     var getAllUsers = function () {
         //Show spin window
         $scope.showSpin = true;
@@ -43,12 +51,16 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
     //used for initializing the controller
     var init = function () {
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
         getAllUsers();
     } ();
 

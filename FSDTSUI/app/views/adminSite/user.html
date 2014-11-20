@@ -13,15 +13,16 @@
                         <!-- END waiting window  -->
                         <form class="form-horizontal" id="tickets" kendo-validator="validator" ng-submit="onSubmit($event)">
                         <!-- START confirm window  -->
-                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                        <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
                         <!-- END conform window  -->
+                        <error-window option="errorWindowOption"></error-window>
                         <div class="form-group">
                             <label class="col-md-2 control-label required" for="firstname">
                                 First Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="firstname" name="firstname" ng-model="userInfo.firstname"
-                                    class="form-control" pattern=".{1,50}" required data-required-msg="Please enter first name."
-                                    validationmessage="First name should be less than 50 characters." />
+                                    class="form-control" pattern=".{1,100}[a-zA-Z]+" required="required" data-required-msg="Please enter first name."
+                                    validationmessage="First name is invalid." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,7 +30,8 @@
                                 Last Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="lastname" name="lastname" ng-model="userInfo.lastname" class="form-control"
-                                    pattern=".{1,50}" required data-required-msg="Please enter last name." validationmessage="Last name should be less than 50 characters." />
+                                    pattern=".{1,100}[a-zA-Z]+" required data-required-msg="Please enter last name." 
+                                    validationmessage="Last name is invalid." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,8 +54,9 @@
                                 City
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.city" name="City" required
-                                    data-required-msg="Please enter city." />
+                                <input type="text" class="form-control" ng-model="userInfo.city" name="City"
+                                 pattern=".{1,50}" required data-required-msg="Please enter city." 
+                                 validationmessage="City should be less than 50 characters."/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,8 +64,9 @@
                                 State
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.state" name="State" required
-                                    data-required-msg="Please enter state." />
+                                <input type="text" class="form-control" ng-model="userInfo.state" name="State"
+                                    pattern=".{1,50}" required data-required-msg="Please enter state."
+                                    validationmessage="State should be less than 50 characters." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -70,8 +74,8 @@
                                 Zip
                             </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,20}"
-                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 20 characters." />
+                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,50}"
+                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 50 characters." />
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,10 +88,20 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label required" for="email">
-                                email</label>
+                                Email</label>
                             <div class="col-md-4">
                                 <input type="email" id="email" name="Email" class="form-control" ng-model="userInfo.emailAddress"
-                                    required data-email-msg="Email format is not valid." />
+                                    required data-required-msg="Please enter email id." data-email-msg="Email format is not valid." />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="actionType === OPERATION_TYPE.ADD">
+                            <label class="col-md-2 control-label required" for="password">
+                                Password</label>
+                            <div class="col-md-4">
+                                <input type="password" id="password1" name="Password" class="form-control" ng-model="userInfo.password"
+                                    pattern=".{6,10}" required data-required-msg="Please enter password." 
+                                    validationmessage="Password length should be between 6 to 10 digit."
+                                    />
                             </div>
                         </div>
                         <!--<div class="form-group">
@@ -138,16 +152,19 @@
                                 Submit</button>
                             <div class="col-md-1">
                             </div>
-                            <label class="control-label editedName">
-                                <label class="normaltext">
-                                    Last edited by:</label>
-                                Jim Winter
-                            </label>
-                            <label class="control-label editedName">
-                                <label class="normaltext">
-                                    Last edited:</label>
-                                08/22/14
-                            </label>
+                            <!-- Edited informations is only for edit operation-->
+                            <div ng-if="actionType === OPERATION_TYPE.EDIT">
+                                <label class="control-label editedName">
+                                    <label class="normaltext">
+                                        Last edited:</label>
+                                    {{courseInfo.editedOn | date:'MM/dd/yyyy'}}
+                                </label>
+                                <label class="control-label editedName">
+                                    <label class="normaltext">
+                                        Last edited by:</label>
+                                    {{courseInfo.editedBy}}
+                                </label>
+                            </div>
                         </div>
                         </form>
                     </div>

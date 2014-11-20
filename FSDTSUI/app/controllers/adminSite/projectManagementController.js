@@ -23,6 +23,8 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
         //On select action from grid
         $scope.onActionClick = function (actionObject) {
             userProfileService.profile.params.projectId = actionObject.selectedRow.projectId;
+            userProfileService.profile.params.startYear = actionObject.selectedRow.startYear;
+            userProfileService.profile.params.endYear = actionObject.selectedRow.endYear;
             if (actionObject.actionName === 'periodManagement') {
                 $location.path('/periodManagement');
             } else if (actionObject.actionName === 'participantManagement') {
@@ -42,6 +44,14 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
         //    //redirect to edit project UI
         //    $location.path('/project/2');
         //};
+
+        //Showing error window
+        var showErrorWindow = function (errorMessage) {
+            $scope.errorWindowOption.showError = true;
+            $scope.errorWindowOption.errorMessage = errorMessage;
+            $scope.showSpin = false;
+        };
+
         var populateProjectList = function (projectList) {
             angular.forEach(projectList, function (project) {
                 $scope.projectList.push(projectManagementService.populateProjectModel(project));
@@ -60,11 +70,15 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
                 //Hide spin window
                 $scope.showSpin = false;
             }, function (error) {
-                console.log(error);
+                showErrorWindow(error);
             });
         };
         //used for initializing the controller
         var init = function () {
+            $scope.errorWindowOption = {
+                showError: false,
+                errorMessage: null
+            };
             getAllProjects();
         } ();
 

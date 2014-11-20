@@ -14,7 +14,7 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
                                    '<a href="" ng-click="onActionClick(row.entity,\'credentialManagement\')">Credentials</a> |' +
                                    '<a href="" ng-click="onActionClick(row.entity,\'userManagement\')">Users</a></div>';
     $scope.columnDefs = [{ field: 'name', displayName: 'Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'organization\')">{{row.getProperty(\'name\')}}</a></div>' },
-                         { field: 'type', displayName: 'Type', width: 'auto', cellClass: 'gridColumn-align' },
+                         { field: 'type', displayName: 'Type', width: 80, cellClass: 'gridColumn-align' },
                          { displayName: 'Actions', cellTemplate: actionColumn, width: 240, cellClass: 'gridColumn-align' },
                          { field: 'status', displayName: 'Status', width: 80 , cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
@@ -37,6 +37,13 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
         }
     };
 
+    //Showing error window
+    var showErrorWindow = function (errorMessage) {
+        $scope.errorWindowOption.showError = true;
+        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.showSpin = false;
+    };
+
     //Populate organization list
     var populateOrganizationList = function (organizationList) {
         angular.forEach(organizationList, function (organization) {
@@ -57,12 +64,17 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
-            console.log(error);
+            showErrorWindow(error);
         });
     };
 
     //Used for initializing the controller
     var init = function () {
+        $scope.errorWindowOption = {
+            showError: false,
+            errorMessage: null
+        };
+
         getAllOrganizations();
     }();
 
