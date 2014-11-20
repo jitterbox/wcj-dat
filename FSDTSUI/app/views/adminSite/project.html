@@ -49,7 +49,8 @@
                                 <div class="col-md-2">
                                     <select ng-model="projectInfo.startYear" ng-options="year for year in yearList" class="form-control select dropdown"
                                             name="Start Year" required ng-change="validateYear(projectInfo.startYear,projectInfo.endYear)"></select>
-                                    <span class="" data-for="Start Year " role="alert" ng-show="!isValidYear"><span class="k-icon k-warning"> </span>Start year should not be greater than end year</span>
+                                    <span data-for="Start Year " role="alert" ng-show="!isValidYear" class="k-widget k-tooltip k-tooltip-validation">
+                                    <span class="k-icon k-warning"> </span>Start year should not be greater than end year</span>
                                     <!--<span class="caret caretStyle"></span>-->
                                 </div>
                             </div>
