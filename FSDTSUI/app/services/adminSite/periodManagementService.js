@@ -76,9 +76,9 @@ fsdtsApp.factory('periodManagementService', ['httpHelper', 'appConstants', 'user
                 periodInfo = {
                     'periodId': serverResponseObj.PeriodId, //If periodId is null or undefine then initialized with empty string
                     'title': serverResponseObj.PeriodTitle,
-                    'startDate': new Date(serverResponseObj.PeriodStartDate).yyyymmdd(),
-                    'endDate': new Date(serverResponseObj.PeriodEndDate).yyyymmdd(),
-                    'deadlineDate': new Date(serverResponseObj.PeriodDeadlineDate).yyyymmdd(),
+                    'startDate': serverResponseObj.PeriodStartDate,
+                    'endDate': serverResponseObj.PeriodEndDate,
+                    'deadlineDate': serverResponseObj.PeriodDeadlineDate,
                     'year': serverResponseObj.PeriodYear
                 };
             }

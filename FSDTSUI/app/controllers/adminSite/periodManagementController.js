@@ -111,22 +111,14 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
 
      var populatePeriodList = function (periodList) {
          angular.forEach(periodList, function (period) {
-//             $scope.periodStartDate.push(period.PeriodStartDate);
-//             angular.forEach($scope.periodStartDate, function (period1) {
-//                 console.log(period1);
-//                 //                 if (period1 != period.PeriodStartDate) {
-//                 //                     console.log(period1);
-//                 //                     //$scope.periodList.push(periodManagementService.populatePeriodModel(period));
-//                 //                 }
-//             });
-
-             $scope.periodList.push(periodManagementService.populatePeriodModel(period));
+          $scope.periodList.push(periodManagementService.populatePeriodModel(period));
          });
      };
 
      //Get all periods
      var getAllPeriods = function () {
          periodManagementService.getPeriodDetails().then(function (result) {
+             console.log(result);
              populatePeriodList(result);
          }, function (error) {
              showErrorWindow(error);
