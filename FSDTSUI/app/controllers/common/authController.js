@@ -10,7 +10,7 @@ fsdtsApp.controller('authController', ['$scope', 'userProfileService', '$locatio
         $scope.onLogin = function () {
             //Dummy code
             setDummyAdminProfile();
-            $location.path('/userManagement');
+            $location.path('/');
         };
 
         var setDummyAdminProfile = function () {
