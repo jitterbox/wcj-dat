@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace FSDTS.Models
 {
+    using FSDTS.Common;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -26,13 +27,14 @@ namespace FSDTS.Models
         /// Gets or sets PeriodTitle: Name of the Period.
         /// </summary>
         [Required(ErrorMessage = "Please enter period title.")]
-        [MaxLength(100, ErrorMessage = "Period Title should be less than 100 characters.")]
+        [MaxLength(100, ErrorMessage = "Period title should be less than 100 characters.")]
         public string PeriodTitle { get; set; }
 
         /// <summary>
         /// Gets or sets PeriodStartDate: Type of the organization.
         /// </summary>
         [Required]
+        [FSDTS.Common.CustomValidators.ValidateDate(ErrorMessage = "Start date should not be greater than end date.")]
         public DateTime PeriodStartDate { get; set; }
 
         /// <summary>
@@ -50,7 +52,6 @@ namespace FSDTS.Models
         /// Gets or sets PeriodYear: Start year of period.
         /// </summary>
         [Required]
-        [MaxLength(4, ErrorMessage = "Period Year should be less than 5 digits.")]
         public string PeriodYear { get; set; }
 
         /// <summary>

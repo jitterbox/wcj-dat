@@ -9,6 +9,7 @@ namespace FSDTS.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Mail;
     using System.Web;
 
     /// <summary>
@@ -60,6 +61,20 @@ namespace FSDTS.Common
         /// In case Item returns Null.
         /// </summary>
         public const string ItemNotFound = "Item you are searching not found.";
+
+        #region Fields used for Notification (Email) functionality
+
+        public const string SenderEmailId = "extentia1@gmail.com";
+
+        public const string SenderPassword = "Mobile1234";
+
+        public const string SMTPHost = "smtp.gmail.com";
+
+        public const int SMTPPort = 587;
+
+        public const System.Net.Mail.SmtpDeliveryMethod SMTPDeliveryMethod = "SmtpDeliveryMethod.Network";
+        
+        #endregion
 
         #region Generic fields used across all the controllers
         /// <summary>
