@@ -35,7 +35,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @return   promise
     */
     serviceInstance.addUser = function (userInfo) {
-        var postData = getPostData(userInfo);
+        var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.ADD);
         return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
     };
 
@@ -119,10 +119,12 @@ function (httpHelper, $q, appConstants, userProfileService) {
                 'UserLastEditedOn': new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30"
                 'UserLastEditedBy': userProfileService.profile.credentials.userName,
                 'OrganizationId': userProfileService.profile.params.organizationId,
-                'UserNotes': " ",
-                'UserPassword': userInfo.password
+                'UserNotes': " "
+                
             };
-            if (actionType === appConstants.OPERATION_TYPE.EDIT) {
+            if (actionType === appConstants.OPERATION_TYPE.ADD) {
+                postData.UserPassword = userInfo.password;
+            }else if (actionType === appConstants.OPERATION_TYPE.EDIT) {
                 postData.UserId = userProfileService.profile.params.userId;
             }
         } catch (e) {
