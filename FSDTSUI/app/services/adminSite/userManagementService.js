@@ -92,7 +92,6 @@ function (httpHelper, $q, appConstants, userProfileService) {
             };
         }
         return userInfo;
-
     };
 
 
