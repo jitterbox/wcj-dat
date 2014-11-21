@@ -6,6 +6,10 @@ Is used to provide all event handling logic for program view i.e program.html
 fsdtsApp.controller('programController', ['$scope', 'appConstants', '$routeParams', '$location', 'programManagementService', 'userProfileService',
 function ($scope, appConstants, $routeParams, $location, programManagementService, userProfileService) {
 
+    //#region Scope variable declaration
+    $scope.commonProgramGroupingsList = [];
+    //#endregion
+
     //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
@@ -94,6 +98,16 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         });
     };
 
+    //Service call to get all common program list
+    var loadCommonProgramDDL = function () {
+        programManagementService.papulateCommonProgramDDL().then(function (result) {
+            $scope.commonProgramGroupingsList = result;
+            console.log($scope.commonProgramGroupingsList);
+        }, function (error) {
+            showErrorWindow(error);
+        });
+    };
+
     //Used for initializing the controller
     var init = (function () {
         //#region initialize scope variables
@@ -117,6 +131,8 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         } else { //getting the program details if its a edit operation
             getProgram();
         }
+        //getting common program list from maintanance controller
+        loadCommonProgramDDL();
     })();
 
 }

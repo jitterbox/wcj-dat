@@ -1,10 +1,13 @@
 ﻿'use strict';
 fsdtsApp.factory('participantManagementService', ['httpHelper', 'organizationManagementService', '$q', 'appConstants', 'userProfileService',
     function (httpHelper, organizationManagementService, $q, appConstants, userProfileService) {
+
+        //#region Scope variable declaration
         var serviceInstance = {};
         serviceInstance.organizationInfoList = [];
         var organizationDDLDataSource = [];
         var trackingItemDDLDataSource = [];
+        //#endregion
 
         /** Adding new participant 
         * Method:   addToProject

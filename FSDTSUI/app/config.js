@@ -14,7 +14,8 @@ fsdtsApp.constant('appConstants', {
         'PROJECT': 'http://192.168.15.32/api/Project/',
         'PERIOD': 'http://192.168.15.32/api/Period/',
         'USER': 'http://192.168.15.32/api/User/',
-        'PARTICIPANT': 'http://192.168.15.32/api/ProjectOrganization/'
+        'PARTICIPANT': 'http://192.168.15.32/api/ProjectOrganization/',
+        'MAINTAINANCE': 'http://192.168.15.90:8090/api/CommonProgramsGrouping/'
        
          //External end point
         //'COURSE': 'http://203.197.80.136/api/course/',

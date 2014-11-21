@@ -19,7 +19,7 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-        userProfileService.profile.params.userId = actionObject.selectedRow.userId; ;
+        userProfileService.profile.params.userId = actionObject.selectedRow.userId;
         if (actionObject.actionName === 'user') {
             $location.path('/user/2');
         }

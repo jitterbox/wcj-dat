@@ -107,7 +107,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
              console.log(result);
              //Hide spin window
              $scope.showSpin = false;
-             //After adding course redirect to course management page
+             //After adding course redirect to period management page
              resetForm();
          }, function (error) {
              showErrorWindow(error);

@@ -190,6 +190,19 @@ function ($routeProvider, $locationProvider, appConstants) {
             authorizedRoles: []
         }
     }).
+    when('/maintenanceManagement', {
+        templateUrl: 'app/views/adminSite/maintenanceManagement.html',
+        controller: 'maintenanceManagementController',
+        activePage: 'maintenance Management',
+        label: 'maintenance Management',
+        data: {
+            breadcrumb: {
+                menuType: 'parent',
+                label: 'Maintenance'
+            },
+            authorizedRoles: []
+        }
+    }).
    when('/aboutUs', {
        templateUrl: 'app/views/common/aboutUs.html',
        activePage: 'AboutUs',

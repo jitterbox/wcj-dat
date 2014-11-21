@@ -46,7 +46,7 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location',
                                     <li><a href="#adminUser">Users</a></li>\
                                     <li><a href="#projectManagement">Projects</a></li>\
                                     <li><a href="#organizationManagement">Organizations</a></li>\
-                                    <li><a href="#">Maintenance</a></li>\
+                                    <li><a href="#maintenanceManagement">Maintenance</a></li>\
                                 </ul>\
                             </div>\
                             <!--END header section for admin-->\

@@ -15,9 +15,11 @@
 */
 
 'use strict';
-fsdtsApp.factory('programManagementService', ['httpHelper', 'appConstants', 'userProfileService',
-function (httpHelper, appConstants, userProfileService) {
+fsdtsApp.factory('programManagementService', ['httpHelper', 'maintenanceManagementService', '$q', 'appConstants', 'userProfileService',
+function (httpHelper, maintenanceManagementService, $q, appConstants, userProfileService) {
     var serviceInstance = {};
+    var commonProgramDDLDataSource = [];
+    serviceInstance.commonProgramGroupingsInfoList = [];
 
     /** Adding new program 
     * Method:   addProgram
@@ -53,6 +55,44 @@ function (httpHelper, appConstants, userProfileService) {
         } else {
             return httpHelper.get(appConstants.API_END_POINTS.PROGRAM + '?Oid=' + userProfileService.profile.params.organizationId);
         }
+    };
+
+    /** Fetching all the available commonProgram list
+    * Method:   getcommonProgramGroupings
+    * Access:   Public 
+    * @return   promise
+    */
+    serviceInstance.getcommonProgramGroupingsList = function () {
+        var defer = $q.defer();
+        serviceInstance.commonProgramGroupingsInfoList = [];
+        maintenanceManagementService.getMaintenanceDetails().then(function (result) {
+            angular.forEach(result, function (commonProgramGroupings) {
+                serviceInstance.commonProgramGroupingsInfoList.push(maintenanceManagementService.populateMaintenanceModel(commonProgramGroupings));
+            });
+            defer.resolve(true);
+        }, function (error) {
+            defer.reject('Error: ' + error);
+            console.log(error);
+        });
+        return defer.promise;
+    };
+
+    /** Provide data to the CommonProgram DDL
+    * Method:   papulateCommonProgramDDL
+    * Access:   Public 
+    * @return   promise
+    */
+    serviceInstance.papulateCommonProgramDDL = function () {
+        var defer = $q.defer();
+        serviceInstance.getcommonProgramGroupingsList().then(function (result) {
+            commonProgramDDLDataSource = serviceInstance.commonProgramGroupingsInfoList.map(function (commonProgramObj) {
+                return { 'id': commonProgramObj.commonProgramsGroupingId, 'name': commonProgramObj.commonProgramGroupings }
+            });
+            defer.resolve(commonProgramDDLDataSource);
+        }, function (error) {
+            console.log(error);
+        });
+        return defer.promise;
     };
 
     /** Return client program data model by mapping to the server data model
@@ -93,7 +133,7 @@ function (httpHelper, appConstants, userProfileService) {
                 'CommonPrograms': programInfo.commonProgramName,
                 'ProgramStatus': programInfo.status,
                 'OrganizationId': userProfileService.profile.params.organizationId,
-                "programLastEditedOn": new Date().yyyymmdd(),//"2014-11-05T12:31:29.5629962+05:30",
+                "programLastEditedOn": new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30",
                 "programLastEditedBy": userProfileService.profile.credentials.userName
             };
             if (actionType === appConstants.OPERATION_TYPE.EDIT) {

@@ -60,7 +60,7 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
         }
 
         //DELETE:
-        function makePutRequest(uri, postData, headers) {
+        function makeDeleteRequest(uri, postData, headers) {
             var defer = $q.defer();
             if (postData) {
                 $http.put(uri, postData, headers)
