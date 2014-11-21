@@ -64,15 +64,15 @@ namespace FSDTS.Common
 
         #region Fields used for Notification (Email) functionality
 
-        public const string SenderEmailId = "extentia1@gmail.com";
+        public const string SenderEmailId = "webauth@extentia.com"; //// extentia1@gmail.com
 
-        public const string SenderPassword = "Mobile1234";
+        public const string SenderPassword = "!^EhP@authsite291"; //// Mobile1234
 
-        public const string SMTPHost = "smtp.gmail.com";
+        public const string SMTPHost = "mail.extentia.com"; //// smtp.gmail.com
 
         public const int SMTPPort = 587;
 
-        public const System.Net.Mail.SmtpDeliveryMethod SMTPDeliveryMethod = "SmtpDeliveryMethod.Network";
+        public const System.Net.Mail.SmtpDeliveryMethod SMTPDeliveryMethod = SmtpDeliveryMethod.Network;
         
         #endregion
 
