@@ -32,7 +32,7 @@ fsdtsApp.factory('periodManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.addPeriod = function (periodInfo) {
             var postData = getPostData(periodInfo, appConstants.OPERATION_TYPE.ADD);
-            return httpHelper.post(appConstants.API_END_POINTS.ADD_PERIOD, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.PERIOD, postData);
         };
 
         /** USed to delete(soft) the selected participant
@@ -42,13 +42,9 @@ fsdtsApp.factory('periodManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.deletePeriod = function (periodInfo) {
             var postData = getPostData(periodInfo, appConstants.OPERATION_TYPE.DELETE);
-            return httpHelper.patch(appConstants.API_END_POINTS.DELETE_PERIOD + periodInfo.periodId, postData);
+            return httpHelper.patch(appConstants.API_END_POINTS.PERIOD + periodInfo.periodId, postData);
         };
-        //        serviceInstance.deletePeriod = function (periodInfo) {
-        //            var postData = getPostData(periodInfo, appConstants.OPERATION_TYPE.DELETE);
-        //            return httpHelper.put(appConstants.API_END_POINTS.DELETE_PERIOD + periodInfo.periodId, postData);
-        //        };
-
+ 
         /** Return period details by courseId
         * Method:   getPeriodDetails
         * Access:   Public 
@@ -56,12 +52,7 @@ fsdtsApp.factory('periodManagementService', ['httpHelper', 'appConstants', 'user
         * @return   promise
         */
         serviceInstance.getPeriodDetails = function () {
-            return httpHelper.get(appConstants.API_END_POINTS.GET_PERIOD + '?Prjid=' + userProfileService.profile.params.projectId);
-            //            if (periodId) {//If not pass programId then it returns all period
-            //                return httpHelper.get(appConstants.API_END_POINTS.GET_PERIOD + periodId);
-            //            } else {
-            //                
-            //            }
+            return httpHelper.get(appConstants.API_END_POINTS.PERIOD + '?Prjid=' + userProfileService.profile.params.projectId);
         };
 
         /** Return client period data model by mapping to the server data model

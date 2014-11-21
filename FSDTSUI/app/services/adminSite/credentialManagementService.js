@@ -24,7 +24,7 @@ fsdtsApp.factory('credentialManagementService', ['httpHelper', '$q', 'appConstan
         */
         serviceInstance.addCredential = function (credentialInfo) {
             var postData = getPostData(credentialInfo);
-            return httpHelper.post(appConstants.API_END_POINTS.ADD_CREDENTIAL, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.CREDENTIAL, postData);
         };
 
         /**
@@ -32,7 +32,7 @@ fsdtsApp.factory('credentialManagementService', ['httpHelper', '$q', 'appConstan
         */
         serviceInstance.editCredential = function (credentialInfo) {
             var postData = getPostData(credentialInfo, appConstants.OPERATION_TYPE.EDIT);
-            return httpHelper.put(appConstants.API_END_POINTS.EDIT_CREDENTIAL + userProfileService.profile.params.credentialId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.CREDENTIAL + userProfileService.profile.params.credentialId, postData);
         };
 
         /**
@@ -40,9 +40,9 @@ fsdtsApp.factory('credentialManagementService', ['httpHelper', '$q', 'appConstan
          */
         serviceInstance.getCredentialDetails = function (credentialId) {
             if (credentialId) {//If not pass programId then it returns all courses
-                return httpHelper.get(appConstants.API_END_POINTS.GET_CREDENTIAL + credentialId);
+                return httpHelper.get(appConstants.API_END_POINTS.CREDENTIAL + credentialId);
             } else {
-                return httpHelper.get(appConstants.API_END_POINTS.GET_CREDENTIAL + '?Oid=' + userProfileService.profile.params.organizationId);
+                return httpHelper.get(appConstants.API_END_POINTS.CREDENTIAL + '?Oid=' + userProfileService.profile.params.organizationId);
             }
         };
 

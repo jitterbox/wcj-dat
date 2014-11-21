@@ -36,7 +36,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.addUser = function (userInfo) {
         var postData = getPostData(userInfo);
-        return httpHelper.post(appConstants.API_END_POINTS.ADD_USER, postData);
+        return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
     };
 
     /** Edit existing user 
@@ -47,7 +47,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.editUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
-        return httpHelper.put(appConstants.API_END_POINTS.EDIT_USER + userProfileService.profile.params.userId, postData);
+        return httpHelper.put(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
     };
 
     /** Return user details by userId
@@ -58,9 +58,9 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.getUserDetails = function (userId) {
         if (userId) {//If not pass programId then it returns all user
-            return httpHelper.get(appConstants.API_END_POINTS.GET_USER + userId);
+            return httpHelper.get(appConstants.API_END_POINTS.USER + userId);
         } else {
-            return httpHelper.get(appConstants.API_END_POINTS.GET_USER + '?Oid=' + userProfileService.profile.params.organizationId);
+            return httpHelper.get(appConstants.API_END_POINTS.USER + '?Oid=' + userProfileService.profile.params.organizationId);
         }
     };
 

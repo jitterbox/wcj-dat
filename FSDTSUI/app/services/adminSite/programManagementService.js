@@ -27,7 +27,7 @@ function (httpHelper, appConstants, userProfileService) {
     */
     serviceInstance.addProgram = function (programInfo) {
         var postData = getPostData(programInfo);
-        return httpHelper.post(appConstants.API_END_POINTS.ADD_PROGRAM, postData);
+        return httpHelper.post(appConstants.API_END_POINTS.PROGRAM, postData);
     };
 
     /** Adding edit existing program 
@@ -38,7 +38,7 @@ function (httpHelper, appConstants, userProfileService) {
     */
     serviceInstance.editProgram = function (programInfo) {
         var postData = getPostData(programInfo, appConstants.OPERATION_TYPE.EDIT);
-        return httpHelper.put(appConstants.API_END_POINTS.EDIT_PROGRAM + userProfileService.profile.params.programId, postData);
+        return httpHelper.put(appConstants.API_END_POINTS.PROGRAM + userProfileService.profile.params.programId, postData);
     };
 
     /** Return program details by courseId
@@ -49,9 +49,9 @@ function (httpHelper, appConstants, userProfileService) {
     */
     serviceInstance.getProgramDetails = function (programId) {
         if (programId) {//If not pass programId then it returns all program
-            return httpHelper.get(appConstants.API_END_POINTS.GET_PROGRAM + programId);
+            return httpHelper.get(appConstants.API_END_POINTS.PROGRAM + programId);
         } else {
-            return httpHelper.get(appConstants.API_END_POINTS.GET_PROGRAM + '?Oid=' + userProfileService.profile.params.organizationId);
+            return httpHelper.get(appConstants.API_END_POINTS.PROGRAM + '?Oid=' + userProfileService.profile.params.organizationId);
         }
     };
 
