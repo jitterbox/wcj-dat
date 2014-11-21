@@ -44,7 +44,7 @@ namespace FSDTS.Models
         /// Gets or sets ProjectStartYear: Start Year of the project.
         /// </summary>
         [Required]
-        [RegularExpression("^[a-zA-Z]$", ErrorMessage = "Please add numbers as a year and not alphabets.")]
+        //[RegularExpression("^[a-zA-Z]$", ErrorMessage = "Please add numbers as a year and not alphabets.")]
       //  [DataType(, ErrorMessage= "Please add numbers as a year and not alphabets.")]
         [FSDTS.Common.CustomValidators.ValidateYear(ErrorMessage = "Start year has to be less than end year.")]
         public string ProjectStartYear { get; set; }

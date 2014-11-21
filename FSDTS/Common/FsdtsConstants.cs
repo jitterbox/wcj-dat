@@ -72,7 +72,7 @@ namespace FSDTS.Common
 
         public const int SMTPPort = 587;
 
-        public const System.Net.Mail.SmtpDeliveryMethod SMTPDeliveryMethod = "SmtpDeliveryMethod.Network";
+        public const System.Net.Mail.SmtpDeliveryMethod SMTPDeliveryMethod = SmtpDeliveryMethod.Network;
         
         #endregion
 

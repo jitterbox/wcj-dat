@@ -8,9 +8,11 @@ namespace FSDTS.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.SqlClient;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -19,6 +21,7 @@ namespace FSDTS.Controllers
     using FSDTS.Common;
     using FSDTS.Models;
     using log4net;
+    using Microsoft.AspNet.Identity;
     
     /// <summary>
     /// UserController class.
@@ -26,6 +29,10 @@ namespace FSDTS.Controllers
     /// </summary>
     public class UserController : ApiController
     {
+        SqlConnection con = null;
+        SqlCommand cmd = null;
+        SqlDataReader reader = null;
+        User objuser = new User();
         /// <summary>
         /// Creating Log object to log stack trace and flow of execution.
         /// </summary>
@@ -46,9 +53,105 @@ namespace FSDTS.Controllers
         public IQueryable<User> GetUser()
         {
             Log.Info(FsdtsConstants.GettingItemList);
-            return db.User.OrderBy(user => user.UserFirstName);
+            return db.User.OrderBy(user => user.UserLastName);
         }
-    
+
+        [Route("Api/GetUserInfo")]
+        public List<User> GetUserInfo()
+        {
+            cmd = new SqlCommand();
+            List<User> lstUser = new List<User>();
+            con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
+            User oParticipant = new User();
+
+            if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+                con.Open();
+
+            cmd.Connection = con;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "FSDTD_GetUserInfo";
+
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                objuser = new User();
+                objuser.UserId = Convert.ToInt32(reader["UserId"]);
+                objuser.UserFirstName = Convert.ToString(reader["UserFirstName"]);
+                objuser.UserLastName = Convert.ToString(reader["UserLastName"]);
+                objuser.UserEmail = Convert.ToString(reader["UserEmail"]);
+                objuser.UserAddressLine1 = Convert.ToString(reader["UserAddressLine1"]);
+                objuser.UserAddressLine2 = Convert.ToString(reader["UserAddressLine2"]);
+                objuser.UserCity = Convert.ToString(reader["UserCity"]);
+                objuser.UserState = Convert.ToString(reader["UserState"]);
+                objuser.UserZip = Convert.ToString(reader["UserZip"]);
+                objuser.UserNotes = Convert.ToString(reader["UserNotes"]);
+                objuser.UserLastEditedOn = Convert.ToDateTime(reader["UserLastEditedOn"]);
+                objuser.UserLastEditedBy = Convert.ToString(reader["UserLastEditedBy"]);
+                objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
+                objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
+                objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                lstUser.Add(objuser);
+            }
+            cmd.Dispose();
+            con.Dispose();
+            return lstUser;
+            //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+        }
+
+        [Route("Api/GetUserInfoById")]
+        public List<User> GetUserInfoById(int Uid)
+        {
+            cmd = new SqlCommand();
+            List<User> lstUser = new List<User>();
+            con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
+            User oParticipant = new User();
+
+            if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+                con.Open();
+
+            cmd.Connection = con;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "FSDTD_GetUserInfoById";
+
+            SqlParameter param = new SqlParameter();
+            param.Direction = ParameterDirection.Input;
+            param.DbType = DbType.Int32;
+            param.ParameterName = "@UserId";
+            param.Precision = 10;
+            param.SqlDbType = SqlDbType.Int;
+            param.SqlValue = Uid;
+            param.Value = Uid;
+            cmd.Parameters.Add(param);
+
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                objuser = new User();
+                objuser.UserId = Convert.ToInt32(reader["UserId"]);
+                objuser.UserFirstName = Convert.ToString(reader["UserFirstName"]);
+                objuser.UserLastName = Convert.ToString(reader["UserLastName"]);
+                objuser.UserEmail = Convert.ToString(reader["UserEmail"]);
+                objuser.UserAddressLine1 = Convert.ToString(reader["UserAddressLine1"]);
+                objuser.UserAddressLine2 = Convert.ToString(reader["UserAddressLine2"]);
+                objuser.UserCity = Convert.ToString(reader["UserCity"]);
+                objuser.UserState = Convert.ToString(reader["UserState"]);
+                objuser.UserZip = Convert.ToString(reader["UserZip"]);
+                objuser.UserNotes = Convert.ToString(reader["UserNotes"]);
+                objuser.UserLastEditedOn = Convert.ToDateTime(reader["UserLastEditedOn"]);
+                objuser.UserLastEditedBy = Convert.ToString(reader["UserLastEditedBy"]);
+                objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
+                objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
+                objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                lstUser.Add(objuser);
+            }
+            cmd.Dispose();
+            con.Dispose();
+            return lstUser;
+            //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+        }
+
         /// <summary>
         /// GetUser method of UserController class.
         /// </summary>
@@ -69,7 +172,17 @@ namespace FSDTS.Controllers
             Log.Info(FsdtsConstants.ItemWithSpecificID + id + ": " + FsdtsEnums.SearchByIDResult.Success);
             return Ok(user);
         }
-    
+
+        /// <summary>
+        /// GetUsersByOrgId method is used to get all the User by Organization id.
+        /// </summary>
+        /// <param name="Oid"></param>
+        /// <returns></returns>
+        public IQueryable<User> GetUsersByOrgId(int Oid)
+        {
+            return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+        }
+
         /// <summary>
         /// PutUser method of UserController class.
         /// Changes applied to database according to User object. 
