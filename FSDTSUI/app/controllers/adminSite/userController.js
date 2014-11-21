@@ -87,7 +87,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         $scope.showSpin = true;
         userManagementService.getUserDetails(userProfileService.profile.params.userId).then(function (result) {
             console.log(result);
-            $scope.userInfo = userManagementService.populateUserModel(result);
+            $scope.userInfo = userManagementService.populateUserModel(result[0]);
             //Show spin window
             $scope.showSpin = false;
         }, function (error) {

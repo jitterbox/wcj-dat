@@ -47,7 +47,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.editUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
-        return httpHelper.put(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+        return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
     };
 
     /** Return user details by userId
