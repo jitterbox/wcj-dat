@@ -77,7 +77,7 @@ namespace FSDTS.Controllers
         /// <returns></returns>
         public IQueryable<Program> GetProgramsByOrgId(int Oid)
         {
-            return db.Program.Where(pr => pr.OrganizationId == Oid).AsQueryable();
+            return db.Program.Where(pr => pr.OrganizationId == Oid).OrderBy(pr => pr.ProgramName).AsQueryable();
         }
 
         /// <summary>

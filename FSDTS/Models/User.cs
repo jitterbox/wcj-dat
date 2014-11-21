@@ -9,6 +9,7 @@ namespace FSDTS.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
 
@@ -46,6 +47,7 @@ namespace FSDTS.Models
         /// Gets or sets UserPassword: Password of the user.
         /// </summary>
         [MinLength(6, ErrorMessage = "Password should be at least 6 characters.")]
+        [DataType(DataType.Password)]
         public string UserPassword { get; set; }
 
         /// <summary>

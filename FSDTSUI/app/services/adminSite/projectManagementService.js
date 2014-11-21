@@ -31,7 +31,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.addProject = function (projectInfo) {
         var postData = getPostData(projectInfo);
-        return httpHelper.post(appConstants.API_END_POINTS.ADD_PROJECT, postData);
+        return httpHelper.post(appConstants.API_END_POINTS.PROJECT, postData);
     };
 
     /** Edit existing project 
@@ -42,7 +42,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.editProject = function (projectInfo) {
         var postData = getPostData(projectInfo, appConstants.OPERATION_TYPE.EDIT);
-        return httpHelper.put(appConstants.API_END_POINTS.EDIT_PROJECT + userProfileService.profile.params.projectId, postData);
+        return httpHelper.put(appConstants.API_END_POINTS.PROJECT + userProfileService.profile.params.projectId, postData);
     };
 
     /** Return project details by projectId
@@ -53,9 +53,9 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.getProjectDetails = function (projectId) {
         if (projectId) {//If not pass programId then it returns all courses
-            return httpHelper.get(appConstants.API_END_POINTS.GET_PROJECT + projectId);
+            return httpHelper.get(appConstants.API_END_POINTS.PROJECT + projectId);
         } else {
-            return httpHelper.get(appConstants.API_END_POINTS.GET_PROJECT);
+            return httpHelper.get(appConstants.API_END_POINTS.PROJECT);
         }
     };
 

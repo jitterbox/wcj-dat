@@ -67,11 +67,11 @@
                                     <h5 ng-hide="isEmptyProjectOrganization === true" class="control-label">Organizations</h5>
                                 </div>
                                     <!-- START prtivipant grid view  -->
-                                   <div data-ng-repeat="(organizationName, projectOrganization) in projectOrganizationList">
+                                   <div data-ng-repeat="(organizationId, projectOrganization) in projectOrganizationList">
                                       <table class="table datatable_simple table-bordered tableStyle">
                                        <tbody>
                                           <tr >
-                                            <td colspan="3" class="participant_heading"> {{organizationName}}</td>
+                                            <td colspan="3" class="participant_heading">{{projectOrganization[0].organizationName}}</td>
                                           </tr>
                                           <tr>
                                             <td class="participant_heading">Name</td> 

@@ -28,7 +28,7 @@ fsdtsApp.factory('courseManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.addCourse = function (courseInfo) {
             var postData = getPostData(courseInfo);
-            return httpHelper.post(appConstants.API_END_POINTS.ADD_COURSE, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.COURSE, postData);
         };
 
         /** Edit existing course 
@@ -39,7 +39,7 @@ fsdtsApp.factory('courseManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.editCourse = function (courseInfo) {
             var postData = getPostData(courseInfo, appConstants.OPERATION_TYPE.EDIT);
-            return httpHelper.put(appConstants.API_END_POINTS.EDIT_COURSE + userProfileService.profile.params.courseId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.COURSE + userProfileService.profile.params.courseId, postData);
         };
 
         /** Return course details by courseId
@@ -50,9 +50,9 @@ fsdtsApp.factory('courseManagementService', ['httpHelper', 'appConstants', 'user
         */
         serviceInstance.getCourseDetails = function (coursesId) {
             if (coursesId) {//If not pass programId then it returns all courses
-                return httpHelper.get(appConstants.API_END_POINTS.GET_COURSE + coursesId);
+                return httpHelper.get(appConstants.API_END_POINTS.COURSE + coursesId);
             } else {
-                return httpHelper.get(appConstants.API_END_POINTS.GET_COURSE+'?Oid=' + userProfileService.profile.params.organizationId);
+                return httpHelper.get(appConstants.API_END_POINTS.COURSE+'?Oid=' + userProfileService.profile.params.organizationId);
             }
         };
 

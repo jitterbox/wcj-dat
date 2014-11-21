@@ -67,6 +67,7 @@ namespace FSDTS.Controllers
             {
                 objparticipant = new Participant();
                 objparticipant.ProjOrgId = Convert.ToInt32(reader["ProjectOrganizationId"]);
+                objparticipant.OrgId = Convert.ToInt32(reader["OrganizationId"]);
                 objparticipant.ProjectName = Convert.ToString(reader["ProjectName"]);
                 objparticipant.OrganizationName = Convert.ToString(reader["OrganizationName"]);
                 objparticipant.Format = Convert.ToString(reader["format"]);

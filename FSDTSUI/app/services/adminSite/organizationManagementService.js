@@ -28,7 +28,7 @@ fsdtsApp.factory('organizationManagementService', ['httpHelper', '$q', 'appConst
         */
         serviceInstance.addOrganization = function (organizationInfo) {
             var postData = getPostData(organizationInfo);
-            return httpHelper.post(appConstants.API_END_POINTS.ADD_ORGANIZATION, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.ORGANIZATION, postData);
         };
 
         /** Edit existing organization 
@@ -39,7 +39,7 @@ fsdtsApp.factory('organizationManagementService', ['httpHelper', '$q', 'appConst
         */
         serviceInstance.editOrganization = function (organizationInfo) {
             var postData = getPostData(organizationInfo, appConstants.OPERATION_TYPE.EDIT);
-            return httpHelper.put(appConstants.API_END_POINTS.EDIT_ORGANIZATION + userProfileService.profile.params.organizationId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.ORGANIZATION + userProfileService.profile.params.organizationId, postData);
         };
 
         /** Return course details by organizationId
@@ -50,9 +50,9 @@ fsdtsApp.factory('organizationManagementService', ['httpHelper', '$q', 'appConst
         */
         serviceInstance.getOrganizationDetails = function (organizationId) {
             if (organizationId) {
-                return httpHelper.get(appConstants.API_END_POINTS.GET_ORGANIZATION + organizationId);
+                return httpHelper.get(appConstants.API_END_POINTS.ORGANIZATION + organizationId);
             } else {
-                return httpHelper.get(appConstants.API_END_POINTS.GET_ORGANIZATION);
+                return httpHelper.get(appConstants.API_END_POINTS.ORGANIZATION);
             }
         };
 
