@@ -58,7 +58,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.getUserDetails = function (userId) {
         if (userId) {//If not pass programId then it returns all user
-            return httpHelper.get(appConstants.API_END_POINTS.USER + userId);
+            return httpHelper.get(appConstants.API_END_POINTS.GET_USER+'?Uid=' + userId);
         } else {
             return httpHelper.get(appConstants.API_END_POINTS.USER + '?Oid=' + userProfileService.profile.params.organizationId);
         }

@@ -11,8 +11,16 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
         event.preventDefault();
         if ($scope.validator.validate() && customVlaidate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.projectInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow('Edit form data before submit.');
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
@@ -50,6 +58,10 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
 
     };
 
+    var isDirtyForm= function (projectInfo) {
+        return !angular.equals(projectInfo, masterProjectInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessage) {
         $scope.errorWindowOption.showError = true;
@@ -57,6 +69,11 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
         $scope.showSpin = false;
     };
 
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
+    }
     //custom validation logic goes here
     var customVlaidate = function () {
         return $scope.isValidYear;
@@ -99,13 +116,14 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
 
         });
     };
-
+    var masterProjectInfo;
     //Service call to get course details
     var getProject = function () {
         //Show spin window
         $scope.showSpin = true;
         projectManagementService.getProjectDetails(userProfileService.profile.params.projectId).then(function (result) {
             $scope.projectInfo = projectManagementService.populateProjectModel(result);
+            masterProjectInfo = angular.copy($scope.projectInfo);
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {

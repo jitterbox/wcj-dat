@@ -1,15 +1,11 @@
 ﻿/** Directive descriptions
-*Used to provide common grid implementation for the application
+*Used to provide common error window implementation for the application
 *Can be used as a element as follows ,
-    <custom-grid  
-    grid-data="gridData"  
-    cols="columnDefs"
-    selected-items="selectedItems"
-    custom-options="gridOptions"
-    papulate-grid="papulateGrid"
-    action-handler="onActionClick(actionObject)">
-    </custom-grid>
-*
+  <error-window option="errorWindowOption"></error-window>
+*  $scope.errorWindowOption = {
+            showError:true,
+            errorMessage:'test error'
+        };
 */
 
 'use strict';
