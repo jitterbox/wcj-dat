@@ -37,7 +37,7 @@ namespace FSDTS.Models
 
         public System.Data.Entity.DbSet<FSDTS.Models.Measure> Measure { get; set; }
 
-        public System.Data.Entity.DbSet<FSDTS.Models.CommonGrouping> CommonGrouping { get; set; }
+        public System.Data.Entity.DbSet<FSDTS.Models.CommonProgramsGrouping> CommonGrouping { get; set; }
 
         public System.Data.Entity.DbSet<FSDTS.Models.Item> Item { get; set; }
 
