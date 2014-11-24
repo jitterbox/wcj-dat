@@ -123,7 +123,6 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      //Get all periods
      var getAllPeriods = function () {
          periodManagementService.getPeriodDetails().then(function (result) {
-             console.log(result);
              populatePeriodList(result);
          }, function (error) {
              showErrorWindow(error);

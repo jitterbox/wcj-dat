@@ -61,8 +61,13 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
         * @param    maintenanceId
         * @return   promise
         */
-        serviceInstance.getMaintenanceDetails = function () {
-            return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE);
+        serviceInstance.getMaintenanceDetails = function (commonProgramsGroupingId) {
+            if (commonProgramsGroupingId) {
+                return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE + commonProgramsGroupingId);
+            } else {
+                return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE);
+            }
+            //return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE + userProfileService.profile.params.commonProgramsGroupingId);
         };
 
         /** Return client  maintenance data model by mapping to the server data model
@@ -111,7 +116,6 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
                         'CommonProgramsGroupingId': userProfileService.profile.params.commonProgramsGroupingId
                     }
                 }
-                console.log();
             } catch (e) {
                 console.log('Error on creating postData', e);
             }
