@@ -222,6 +222,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Business Objects\UserBO.cs" />
     <Compile Include="Common\CustomValidators.cs" />
     <Compile Include="Common\FsdtsCommonMethods.cs" />
     <Compile Include="Common\FsdtsConstants.cs" />
@@ -244,10 +245,6 @@
     <Compile Include="Migrations\201411181324112_initiald.cs" />
     <Compile Include="Migrations\201411181324112_initiald.Designer.cs">
       <DependentUpon>201411181324112_initiald.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201411201157401_initiale.cs" />
-    <Compile Include="Migrations\201411201157401_initiale.Designer.cs">
-      <DependentUpon>201411201157401_initiale.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -354,9 +351,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411181324112_initiald.resx">
       <DependentUpon>201411181324112_initiald.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411201157401_initiale.resx">
-      <DependentUpon>201411201157401_initiale.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

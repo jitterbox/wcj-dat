@@ -22,6 +22,7 @@ namespace FSDTS.Controllers
     using FSDTS.Models;
     using log4net;
     using Microsoft.AspNet.Identity;
+    using FSDTS.Business_Objects;
     
     /// <summary>
     /// UserController class.
@@ -71,7 +72,7 @@ namespace FSDTS.Controllers
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "FSDTD_GetUserInfo";
-
+            
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -102,6 +103,7 @@ namespace FSDTS.Controllers
         [Route("Api/GetUserInfoById")]
         public List<User> GetUserInfoById(int Uid)
         {
+            //string DecryptedPassword = SymmetricDecryptData((db.User.Where(usr => usr.UserId == Uid));
             cmd = new SqlCommand();
             List<User> lstUser = new List<User>();
             con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
@@ -248,6 +250,8 @@ namespace FSDTS.Controllers
             }
 
             Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
+            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            user.UserPassword = EncryptedPassword;
             db.User.Add(user);
             Log.Info(FsdtsConstants.UpdatingDatabase);
             db.SaveChanges();
