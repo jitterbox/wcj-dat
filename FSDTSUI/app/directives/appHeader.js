@@ -5,8 +5,8 @@
 *
 */
 'use strict';
-fsdtsApp.directive('appHeader', ['appConstants', '$location',
-    function (appConstants, $location, $cookieStore) {
+fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService',
+    function (appConstants, $location, $cookieStore, userProfileService) {
         return {
             restrict: 'E',
             /*jshint multistr: true */
@@ -69,14 +69,18 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location',
             link: function ($scope, elem, attr, ctrl) {
                 //console.log($scope); 
             },
-            controller: function ($scope, $element, $attrs, $cookieStore) {
+            controller: function ($scope, $element, $attrs, $cookieStore, userProfileService) {
+
                 //TODO: Remove dummy code :  Actual logout code need to placed here as per the requirment
                 $scope.onLogout = function () {
-                    $scope.userProfile.loggedIn = false;
-                    $scope.userProfile.credentials.userType = 'GUEST';
-                    $cookieStore.remove('userProfile');
+                    $scope.userProfile = userProfileService.resetUserProfile();
                     $location.path('/login');
                 };
+
+                //used for initializing the header
+                var init = (function () {
+                    $scope.userProfile = userProfileService.getUserProfile();
+                })();
             }
 
         };

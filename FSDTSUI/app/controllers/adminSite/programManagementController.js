@@ -17,7 +17,12 @@ fsdtsApp.controller('programManagementController', ['$scope', 'appConstants', '$
         
         //On select action from grid
         $scope.onActionClick = function (actionObject) {
-            userProfileService.profile.params.programId = actionObject.selectedRow.programId;;
+            //#region Update user parameters
+            var params = userProfileService.getUserParams();
+            params.programId = actionObject.selectedRow.programId;
+            userProfileService.setUserParams(params)
+            //#endregion
+
             if (actionObject.actionName === 'program') {
                 $location.path('/program/2');
             }

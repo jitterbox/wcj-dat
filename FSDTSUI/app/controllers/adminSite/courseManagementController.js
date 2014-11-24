@@ -17,7 +17,13 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-        userProfileService.profile.params.courseId = actionObject.selectedRow.courseId;;
+        
+        //#region Update user parameters
+        var params = userProfileService.getUserParams();
+        params.courseId = actionObject.selectedRow.courseId;
+        userProfileService.setUserParams(params)
+        //#endregion
+
         if (actionObject.actionName === 'course') {
             $location.path('/course/2');
         }

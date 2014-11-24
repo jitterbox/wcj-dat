@@ -18,7 +18,13 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-        userProfileService.profile.params.credentialId = actionObject.selectedRow.credentialId;;
+       
+        //#region Update user parameters
+        var params = userProfileService.getUserParams();
+        params.credentialId = actionObject.selectedRow.credentialId;
+        userProfileService.setUserParams(params)
+        //#endregion
+
         if (actionObject.actionName === 'credential') {
             $location.path('/credential/2');
         }

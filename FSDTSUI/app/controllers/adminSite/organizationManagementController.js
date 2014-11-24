@@ -23,7 +23,13 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-        userProfileService.profile.params.organizationId = actionObject.selectedRow.organizationId;
+
+        //#region Update user parameters
+        var params = userProfileService.getUserParams();
+        params.organizationId = actionObject.selectedRow.organizationId;
+        userProfileService.setUserParams(params)
+        //#endregion
+
         if (actionObject.actionName === 'courseManagement') {
             $location.path('/courseManagement');
         } else if (actionObject.actionName === 'programManagement') {

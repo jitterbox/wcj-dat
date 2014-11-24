@@ -14,9 +14,26 @@ fsdtsApp.controller('authController', ['$scope', 'userProfileService', '$locatio
         };
 
         var setDummyAdminProfile = function () {
-            $scope.userProfile.loggedIn = true;
-            $scope.userProfile.credentials.userType = 'ADMIN';
-            $cookieStore.put('userProfile', $scope.userProfile);
+            var userProfileObj={
+                    'status': '',
+                    'loggedIn': true,
+                    'credentials': {
+                        'authToken': '',
+                        'userName': 'Test Admin',
+                        'userType': 'ADMIN'
+                    },
+                    'permissions': {
+
+                    },
+                    'params': {
+
+                    }
+            };
+           
+            userProfileService.setUserProfile(userProfileObj); 
+
+            $scope.userProfile.loggedIn = userProfileService.profile.loggedIn ;  // Used by appHeader directive
+            $scope.userProfile.credentials.userType = userProfileService.profile.credentials.userType; // Used by appHeader directive
         };
         //used for initializing the controller
         var init = (function () {

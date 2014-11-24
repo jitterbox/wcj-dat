@@ -9,6 +9,7 @@ fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$
         $scope.OPERATION_TYPE = appConstants.OPERATION_TYPE;
         $scope.COMMON_PROGRAMS = appConstants.COMMON_PROGRAMS;
         $scope.COMMON_FORMATS = appConstants.COMMON_FORMATS;
+        $scope.userProfileRefresh = true;
         //#endregion
 
         //#region Breadcrumbs functionality //TODO: Optimization : Optimization required

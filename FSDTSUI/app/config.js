@@ -7,17 +7,17 @@
 fsdtsApp.constant('appConstants', {
     'API_END_POINTS': {
 
-        'COURSE': 'http://192.168.15.90:8090/api/course/',
-        'PROGRAM': 'http://192.168.15.90:8090/api/Program/',
-        'CREDENTIAL': 'http://192.168.15.90:8090/api/Credential/',
-        'ORGANIZATION': 'http://192.168.15.90:8090/api/Organization/',
-        'PROJECT': 'http://192.168.15.90:8090/api/Project/',
-        'PERIOD': 'http://192.168.15.90:8090/api/Period/',
-        'USER': 'http://192.168.15.90:8090/api/User/',
-        'GET_USER':'http://192.168.15.90:8090/api/GetUserInfoById',
-        'PARTICIPANT': 'http://192.168.15.32/api/ProjectOrganization/',
-        'MAINTAINANCE': 'http://192.168.15.90:8090/api/CommonProgramsGrouping/'
-         //External end point
+        'COURSE': 'http://203.197.80.136/api/course/',
+        'PROGRAM': 'http://203.197.80.136/api/Program/',
+        'CREDENTIAL': 'http://203.197.80.136/api/Credential/',
+        'ORGANIZATION': 'http://203.197.80.136/api/Organization/',
+        'PROJECT': 'http://203.197.80.136/api/Project/',
+        'PERIOD': 'http://203.197.80.136/api/Period/',
+        'USER': 'http://203.197.80.136/api/User/',
+        'GET_USER': 'http://203.197.80.136/api/GetUserInfoById',
+        'PARTICIPANT': 'http://203.197.80.136/api/ProjectOrganization/',
+        'MAINTAINANCE': 'http://203.197.80.136/api/CommonProgramsGrouping/'
+        //External end point
         //'COURSE': 'http://203.197.80.136/api/course/',
         //'PROGRAM': 'http://203.197.80.136/api/Program/',
         //'CREDENTIAL': 'http://203.197.80.136/api/Credential/',
@@ -26,12 +26,12 @@ fsdtsApp.constant('appConstants', {
         //'PERIOD': 'http://203.197.80.136/api/Period/',
         //'USER': 'http://203.197.80.136/api/User/',
         //'PARTICIPANT': 'http://203.197.80.136/api/ProjectOrganization/'
-        
+
     },
     'OPERATION_TYPE': {
         'ADD': '1',
         'EDIT': '2',
-        'DELETE':'3'
+        'DELETE': '3'
     },
     'USER_ROLES': {
         'ALL': '*',
@@ -53,7 +53,7 @@ fsdtsApp.constant('appConstants', {
         'Courses',
         'Programs'
     ]
- 
+
 });
 //#endregion
 //#region Application level variables
