@@ -130,7 +130,7 @@ function (httpHelper, maintenanceManagementService, $q, appConstants, userProfil
             postData = {
                 'ProgramName': programInfo.name,
                 'ProgramDescription': programInfo.description,
-                'CommonPrograms': programInfo.commonProgramName,
+                'CommonPrograms': programInfo.selectedCommonProgram.name,
                 'ProgramStatus': programInfo.status,
                 'OrganizationId': userProfileService.profile.params.organizationId,
                 "programLastEditedOn": new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30",
