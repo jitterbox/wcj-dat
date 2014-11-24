@@ -229,6 +229,7 @@
     <Compile Include="Common\FsdtsExceptionHandlerAttribute.cs" />
     <Compile Include="Common\LogPatternConverter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommonProgramsGroupingController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\CredentialController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -246,10 +247,22 @@
     <Compile Include="Migrations\201411181324112_initiald.Designer.cs">
       <DependentUpon>201411181324112_initiald.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411201157401_initiale.cs" />
+    <Compile Include="Migrations\201411201157401_initiale.Designer.cs">
+      <DependentUpon>201411201157401_initiale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411210713476_initialf.cs" />
+    <Compile Include="Migrations\201411210713476_initialf.Designer.cs">
+      <DependentUpon>201411210713476_initialf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411240700459_initialg.cs" />
+    <Compile Include="Migrations\201411240700459_initialg.Designer.cs">
+      <DependentUpon>201411240700459_initialg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CommonGrouping.cs" />
+    <Compile Include="Models\CommonProgramsGrouping.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Credential.cs" />
     <Compile Include="Models\FSDTSCodeFirstApiContext.cs">
@@ -351,6 +364,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411181324112_initiald.resx">
       <DependentUpon>201411181324112_initiald.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411201157401_initiale.resx">
+      <DependentUpon>201411201157401_initiale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411210713476_initialf.resx">
+      <DependentUpon>201411210713476_initialf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411240700459_initialg.resx">
+      <DependentUpon>201411240700459_initialg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,26 +13,31 @@ namespace FSDTS.Models
     /// <summary>
     /// CommonGrouping class to decide fields.
     /// </summary>
-    public class CommonGrouping
+    public class CommonProgramsGrouping
     {
         /// <summary>
         /// Gets or sets primary key attribute.
         /// </summary>
-        public int CommonGroupingId { get; set; }
+        public int CommonProgramsGroupingId { get; set; }
 
         /// <summary>
         /// Gets or sets common grouping name.
         /// </summary>
-        public string CommonGroupingName { get; set; }
+        public string CommonProgramsGroupingName { get; set; }
 
         /// <summary>
         /// Gets or sets common grouping last edited on.
         /// </summary>
-        public DateTime CommonGroupingLastEditedOn { get; set; }
+        public DateTime CommonProgramsGroupingLastEditedOn { get; set; }
 
         /// <summary>
         /// Gets or sets common grouping last edited by.
         /// </summary>
-        public string CommonGroupingLastEditedBy { get; set; }
+        public string CommonProgramsGroupingLastEditedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets IsDeleted: To check, Period deleted or not.
+        /// </summary>
+        public bool IsDeleted { get; set; }
     }
 }

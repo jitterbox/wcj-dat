@@ -18,6 +18,7 @@ namespace FSDTS.Controllers
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Description;
+    using System.Web.Http.OData;
     using FSDTS.Common;
     using FSDTS.Models;
     using log4net;
@@ -51,6 +52,7 @@ namespace FSDTS.Controllers
         /// <returns>List of Users</returns>
         //// GET api/User
         [FsdtsExceptionHandler]
+        [EnableQuery]
         public IQueryable<User> GetUser()
         {
             Log.Info(FsdtsConstants.GettingItemList);
@@ -101,11 +103,10 @@ namespace FSDTS.Controllers
         }
 
         [Route("Api/GetUserInfoById")]
-        public List<User> GetUserInfoById(int Uid)
+        public User GetUserInfoById(int Uid)
         {
             //string DecryptedPassword = SymmetricDecryptData((db.User.Where(usr => usr.UserId == Uid));
             cmd = new SqlCommand();
-            List<User> lstUser = new List<User>();
             con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
             User oParticipant = new User();
 
@@ -128,7 +129,8 @@ namespace FSDTS.Controllers
             cmd.Parameters.Add(param);
 
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+
+            if (reader.Read())
             {
                 objuser = new User();
                 objuser.UserId = Convert.ToInt32(reader["UserId"]);
@@ -146,11 +148,11 @@ namespace FSDTS.Controllers
                 objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
                 objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
                 objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
-                lstUser.Add(objuser);
+                //lstUser.Add(objuser);
             }
             cmd.Dispose();
             con.Dispose();
-            return lstUser;
+            return objuser;
             //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
         }
 
@@ -180,9 +182,57 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <param name="Oid"></param>
         /// <returns></returns>
-        public IQueryable<User> GetUsersByOrgId(int Oid)
+        public List<User> GetUsersByOrgId(int Oid)
         {
-            return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+            cmd = new SqlCommand();
+            List<User> lstUser = new List<User>();
+            con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
+            User oParticipant = new User();
+
+            if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+                con.Open();
+
+            cmd.Connection = con;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "FSDTD_GetUsersByOrgId";
+
+            SqlParameter param = new SqlParameter();
+            param.Direction = ParameterDirection.Input;
+            param.DbType = DbType.Int32;
+            param.ParameterName = "@OrgId";
+            param.Precision = 10;
+            param.SqlDbType = SqlDbType.Int;
+            param.SqlValue = Oid;
+            param.Value = Oid;
+            cmd.Parameters.Add(param);
+
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                objuser = new User();
+                objuser.UserId = Convert.ToInt32(reader["UserId"]);
+                objuser.UserFirstName = Convert.ToString(reader["UserFirstName"]);
+                objuser.UserLastName = Convert.ToString(reader["UserLastName"]);
+                objuser.UserEmail = Convert.ToString(reader["UserEmail"]);
+                objuser.UserAddressLine1 = Convert.ToString(reader["UserAddressLine1"]);
+                objuser.UserAddressLine2 = Convert.ToString(reader["UserAddressLine2"]);
+                objuser.UserCity = Convert.ToString(reader["UserCity"]);
+                objuser.UserState = Convert.ToString(reader["UserState"]);
+                objuser.UserZip = Convert.ToString(reader["UserZip"]);
+                objuser.UserNotes = Convert.ToString(reader["UserNotes"]);
+                objuser.UserLastEditedOn = Convert.ToDateTime(reader["UserLastEditedOn"]);
+                objuser.UserLastEditedBy = Convert.ToString(reader["UserLastEditedBy"]);
+                objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
+                objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
+                objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                lstUser.Add(objuser);
+            }
+            cmd.Dispose();
+            con.Dispose();
+            return lstUser;
+            
+            //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
         /// <summary>
@@ -231,7 +281,22 @@ namespace FSDTS.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        
+
+        [AcceptVerbs("PATCH")]
+        public HttpResponseMessage PatchUser(int id, Delta<User> user)
+        {
+            FSDTSContext objContext = new FSDTSContext();
+            User doc = objContext.User.SingleOrDefault(p => p.UserId == id);
+            if (doc == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            user.Patch(doc);
+            objContext.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
         /// <summary>
         /// PostUser method of UserController class.
         /// Adds new User in the database.
