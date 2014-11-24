@@ -203,6 +203,17 @@ function ($routeProvider, $locationProvider, appConstants) {
             authorizedRoles: []
         }
     }).
+    when('/adminUser/:userType', {
+        templateUrl: 'app/views/adminSite/userManagement.html',
+        controller: 'userManagementController',
+        data: {
+            breadcrumb: {
+                menuType: 'parent',
+                label: 'Users'
+            },
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
+        }
+    }).
    when('/aboutUs', {
        templateUrl: 'app/views/common/aboutUs.html',
        activePage: 'AboutUs',

@@ -28,9 +28,9 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
     $scope.confirmActionHandler = function (actionType, isConfirmed) {
         if ((actionType === 'Submit') && (isConfirmed === true)) {
             //code for submit
-            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) { //Add course
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) { //Add user
                 addUser();
-            } else {//Edit course
+            } else {//Edit user
                 editUser();
             }
         } else if ((actionType === 'Cancel') && (isConfirmed === true)) { //code for cancel
@@ -60,7 +60,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         userManagementService.addUser($scope.userInfo).then(function (result) {
             //Hide spin window
             $scope.showSpin = false;
-            //After adding user redirect to course management page
+            //After adding user redirect to user management page
             $location.path('/userManagement');
         }, function (error) {
             showErrorWindow(error);
@@ -74,14 +74,14 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         userManagementService.editUser($scope.userInfo).then(function () {
             //Show spin window
             $scope.showSpin = false;
-            //After updating user redirect to course management page
+            //After updating user redirect to user management page
             $location.path('/userManagement');
         }, function (error) {
             showErrorWindow(error);
         });
     };
 
-    //Service call to get //Service call to get course details
+    //Service call to get //Service call to get user details
     var getUser = function () {
         //Show spin window
         $scope.showSpin = true;
@@ -116,7 +116,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
                 'status': appConstants.STATUS.ACTIVE
             };
 
-        } else { //Getting the course details if its a edit operation
+        } else { //Getting the user details if its a edit operation
             getUser();
         }
     })();

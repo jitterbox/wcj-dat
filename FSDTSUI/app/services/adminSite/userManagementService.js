@@ -19,8 +19,8 @@ var postData = {
     "UserLastEditedBy": "sample string 12",
     "OrganizationId": 13  
 }
-    editCourse(userInfo)
-    getCourseDetails(userId)
+    editUser(userInfo)
+    getUserDetails(userId)
 */
 
 'use strict';

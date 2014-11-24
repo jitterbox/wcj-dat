@@ -43,7 +43,7 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService
                             <!--START header section for admin-->\
                             <div ng-if="userProfile.credentials.userType === USER_ROLES.ADMIN" class="x-navigation ng-scope">\
                                 <ul>\
-                                    <li><a href="#adminUser">Users</a></li>\
+                                    <li><a href="#adminUser/ADMIN">Users</a></li>\
                                     <li><a href="#projectManagement">Projects</a></li>\
                                     <li><a href="#organizationManagement">Organizations</a></li>\
                                     <li><a href="#maintenanceManagement">Maintenance</a></li>\
