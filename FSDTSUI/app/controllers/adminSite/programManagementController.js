@@ -24,9 +24,9 @@ fsdtsApp.controller('programManagementController', ['$scope', 'appConstants', '$
         };
 
         //Showing error window
-        var showErrorWindow = function (errorMessage) {
+        var showErrorWindow = function (errorMessages) {
             $scope.errorWindowOption.showError = true;
-            $scope.errorWindowOption.errorMessage = errorMessage;
+            $scope.errorWindowOption.errorMessages = errorMessages;
             $scope.showSpin = false;
         };
 

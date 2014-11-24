@@ -17,7 +17,7 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
                 if (isDirtyForm($scope.projectInfo)) {//Check dirty form
                     showConfirmWindow();
                 } else {
-                    showErrorWindow('Edit form data before submit.');
+                    showErrorWindow(['Edit form data before submit.']);
                 }
             }
 
@@ -63,9 +63,9 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
     };
 
     //Showing error window
-    var showErrorWindow = function (errorMessage) {
+    var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
-        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
     };
 
@@ -144,6 +144,7 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
 
     //Used for initializing the controller
     var init = (function () {
+
         //#region initialize scope variables
         $scope.yearList = getYearList();
         $scope.actionType = $routeParams.actionType;

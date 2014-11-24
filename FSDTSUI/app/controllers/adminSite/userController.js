@@ -28,7 +28,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
     $scope.confirmActionHandler = function (actionType, isConfirmed) {
         if ((actionType === 'Submit') && (isConfirmed === true)) {
             //code for submit
-            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) { //Add user
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) { //Add course
                 addUser();
             } else {//Edit course
                 editUser();
@@ -39,9 +39,9 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
     };
 
     //Showing error window
-    var showErrorWindow = function (errorMessage) {
+    var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
-        $scope.errorWindowOption.errorMessage = errorMessage;
+        $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
     };
 
@@ -86,6 +86,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         //Show spin window
         $scope.showSpin = true;
         userManagementService.getUserDetails(userProfileService.profile.params.userId).then(function (result) {
+            console.log(result);
             $scope.userInfo = userManagementService.populateUserModel(result);
             //Show spin window
             $scope.showSpin = false;

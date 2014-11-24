@@ -19,7 +19,13 @@ function (appConstants) {
                             <li style="overflow: hidden; border-top-left-radius: 3px; border-top-right-radius: 3px;border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border: 1px solid rgb(51, 51, 51);box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px; color: rgb(255, 255, 255); opacity: 1;width: 310px; background: rgb(51, 51, 51);">\
                                     <div class="noty_bar noty_type_alert" id="noty_1111981354166183400">\
                                         <div class="noty_message" style="font-size: 11px; line-height: 14px; text-align: left;padding: 8px 10px 9px; width: auto; position: relative;">\
-                                            <div class="errorWindow noty_text">{{option.errorMessage}}</div>\
+                                            <div class="errorWindow noty_text">\
+                                               <ul>\
+                                                <li ng-repeat="errorMessage in option.errorMessages">\
+                                                  {{errorMessage}}\
+                                                </li>\
+                                              </ul>\
+                                            </div>\
                                         </div>\
                                         <div class="noty_buttons" style="padding: 5px; text-align: right; border-top-width: 0px;background-color: rgb(51, 51, 51);">\
                                             <button type="button" class="btn btn-danger btn-clean" id="button-1" style="margin-left: 5px;" ng-click="onOkHandler()">\

@@ -21,7 +21,9 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                defer.resolve(data);
            })
            .error(function (data, status, headers, config) {
-               defer.reject('HTTP Error: ' + data.Message);
+               var errorMessages = generateErrorMessages(data);
+               defer.reject(errorMessages);
+               //defer.reject('HTTP Error: ' + data.Message);
            });
             return defer.promise;
         }
@@ -34,10 +36,12 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                         defer.resolve(data);
                     })
                     .error(function (data, status, headers, config) {
-                        defer.reject('HTTP Error: ' + data.Message);
+                        var errorMessages = generateErrorMessages(data);
+                        defer.reject(errorMessages);
+                        //defer.reject('HTTP Error: ' + data.Message);
                     });
             } else {
-                defer.reject('Invalid postData');
+                defer.reject(['Invalid postData']);
             }
             return defer.promise;
         }
@@ -51,10 +55,11 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                     defer.resolve(data);
                 })
                 .error(function (data, status, headers, config) {
-                    defer.reject('HTTP Error: ' + data.Message);
+                    var errorMessages=generateErrorMessages(data);
+                    defer.reject(errorMessages);
                 });
             } else {
-                defer.reject('Invalid postData');
+                defer.reject(['Invalid postData']);
             }
             return defer.promise;
         }
@@ -68,10 +73,12 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
                     defer.resolve(data);
                 })
                 .error(function (data, status, headers, config) {
-                    defer.reject('HTTP Error: ' + data.Message);
+                    var errorMessages = generateErrorMessages(data);
+                    defer.reject(errorMessages);
+                    //defer.reject('HTTP Error: ' + data.Message);
                 });
             } else {
-                defer.reject('Invalid postData');
+                defer.reject(['Invalid postData']);
             }
             return defer.promise;
         }
@@ -97,6 +104,21 @@ fsdtsApp.factory('httpHelper', ['$http', '$q',
             }
             return defer.promise;
         }
+
+        var generateErrorMessages = function (error) {
+            var errorMessages = [];
+            try {
+                for (var key in error.ModelState) {
+                    var message = error.ModelState[key][0];
+                    errorMessages.push(message);
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+            return errorMessages;
+        };
+
         return {
             get: function (uri, headers) {
                 return makeGetRequest(uri);
