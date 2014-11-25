@@ -24,6 +24,7 @@ namespace FSDTS.Controllers
     using log4net;
     using Microsoft.AspNet.Identity;
     using FSDTS.Business_Objects;
+    using System.Web;
     
     /// <summary>
     /// UserController class.
@@ -282,6 +283,7 @@ namespace FSDTS.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [FsdtsExceptionHandler]
         [AcceptVerbs("PATCH")]
         public HttpResponseMessage PatchUser(int id, Delta<User> user)
         {
@@ -373,6 +375,33 @@ namespace FSDTS.Controllers
         private bool UserExists(int id)
         {
             return db.User.Count(e => e.UserId == id) > 0;
+        }
+
+        [FsdtsExceptionHandler]
+        public HttpResponseMessage Login(string userName, string userPassword)
+        {
+            HttpResponse response = HttpContext.Current.Response;
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userName));
+
+            if (user != null)
+            {
+                if (user.UserEmail.Equals(userName))
+                {
+                    if (UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
+                    {
+                        response.Write("Success");
+                    }
+                    else
+                    {
+                        response.Write("Wrong Password");
+                    }
+                }
+            }
+            else
+            {
+                response.Write("User not found");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
