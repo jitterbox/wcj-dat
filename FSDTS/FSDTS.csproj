@@ -255,9 +255,25 @@
     <Compile Include="Migrations\201411210713476_initialf.Designer.cs">
       <DependentUpon>201411210713476_initialf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411240700459_initialg.cs" />
-    <Compile Include="Migrations\201411240700459_initialg.Designer.cs">
-      <DependentUpon>201411240700459_initialg.cs</DependentUpon>
+    <Compile Include="Migrations\201411241059476_initialh.cs" />
+    <Compile Include="Migrations\201411241059476_initialh.Designer.cs">
+      <DependentUpon>201411241059476_initialh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411250651144_initiali.cs" />
+    <Compile Include="Migrations\201411250651144_initiali.Designer.cs">
+      <DependentUpon>201411250651144_initiali.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411251136164_initialm.cs" />
+    <Compile Include="Migrations\201411251136164_initialm.Designer.cs">
+      <DependentUpon>201411251136164_initialm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411251140339_initialn.cs" />
+    <Compile Include="Migrations\201411251140339_initialn.Designer.cs">
+      <DependentUpon>201411251140339_initialn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411251149003_initialp.cs" />
+    <Compile Include="Migrations\201411251149003_initialp.Designer.cs">
+      <DependentUpon>201411251149003_initialp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -371,8 +387,20 @@
     <EmbeddedResource Include="Migrations\201411210713476_initialf.resx">
       <DependentUpon>201411210713476_initialf.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411240700459_initialg.resx">
-      <DependentUpon>201411240700459_initialg.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201411241059476_initialh.resx">
+      <DependentUpon>201411241059476_initialh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411250651144_initiali.resx">
+      <DependentUpon>201411250651144_initiali.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411251136164_initialm.resx">
+      <DependentUpon>201411251136164_initialm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411251140339_initialn.resx">
+      <DependentUpon>201411251140339_initialn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411251149003_initialp.resx">
+      <DependentUpon>201411251149003_initialp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,6 +12,7 @@ namespace FSDTS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
+    using FSDTS.Business_Objects;
 
     /// <summary>
     /// User class to decide fields.
@@ -21,11 +22,13 @@ namespace FSDTS.Models
         /// <summary>
         /// Gets or sets UserId: Primary key (Auto-generated).
         /// </summary>
+        [Key]
         public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets UserFirstName: First Name of the user.
         /// </summary>
+        
         [Required(ErrorMessage = "Please enter your first name.")]
         [MaxLength(100, ErrorMessage = "First name should be less than 100 characters.")]
         public string UserFirstName { get; set; }
@@ -41,6 +44,7 @@ namespace FSDTS.Models
         /// Gets or sets UserEmail: Email address of the user.
         /// </summary>
         [EmailAddress(ErrorMessage = "Please enter valid email address.")]
+        [MaxLength(100, ErrorMessage = "Email should be less than 100 characters.")]
         [FSDTS.Common.CustomValidators.Unique]
         public string UserEmail { get; set; }
 
@@ -54,41 +58,42 @@ namespace FSDTS.Models
         /// <summary>
         /// Gets or sets UserAddressLine1: Primary address of the user.
         /// </summary>
-        [Required(ErrorMessage = "Please enter your address.")]
+        
+        //[Required (ErrorMessage = "Please enter your address.")]
         [MaxLength(500, ErrorMessage="Address should be less than 500 characters.")]
         public string UserAddressLine1 { get; set; }
 
         /// <summary>
         /// Gets or sets UserAddressLine2: Secondary address of the user.
         /// </summary>
-        [MaxLength(500, ErrorMessage="Address should be less than 500 characters.")]
+        //[MaxLength(500, ErrorMessage="Address should be less than 500 characters.")]
         public string UserAddressLine2 { get; set; }
 
         /// <summary>
         /// Gets or sets UserCity: City of the user.
         /// </summary>
-        [Required(ErrorMessage = "Please enter city.")]
+        //[Required(ErrorMessage = "Please enter city.")]
         [MaxLength(50, ErrorMessage="City should be less than 50 characters.")]
         public string UserCity { get; set; }
 
         /// <summary>
         /// Gets or sets UserState: State of the user.
         /// </summary>
-        [Required(ErrorMessage="Please enter state.")]
+        //[Required(ErrorMessage="Please enter state.")]
         [MaxLength(50, ErrorMessage = "State should be less than 50 characters.")]
         public string UserState { get; set; }
 
         /// <summary>
         /// Gets or sets UserZip: Zipcode of the user.
         /// </summary>
-        [Required(ErrorMessage="Please enter zipcode.")]
+        //[Required(ErrorMessage="Please enter zipcode.")]
         [MaxLength(50, ErrorMessage = "Zipcode should be less than 50 characters.")]
         public string UserZip { get; set; }
 
         /// <summary>
         /// Gets or sets UserPhoneNumber: Phone number of the user.
         /// </summary>
-        [Required(ErrorMessage = "Please enter phone number.")]
+        //[Required(ErrorMessage = "Please enter phone number.")]
         [Phone(ErrorMessage = "Phone number should contain digits and not alphabates")]
         [MaxLength(50, ErrorMessage = "PhoneNumber should be less than 50 characters.")]
         public string UserPhoneNumber { get; set; }
@@ -125,5 +130,15 @@ namespace FSDTS.Models
         /// Gets or sets foreign key attribute. 
         /// </summary>
         public int OrganizationId { get; set; }
+
+        /// <summary>
+        /// Gets or sets UserType.
+        /// </summary>
+        [MaxLength(50, ErrorMessage = "User Type should be less than or equal to 50 characters.")]
+        public string UserType { get; set; }
+        public bool ManageUsers { get; set; }
+        public bool ManageProjects { get; set; }
+        public bool ManageOrganizations { get; set; }
+       
     }
 }
