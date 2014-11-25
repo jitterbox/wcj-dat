@@ -41,6 +41,7 @@ namespace FSDTS.Models
         /// Gets or sets UserEmail: Email address of the user.
         /// </summary>
         [EmailAddress(ErrorMessage = "Please enter valid email address.")]
+        [FSDTS.Common.CustomValidators.Unique]
         public string UserEmail { get; set; }
 
         /// <summary>

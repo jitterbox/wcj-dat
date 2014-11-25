@@ -8,12 +8,16 @@ namespace FSDTS.Business_Objects
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Security.Cryptography;
     using System.Web;
-    using FSDTS.Models;
-    using System.Net;
     using System.Web.Http;
+    using FSDTS.Models;
 
+    /// <summary>
+    /// Class UserBO.
+    /// To handle user specific functions.
+    /// </summary>
     public class UserBO
     {
         /// <summary>
@@ -23,23 +27,23 @@ namespace FSDTS.Business_Objects
 
         public static string SymmetricEncryptData(string clearText)
         {
-            //create a byte array to store the encrypted result.
+            ////create a byte array to store the encrypted result.
             byte[] encryptedText;
-            //create an instance of UTF8 Encoding
+            ////create an instance of UTF8 Encoding
             System.Text.UTF8Encoding UTF8Encoding = new System.Text.UTF8Encoding();
-            //create an instance of any hash provider
+            ////create an instance of any hash provider
             MD5CryptoServiceProvider hash = new MD5CryptoServiceProvider();
-            //encode and then hash the shared private KEY.
+            ////encode and then hash the shared private KEY.
             string symmetricKey = "1prt56";
             byte[] tripleDESKey = hash.ComputeHash(UTF8Encoding.GetBytes(symmetricKey));
 
-            //create an instance of 3DES Cryptography class and assign the shared Key to that instance
+            ////create an instance of 3DES Cryptography class and assign the shared Key to that instance
             TripleDESCryptoServiceProvider tripleDes = new TripleDESCryptoServiceProvider();
             tripleDes.Key = tripleDESKey;
             tripleDes.Mode = CipherMode.ECB;
             tripleDes.Padding = PaddingMode.PKCS7;
 
-            //convert the input clear text to byte array 
+            ////convert the input clear text to byte array 
             byte[] clearBytes = UTF8Encoding.GetBytes(clearText);
             try
             {
@@ -55,26 +59,25 @@ namespace FSDTS.Business_Objects
             return Convert.ToBase64String(encryptedText);
         }
 
-        ////#region Code we need to decypt password (Need at the time of change password)
         public static string SymmetricDecryptData(string cypherText)
         {
-            //create a byte array to store the encrypted result.
+            ////create a byte array to store the encrypted result.
             byte[] decryptedData;
-            //create an instance of UTF8 Encoding
+            ////create an instance of UTF8 Encoding
             System.Text.UTF8Encoding UTF8Encoding = new System.Text.UTF8Encoding();
-            //create an instance of any hash provider
+            ////create an instance of any hash provider
             MD5CryptoServiceProvider hash = new MD5CryptoServiceProvider();
-            //encode and then hash the shared private KEY.
+            ////encode and then hash the shared private KEY.
             string symmetricKey = "1prt56";
             byte[] tripleDESKey = hash.ComputeHash(UTF8Encoding.GetBytes(symmetricKey));
 
-            //create an instance of 3DES Cryptography class and assign the shared Key to that instance
+            ////create an instance of 3DES Cryptography class and assign the shared Key to that instance
             TripleDESCryptoServiceProvider tripleDes = new TripleDESCryptoServiceProvider();
             tripleDes.Key = tripleDESKey;
             tripleDes.Mode = CipherMode.ECB;
             tripleDes.Padding = PaddingMode.PKCS7;
 
-            //convert the input cypher text to byte array 
+            ////convert the input cypher text to byte array 
             byte[] cypherBytes = Convert.FromBase64String(cypherText);
             try
             {
@@ -86,8 +89,8 @@ namespace FSDTS.Business_Objects
                 tripleDes.Clear();
                 hash.Clear();
             }
+
             return UTF8Encoding.GetString(decryptedData);
         }
-        ////#endregion
     }
 }

@@ -71,5 +71,25 @@ namespace FSDTS.Common
                 }
             }
         }
+
+        public class UniqueAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                User user = new User();
+                FSDTSContext fsdtsContext = new FSDTSContext();
+                string DuplicateEmailErrorMessage = null;
+
+                user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value);
+
+                if (user != null)
+                {
+                    DuplicateEmailErrorMessage = "This email-id already exists.";
+                    return new ValidationResult(DuplicateEmailErrorMessage);
+                }
+
+                return ValidationResult.Success;
+            }
+        }
     }
 }
