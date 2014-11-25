@@ -15,7 +15,7 @@ fsdtsApp.factory('userProfileService', ['$http','$cookieStore',
         serviceInstance.profile = {};
         //TODO : Dummy user profile & needs to be initalized from authService
         //#region Default userprofile initialization
-        var userProfile=$cookieStore.get('userProfile');
+        var userProfile = $cookieStore.get('userProfile'); console.log('userProfile', userProfile);
         if (userProfile) {//If user profile is in cookies 
             serviceInstance.profile = userProfile;
         } else {

@@ -95,6 +95,10 @@ namespace FSDTS.Controllers
                 objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
                 objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
                 objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                objuser.UserType = Convert.ToString(reader["UserType"]);
+                objuser.ManageUsers = Convert.ToBoolean(reader["ManageUsers"]);
+                objuser.ManageProjects = Convert.ToBoolean(reader["ManageProjects"]);
+                objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
             cmd.Dispose();
@@ -149,6 +153,10 @@ namespace FSDTS.Controllers
                 objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
                 objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
                 objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                objuser.UserType = Convert.ToString(reader["UserType"]);
+                objuser.ManageUsers = Convert.ToBoolean(reader["ManageUsers"]);
+                objuser.ManageProjects = Convert.ToBoolean(reader["ManageProjects"]);
+                objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 //lstUser.Add(objuser);
             }
             cmd.Dispose();
@@ -227,6 +235,10 @@ namespace FSDTS.Controllers
                 objuser.UserPhoneNumber = Convert.ToString(reader["UserPhoneNumber"]);
                 objuser.OrganizationId = Convert.ToInt32(reader["OrganizationId"]);
                 objuser.UserStatus = Convert.ToString(reader["UserStatus"]);
+                objuser.UserType = Convert.ToString(reader["UserType"]);
+                objuser.ManageUsers = Convert.ToBoolean(reader["ManageUsers"]);
+                objuser.ManageProjects = Convert.ToBoolean(reader["ManageProjects"]);
+                objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
             cmd.Dispose();
@@ -258,6 +270,8 @@ namespace FSDTS.Controllers
                 Log.Error("In PutUser method: User sending id as: " + user.UserId + ". BadRequest");
                 return BadRequest();
             }
+            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            user.UserPassword = EncryptedPassword;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -293,9 +307,14 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            user.Patch(doc);
-            objContext.SaveChanges();
+            var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            doc.UserPassword = EncryptedPassword;
 
+            user.Patch(doc);
+            objContext.Entry(doc).State = EntityState.Modified;
+            //objContext.SaveChanges();
+            db.SaveChanges();
+            objContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
@@ -310,20 +329,20 @@ namespace FSDTS.Controllers
         [FsdtsExceptionHandler]
         public IHttpActionResult PostUser(User user)
         {
-            if (!ModelState.IsValid)
-            {
-                Log.Error(FsdtsConstants.InvalidModelState);
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    Log.Error(FsdtsConstants.InvalidModelState);
+                    return BadRequest(ModelState);
+                }
 
-            Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
-            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-            user.UserPassword = EncryptedPassword;
-            db.User.Add(user);
-            Log.Info(FsdtsConstants.UpdatingDatabase);
-            db.SaveChanges();
+                Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
+                var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+                user.UserPassword = EncryptedPassword;
+                db.User.Add(user);
+                Log.Info(FsdtsConstants.UpdatingDatabase);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+                return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
 
         /// <summary>

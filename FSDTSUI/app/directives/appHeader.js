@@ -41,6 +41,14 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService
                     <div class="col-md-11">\
                         <div>\
                             <!--START header section for admin-->\
+                            <div ng-if="userProfile.loggedIn === true" class="x-navigation ng-scope">\
+                                <ul>\
+                                    <span ng-repeat="action in mainMenuActions" ng-switch on="action.isRendered">\
+                                      <li ng-switch-when="true"><a href="{{action.href}}">{{action.name}}</a></li>\
+                                    </span>\
+                                </ul>\
+                            </div>\
+                            <!--\
                             <div ng-if="userProfile.credentials.userType === USER_ROLES.ADMIN" class="x-navigation ng-scope">\
                                 <ul>\
                                     <li><a href="#adminUser/ADMIN">Users</a></li>\
@@ -48,7 +56,7 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService
                                     <li><a href="#organizationManagement">Organizations</a></li>\
                                     <li><a href="#maintenanceManagement">Maintenance</a></li>\
                                 </ul>\
-                            </div>\
+                            </div>-->\
                             <!--END header section for admin-->\
                             <!--START header section for user-->\
                             <div ng-if="userProfile.credentials.userType === USER_ROLES.USER" class="x-navigation ng-scope">\
@@ -69,11 +77,12 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService
             link: function ($scope, elem, attr, ctrl) {
                 //console.log($scope); 
             },
-            controller: function ($scope, $element, $attrs, $cookieStore, userProfileService) {
-
+            controller: function ($scope,$rootScope, $element, $attrs, $cookieStore, userProfileService) {
+                console.log(' $scope.mainMenuActions', $scope.mainMenuActions);
                 //TODO: Remove dummy code :  Actual logout code need to placed here as per the requirment
                 $scope.onLogout = function () {
                     $scope.userProfile = userProfileService.resetUserProfile();
+                    $rootScope.$broadcast(appConstants.EVENT_TYPE.USERPROFILE_CHANGE, $scope.userProfile);
                     $location.path('/login');
                 };
 
