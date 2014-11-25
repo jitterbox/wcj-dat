@@ -75,6 +75,7 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <param name="Oid"></param>
         /// <returns></returns>
+        [FsdtsExceptionHandler]
         public IQueryable<Program> GetProgramsByOrgId(int Oid)
         {
             return db.Program.Where(pr => pr.OrganizationId == Oid).OrderBy(pr => pr.ProgramName).AsQueryable();
