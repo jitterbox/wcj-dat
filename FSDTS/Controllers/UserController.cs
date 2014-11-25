@@ -329,8 +329,6 @@ namespace FSDTS.Controllers
         [FsdtsExceptionHandler]
         public IHttpActionResult PostUser(User user)
         {
-            //try
-            //{
                 if (!ModelState.IsValid)
                 {
                     Log.Error(FsdtsConstants.InvalidModelState);
@@ -345,11 +343,6 @@ namespace FSDTS.Controllers
                 db.SaveChanges();
 
                 return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
-            //}
-            //catch(DbUpdateException ex) 
-            //{
-            //    return Request.CreateResponse(HttpStatusCode.OK);
-            //}
         }
 
         /// <summary>

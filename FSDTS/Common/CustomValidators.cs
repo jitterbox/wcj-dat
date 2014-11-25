@@ -78,14 +78,11 @@ namespace FSDTS.Common
             {
                 User user = new User();
                 FSDTSContext fsdtsContext = new FSDTSContext();
-                string DuplicateEmailErrorMessage = null;
-
                 user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value);
 
                 if (user != null)
                 {
-                    DuplicateEmailErrorMessage = "This email-id already exists.";
-                    return new ValidationResult(DuplicateEmailErrorMessage);
+                    return new ValidationResult(ErrorMessage);
                 }
 
                 return ValidationResult.Success;

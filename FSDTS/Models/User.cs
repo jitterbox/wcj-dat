@@ -45,7 +45,7 @@ namespace FSDTS.Models
         /// </summary>
         [EmailAddress(ErrorMessage = "Please enter valid email address.")]
         [MaxLength(100, ErrorMessage = "Email should be less than 100 characters.")]
-        [FSDTS.Common.CustomValidators.Unique]
+        [FSDTS.Common.CustomValidators.Unique(ErrorMessage = "This email-id already exists.")]
         public string UserEmail { get; set; }
 
         /// <summary>
