@@ -21,7 +21,7 @@
                                 First Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="firstname" name="firstname" ng-model="userInfo.firstname"
-                                    class="form-control" pattern=".{1,100}[a-zA-Z]+" required="required" data-required-msg="Please enter first name."
+                                    class="form-control" pattern="[a-zA-Z]+" maxLength="100" required="required" data-required-msg="Please enter first name."
                                     validationmessage="First name is invalid." />
                             </div>
                         </div>
@@ -30,60 +30,61 @@
                                 Last Name</label>
                             <div class="col-md-4">
                                 <input type="text" id="lastname" name="lastname" ng-model="userInfo.lastname" class="form-control"
-                                    pattern=".{1,100}[a-zA-Z]+" required data-required-msg="Please enter last name." 
+                                    pattern="[a-zA-Z]+" maxLength="100" required data-required-msg="Please enter last name."
                                     validationmessage="Last name is invalid." />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label required" for="Address">
-                                Address Line 1</label>
-                            <div class="col-md-4">
-                                <input type="text" name="Address" class="form-control" ng-model="userInfo.addressLine1"
-                                    pattern=".{1,500}" required data-required-msg="Please enter address." validationmessage="Address should be less than 500 characters." />
+                        <!-- ORGANIZATION USER-->
+                        <div class="form-group" ng-if= "userType === USER_TYPE.ORGUSER">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Address">
+                                    Address Line 1</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="Address" class="form-control" ng-model="userInfo.addressLine1"
+                                        pattern=".{1,500}" required data-required-msg="Please enter address." validationmessage="Address should be less than 500 characters." />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">
-                                Address Line 2</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.addressLine2" />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    Address Line 2</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="userInfo.addressLine2" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label required" for="City">
-                                City
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.city" name="City"
-                                 pattern=".{1,50}" required data-required-msg="Please enter city." 
-                                 validationmessage="City should be less than 50 characters."/>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="City">
+                                    City
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="userInfo.city" name="City" pattern=".{1,50}"
+                                        required data-required-msg="Please enter city." validationmessage="City should be less than 50 characters." />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label required" for="State">
-                                State
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.state" name="State"
-                                    pattern=".{1,50}" required data-required-msg="Please enter state."
-                                    validationmessage="State should be less than 50 characters." />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="State">
+                                    State
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="userInfo.state" name="State" pattern=".{1,50}"
+                                        required data-required-msg="Please enter state." validationmessage="State should be less than 50 characters." />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label required" for="Zip code">
-                                Zip
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,50}"
-                                    required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 50 characters." />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Zip code">
+                                    Zip
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="userInfo.zip" name="Zip code" pattern=".{1,50}"
+                                        required data-required-msg="Please enter zip code." validationmessage="Zip code should be less than 50 characters." />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label required" for="tel">
-                                Phone</label>
-                            <div class="col-md-4">
-                                <input type="tel" id="tel" name="tel" pattern="\d{10}" class="form-control" ng-model="userInfo.phoneNumber"
-                                    pattern=".{1,100}" required data-required-msg="Please enter phone number." validationmessage="Please enter a ten digit phone number." />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="tel">
+                                    Phone</label>
+                                <div class="col-md-4">
+                                    <input type="tel" id="tel" name="tel" pattern="\d{10}" class="form-control" ng-model="userInfo.phoneNumber"
+                                        pattern=".{1,100}" required data-required-msg="Please enter phone number." validationmessage="Please enter a ten digit phone number." />
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -99,34 +100,33 @@
                                 Password</label>
                             <div class="col-md-4">
                                 <input type="password" id="password1" name="Password" class="form-control" ng-model="userInfo.password"
-                                    pattern=".{6,10}" required data-required-msg="Please enter password." 
-                                    validationmessage="Password length should be between 6 to 10 digit."
-                                    />
+                                    pattern=".{6,10}" required data-required-msg="Please enter password." validationmessage="Password length should be between 6 to 10 digit." />
                             </div>
                         </div>
-                        <!--<div class="form-group">
+                        <!-- ADMIN USER-->
+                        <div class="form-group" ng-if="userType === USER_TYPE.ADMINUSER">
                             <label class="col-md-2 control-label">
                                 Function</label>
                             <div class="col-md-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="userInfo.user" vlaue="Manage Users"/>Manage Users
+                                        <input type="checkbox" ng-model="userInfo.manageUser" />Manage Users
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="userInfo.project" value="Manage Projects" />Manage
+                                        <input type="checkbox" ng-model="userInfo.manageProject" />Manage
                                         Projects
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="userInfo.organization" value="Manage Organizations" />Manage
+                                        <input type="checkbox" ng-model="userInfo.manageOrganization" />Manage
                                         Organizations
                                     </label>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">
                                 Status</label>

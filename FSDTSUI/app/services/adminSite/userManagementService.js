@@ -18,9 +18,13 @@ var postData = {
     "UserLastEditedOn": "2014-11-17T15:00:02.1554235+05:30",
     "UserLastEditedBy": "sample string 12",
     "OrganizationId": 13  
+    "ManageUsers": true,
+    "ManageProjects": true,
+    "ManageOrganizations": true,
+    "UserType": "sample string 17"
 }
-    editUser(userInfo)
-    getUserDetails(userId)
+editUser(userInfo)
+getUserDetails(userId)
 */
 
 'use strict';
@@ -36,7 +40,11 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.addUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.ADD);
-        return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
+        if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) {//add existing admin user
+            return httpHelper.post(appConstants.API_END_POINTS.ADMIN_USER, postData);
+        } else {//edit existing organization user
+            return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
+        }
     };
 
     /** Edit existing user 
@@ -47,7 +55,11 @@ function (httpHelper, $q, appConstants, userProfileService) {
     */
     serviceInstance.editUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
-        return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+        if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) { //edit existing admin user
+            return httpHelper.patch(appConstants.API_END_POINTS.ADMIN_USER + userProfileService.profile.params.userId, postData);
+        } else { //edit existing organization user
+            return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+        }
     };
 
     /** Return user details by userId
@@ -57,10 +69,15 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @return   promise
     */
     serviceInstance.getUserDetails = function (userId) {
-        if (userId) {//If not pass programId then it returns all user
-            return httpHelper.get(appConstants.API_END_POINTS.GET_USER+'?Uid=' + userId);
+        console.log(userId); 
+        if (userId) {//If not pass userId then it returns all user
+            return httpHelper.get(appConstants.API_END_POINTS.GET_USER + '?Uid=' + userId);
         } else {
-            return httpHelper.get(appConstants.API_END_POINTS.USER + '?Oid=' + userProfileService.profile.params.organizationId);
+            if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) { // get admin user detail
+                return httpHelper.get(appConstants.API_END_POINTS.ADMIN_USER);
+            } else {// get organization user detail
+                return httpHelper.get(appConstants.API_END_POINTS.USER + '?Oid=' + userProfileService.profile.params.organizationId);
+            }
         }
     };
 
@@ -87,8 +104,10 @@ function (httpHelper, $q, appConstants, userProfileService) {
                 'status': serverResponseObj.UserStatus,
                 'password': serverResponseObj.UserPassword,
                 'editedOn': serverResponseObj.UserLastEditedOn,
-                'editedBy': serverResponseObj.UserLastEditedBy
-
+                'editedBy': serverResponseObj.UserLastEditedBy,
+                'manageUser': serverResponseObj.ManageUsers,
+                'manageProject': serverResponseObj.ManageProjects,
+                'manageOrganization': serverResponseObj.ManageOrganizations
             };
         }
         return userInfo;
@@ -104,26 +123,42 @@ function (httpHelper, $q, appConstants, userProfileService) {
     var getPostData = function (userInfo, actionType) {
         var postData = null;
         try {
-            postData = {
-                'UserFirstName': userInfo.firstname,
-                'UserLastName': userInfo.lastname,
-                'UserEmail': userInfo.emailAddress,
-                'UserAddressLine1': userInfo.addressLine1,
-                'UserAddressLine2': userInfo.addressLine2,
-                'UserCity': userInfo.city,
-                'UserState': userInfo.state,
-                'UserZip': userInfo.zip,
-                'UserPhoneNumber': userInfo.phoneNumber,
-                'UserStatus': userInfo.status,
-                'UserLastEditedOn': new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30"
-                'UserLastEditedBy': userProfileService.profile.credentials.userName,
-                'OrganizationId': userProfileService.profile.params.organizationId,
-                'UserNotes': " "
-                
-            };
+            if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ORGUSER) {  // post data for organization user
+                postData = {
+                    'UserFirstName': userInfo.firstname,
+                    'UserLastName': userInfo.lastname,
+                    'UserEmail': userInfo.emailAddress,
+                    'UserAddressLine1': userInfo.addressLine1,
+                    'UserAddressLine2': userInfo.addressLine2,
+                    'UserCity': userInfo.city,
+                    'UserState': userInfo.state,
+                    'UserZip': userInfo.zip,
+                    'UserPhoneNumber': userInfo.phoneNumber,
+                    'UserStatus': userInfo.status,
+                    'UserLastEditedOn': new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30"
+                    'UserLastEditedBy': userProfileService.profile.credentials.userName,
+                    'OrganizationId': userProfileService.profile.params.organizationId,
+                    'UserNotes': " ",
+                    'UserType': appConstants.USER_TYPE.ORGUSER
+
+                };
+            } else {   // post data for admin user
+                postData = {
+                    'UserFirstName': userInfo.firstname,
+                    'UserLastName': userInfo.lastname,
+                    'UserEmail': userInfo.emailAddress,
+                    'UserStatus': userInfo.status,
+                    'ManageUsers': userInfo.manageUser,
+                    'ManageProjects': userInfo.manageProject,
+                    'ManageOrganizations': userInfo.manageOrganization,
+                    'UserLastEditedOn': new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30"
+                    'UserLastEditedBy': userProfileService.profile.credentials.userName,
+                    'UserType': appConstants.USER_TYPE.ADMINUSER
+                };
+            }
             if (actionType === appConstants.OPERATION_TYPE.ADD) {
                 postData.UserPassword = userInfo.password;
-            }else if (actionType === appConstants.OPERATION_TYPE.EDIT) {
+            } else if (actionType === appConstants.OPERATION_TYPE.EDIT) {
                 postData.UserId = userProfileService.profile.params.userId;
             }
         } catch (e) {

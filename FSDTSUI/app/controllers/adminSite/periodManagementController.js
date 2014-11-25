@@ -104,7 +104,6 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          //Show spin window
          $scope.showSpin = true;
          periodManagementService.deletePeriod(selectedPeriod).then(function (result) {
-             console.log(result);
              //Hide spin window
              $scope.showSpin = false;
              //After adding course redirect to period management page

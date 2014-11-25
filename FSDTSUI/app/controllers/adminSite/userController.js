@@ -50,7 +50,11 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         $scope.userInfo = {
             'status': appConstants.STATUS.ACTIVE
         };
-        $location.path('/userManagement');
+        if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ORGUSER) {
+            $location.path('/userManagement/ORGUSER');
+        } else {
+            $location.path('/userManagement/ADMIN');
+        }
     };
 
     //Service call to add user
@@ -61,7 +65,11 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             //Hide spin window
             $scope.showSpin = false;
             //After adding user redirect to user management page
-            $location.path('/userManagement');
+            if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ORGUSER) {
+                $location.path('/userManagement/ORGUSER');
+            } else {
+                $location.path('/userManagement/ADMIN');
+            }
         }, function (error) {
             showErrorWindow(error);
         });
@@ -75,7 +83,11 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             //Show spin window
             $scope.showSpin = false;
             //After updating user redirect to user management page
-            $location.path('/userManagement');
+            if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ORGUSER) {
+                $location.path('/userManagement/ORGUSER');
+            } else {
+                $location.path('/userManagement/ADMIN');
+            }
         }, function (error) {
             showErrorWindow(error);
         });
@@ -98,6 +110,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
     var init = (function () {
         //#region initialize scope variables
         $scope.actionType = $routeParams.actionType;
+        $scope.userType = userProfileService.profile.params.userType;
         $scope.confirmWindowOption = {
             actionType: null,
             showConfirm: false
@@ -106,14 +119,16 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
             showError: false,
             errorMessage: null
         };
-
         //#endregion
 
         //All the special initialization for Add/Edit goes here
         if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
             //Initialize the defalut data model
             $scope.userInfo = {
-                'status': appConstants.STATUS.ACTIVE
+                'status': appConstants.STATUS.ACTIVE,
+                'manageUser': false,
+                'manageProject': false,
+                'manageOrganization': false
             };
 
         } else { //Getting the user details if its a edit operation

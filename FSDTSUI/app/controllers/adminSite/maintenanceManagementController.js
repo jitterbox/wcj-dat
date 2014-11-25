@@ -46,7 +46,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          } else if ((actionType === 'Cancel') && (isConfirmed === true)) { //code for cancel
              resetForm();
              $scope.showAddButton = true;
-        }
+         }
          //Clear selected Row
          $scope.selectedMaintenance = null;
      };
@@ -75,7 +75,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
      //Reset the form control
      var resetForm = function () {
          $scope.maintenanceInfo = {
-             commonProgramGroupings: ' '
+             commonProgramGroupings: ''
          };
          $scope.maintenanceList = [];
          getAllMaintenances();
@@ -111,10 +111,10 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
 
      //Service call to delete maintenance
      var deleteMaintenance = function (selectedMaintenance) {
+         console.log(selectedMaintenance);
          //Show spin window
          $scope.showSpin = true;
          maintenanceManagementService.deleteMaintenance(selectedMaintenance).then(function (result) {
-             console.log(result);
              //Hide spin window
              $scope.showSpin = false;
              //After adding course redirect to period management page

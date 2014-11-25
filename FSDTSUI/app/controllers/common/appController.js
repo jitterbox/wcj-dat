@@ -9,6 +9,7 @@ fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$
         $scope.OPERATION_TYPE = appConstants.OPERATION_TYPE;
         $scope.COMMON_PROGRAMS = appConstants.COMMON_PROGRAMS;
         $scope.COMMON_FORMATS = appConstants.COMMON_FORMATS;
+        $scope.USER_TYPE = appConstants.USER_TYPE;
         $scope.userProfileRefresh = true;
         //#endregion
 
@@ -20,11 +21,11 @@ fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$
                     if (next.$$route.data.breadcrumb.menuType !== 'parent') {
                         var label;
                         if (next.params && next.params.actionType === $scope.OPERATION_TYPE.ADD) {
-                            label='Add New';
+                            label = 'Add New';
                         } else if (next.params && next.params.actionType === $scope.OPERATION_TYPE.EDIT) {
                             label = 'Edit';
                         } else {
-                            label=next.$$route.data.breadcrumb.label;
+                            label = next.$$route.data.breadcrumb.label;
                         }
                         $scope.breadcrumbs.push({ 'label': label, 'path': $location.path(), 'param': null });
                         if ($scope.breadcrumbs.length > 0) {
@@ -42,18 +43,18 @@ fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$
             }
             catch (err) {
             }
-           // console.log('$location.path()', $location.path());
+            // console.log('$location.path()', $location.path());
             //BreadcrumbService.generateBreadcrumbs();
             // var routes = $route.routes;
             //var pathElements = $location.path().split('/');
         });
         $scope.filterDuplicateBreadcrumb = function (label) {
             var breadcrumbs = [];
-            for (var i = 0 ; i < $scope.breadcrumbs.length; i++) {
+            for (var i = 0; i < $scope.breadcrumbs.length; i++) {
                 breadcrumbs.push($scope.breadcrumbs[i]);
                 if ($scope.breadcrumbs[i].label === label) {
                     break;
-                } 
+                }
             }
             return breadcrumbs;
         };

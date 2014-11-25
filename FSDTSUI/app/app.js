@@ -99,7 +99,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
-    when('/userManagement', {
+    when('/userManagement/:userType', {
         templateUrl: 'app/views/adminSite/userManagement.html',
         controller: 'userManagementController',
         data: {

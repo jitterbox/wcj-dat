@@ -37,9 +37,9 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
         } else if (actionObject.actionName === 'credentialManagement') {
             $location.path('/credentialManagement');
         } else if (actionObject.actionName === 'userManagement') {
-            $location.path('/userManagement');
+            $location.path('/userManagement/' + $scope.USER_TYPE.ORGUSER);
         } else if (actionObject.actionName === 'organization') {
-            $location.path('/organization/2');
+            $location.path('/organization/' + $scope.OPERATION_TYPE.EDIT);
         }
     };
 

@@ -2,19 +2,19 @@
 Is used to provide all event handling logic for user management view i.e userManagement.html;
 */
 'use strict';
-fsdtsApp.controller('userManagementController', ['$scope', 'appConstants', 'userManagementService', '$location', 'userProfileService',
-function ($scope, appConstants, userManagementService, $location, userProfileService) {
+fsdtsApp.controller('userManagementController', ['$scope', 'appConstants', 'userManagementService', '$location', 'userProfileService','$routeParams',
+function ($scope, appConstants, userManagementService, $location, userProfileService, $routeParams) {
 
     //TODO: Optimization : Dummy implementation need to be removed
     $scope.userList = [];
     //#region Grid initialization
     $scope.columnDefs = [{ field: 'lastname', displayName: 'Last Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'user\')">{{row.getProperty(\'lastname\')}}</a></div>' },
-                         { field: 'firstname', displayName: 'First Name'},
-                         { field: 'emailAddress', displayName: 'Email'},
+                         { field: 'firstname', displayName: 'First Name' },
+                         { field: 'emailAddress', displayName: 'Email' },
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align'}];
     $scope.selectedItems = [];
     $scope.papulateGrid = false;
-    $scope.gridOptions = { 'searchByColumn': 'lastname','searchPlaceHolder' : 'Last Name'};
+    $scope.gridOptions = { 'searchByColumn': 'lastname', 'searchPlaceHolder': 'Last Name' };
     //#endregion
 
     //On select action from grid
@@ -66,6 +66,14 @@ function ($scope, appConstants, userManagementService, $location, userProfileSer
             showError: false,
             errorMessage: null
         };
+        //#region Update user parameters
+        var params = userProfileService.getUserParams();
+        params.userType = $routeParams.userType;
+        userProfileService.setUserParams(params)
+        //TODO:need optimization
+        $scope.userType = $routeParams.userType;
+        //#endregion
+
         getAllUsers();
     } ();
 
