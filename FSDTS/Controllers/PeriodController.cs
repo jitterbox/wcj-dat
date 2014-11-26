@@ -57,9 +57,17 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <param name="Oid"></param>
         /// <returns></returns>
-        public IQueryable<Period> GetPeriodsByPrgId(int Prjid)
+         [FsdtsExceptionHandler]
+        public IQueryable<Period> GetPeriodsByPrgId(int? Prjid)
         {
-            return db.Period.Where(pd => pd.ProjectId == Prjid & pd.IsDeleted == false).AsQueryable();
+            if (Prjid != null)
+            {
+                return db.Period.Where(pd => pd.ProjectId == Prjid & pd.IsDeleted == false).AsQueryable();
+            }
+            else
+            {
+                throw new NullReferenceException("Project ID you have entered is not correct.");
+            }
         }
 
         // PUT api/Period/5

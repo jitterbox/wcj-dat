@@ -15,6 +15,7 @@ using log4net;
 
 namespace FSDTS.Controllers
 {
+    [FsdtsExceptionHandler]
     public class CommonProgramsGroupingController : ApiController
     {
         /// <summary>
@@ -34,7 +35,7 @@ namespace FSDTS.Controllers
         public IQueryable<CommonProgramsGrouping> GetCommonGrouping()
         {
             Log.Info(FsdtsConstants.GettingItemList);
-            return db.CommonGrouping.Where(p => p.IsDeleted == false).OrderBy(p => p.CommonProgramsGroupingName).AsQueryable(); 
+            return db.CommonGrouping.Where(p => p.IsDeleted == false).OrderBy(p => p.CommonProgramsGroupingName).AsQueryable();
         }
 
         // GET api/CommonProgramsGrouping/5
@@ -53,6 +54,7 @@ namespace FSDTS.Controllers
         }
 
         // PUT api/CommonProgramsGrouping/5
+        [FsdtsExceptionHandler]
         public IHttpActionResult PutCommonProgramsGrouping(int id, CommonProgramsGrouping commonprogramsgrouping)
         {
             if (!ModelState.IsValid)
@@ -88,6 +90,7 @@ namespace FSDTS.Controllers
         }
 
         [AcceptVerbs("PATCH")]
+        [FsdtsExceptionHandler]
         public HttpResponseMessage PatchCommonProgram(int id, Delta<CommonProgramsGrouping> commonprogram)
         {
             FSDTSContext objContext = new FSDTSContext();
@@ -122,6 +125,7 @@ namespace FSDTS.Controllers
 
         // DELETE api/CommonProgramsGrouping/5
         [ResponseType(typeof(CommonProgramsGrouping))]
+        [FsdtsExceptionHandler]
         public IHttpActionResult DeleteCommonProgramsGrouping(int id)
         {
             CommonProgramsGrouping commonprogramsgrouping = db.CommonGrouping.Find(id);
@@ -136,6 +140,7 @@ namespace FSDTS.Controllers
             return Ok(commonprogramsgrouping);
         }
 
+        [FsdtsExceptionHandler]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -145,6 +150,7 @@ namespace FSDTS.Controllers
             base.Dispose(disposing);
         }
 
+        [FsdtsExceptionHandler]
         private bool CommonProgramsGroupingExists(int id)
         {
             return db.CommonGrouping.Count(e => e.CommonProgramsGroupingId == id) > 0;

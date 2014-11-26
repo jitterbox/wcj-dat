@@ -24,6 +24,7 @@ namespace FSDTS.Controllers
     /// OrganizationController class.
     /// For CRUD operation related to Organization.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class OrganizationController : ApiController
     {
         /// <summary>

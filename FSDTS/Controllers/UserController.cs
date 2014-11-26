@@ -16,30 +16,47 @@ namespace FSDTS.Controllers
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Web;
     using System.Web.Http;
     using System.Web.Http.Description;
     using System.Web.Http.OData;
+    using FSDTS.Business_Objects;
     using FSDTS.Common;
     using FSDTS.Models;
     using log4net;
     using Microsoft.AspNet.Identity;
-    using FSDTS.Business_Objects;
-    using System.Web;
-    
+   
     /// <summary>
     /// UserController class.
     /// For CRUD operation related to User.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class UserController : ApiController
     {
-        SqlConnection con = null;
-        SqlCommand cmd = null;
-        SqlDataReader reader = null;
-        User objuser = new User();
         /// <summary>
         /// Creating Log object to log stack trace and flow of execution.
         /// </summary>
         public static readonly ILog Log = LogManager.GetLogger("UserController");
+
+        /// <summary>
+        /// SqlConnection instance.
+        /// </summary>
+        private SqlConnection con = null;
+
+        /// <summary>
+        /// SqlCommand instance.
+        /// </summary>
+        private SqlCommand cmd = null;
+
+        /// <summary>
+        /// SqlDataReader instance.
+        /// </summary>
+        private SqlDataReader reader = null;
+
+        /// <summary>
+        /// User instance.
+        /// </summary>
+        private User objuser = new User();
 
         /// <summary>
         /// Creating data context instance.
@@ -69,7 +86,9 @@ namespace FSDTS.Controllers
             User oParticipant = new User();
 
             if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+            {
                 con.Open();
+            }
 
             cmd.Connection = con;
 
@@ -101,22 +120,26 @@ namespace FSDTS.Controllers
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
+
             cmd.Dispose();
             con.Dispose();
             return lstUser;
-            //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+            ////return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
         }
 
         [Route("Api/GetUserInfoById")]
-        public User GetUserInfoById(int Uid)
+        [FsdtsExceptionHandler]
+        public User GetUserInfoById(int? Uid)
         {
-            //string DecryptedPassword = SymmetricDecryptData((db.User.Where(usr => usr.UserId == Uid));
+            ////string DecryptedPassword = SymmetricDecryptData((db.User.Where(usr => usr.UserId == Uid));
             cmd = new SqlCommand();
             con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["FSDTSContext"]));
             User oParticipant = new User();
 
             if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+            {
                 con.Open();
+            }
 
             cmd.Connection = con;
 
@@ -133,7 +156,14 @@ namespace FSDTS.Controllers
             param.Value = Uid;
             cmd.Parameters.Add(param);
 
-            reader = cmd.ExecuteReader();
+            if (Uid != null)
+            {
+                reader = cmd.ExecuteReader();
+            }
+            else
+            {
+                throw new NullReferenceException("User ID you have entered is not correct.");
+            }
 
             if (reader.Read())
             {
@@ -157,12 +187,13 @@ namespace FSDTS.Controllers
                 objuser.ManageUsers = Convert.ToBoolean(reader["ManageUsers"]);
                 objuser.ManageProjects = Convert.ToBoolean(reader["ManageProjects"]);
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
-                //lstUser.Add(objuser);
+                ////lstUser.Add(objuser);
             }
+
             cmd.Dispose();
             con.Dispose();
             return objuser;
-            //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+            ////return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
         }
 
         /// <summary>
@@ -189,8 +220,8 @@ namespace FSDTS.Controllers
         /// <summary>
         /// GetUsersByOrgId method is used to get all the User by Organization id.
         /// </summary>
-        /// <param name="Oid"></param>
-        /// <returns></returns>
+        /// <param name="Oid">Integer organization ID</param>
+        /// <returns>List of Users</returns>
         public List<User> GetUsersByOrgId(int Oid)
         {
             cmd = new SqlCommand();
@@ -199,7 +230,9 @@ namespace FSDTS.Controllers
             User oParticipant = new User();
 
             if (con.State == ConnectionState.Closed || con.State == ConnectionState.Broken)
+            {
                 con.Open();
+            }
 
             cmd.Connection = con;
 
@@ -241,11 +274,12 @@ namespace FSDTS.Controllers
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
+
             cmd.Dispose();
             con.Dispose();
             return lstUser;
             
-            //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+            ////return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
         /// <summary>
@@ -270,6 +304,7 @@ namespace FSDTS.Controllers
                 Log.Error("In PutUser method: User sending id as: " + user.UserId + ". BadRequest");
                 return BadRequest();
             }
+
             var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
             user.UserPassword = EncryptedPassword;
 
@@ -307,12 +342,13 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+
             var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
             doc.UserPassword = EncryptedPassword;
 
             user.Patch(doc);
             objContext.Entry(doc).State = EntityState.Modified;
-            //objContext.SaveChanges();
+            ////objContext.SaveChanges();
             db.SaveChanges();
             objContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.NoContent);
@@ -396,6 +432,12 @@ namespace FSDTS.Controllers
             return db.User.Count(e => e.UserId == id) > 0;
         }
 
+        /// <summary>
+        /// Login method of UserController class.
+        /// </summary>
+        /// <param name="userName">string userName</param>
+        /// <param name="userPassword">string userPassword</param>
+        /// <returns>HttpResponseMessage Success/Failure</returns>
         [FsdtsExceptionHandler]
         public HttpResponseMessage Login(string userName, string userPassword)
         {
@@ -406,7 +448,8 @@ namespace FSDTS.Controllers
             {
                 if (user.UserEmail.Equals(userName))
                 {
-                    if (UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
+                    //// if(UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
+                    if (user.UserPassword.Equals(userPassword)) 
                     {
                         response.Write("Success");
                     }
@@ -420,6 +463,7 @@ namespace FSDTS.Controllers
             {
                 response.Write("User not found");
             }
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

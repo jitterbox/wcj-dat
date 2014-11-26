@@ -23,6 +23,7 @@ namespace FSDTS.Controllers
     /// ProgramController class.
     /// For CRUD operation related to Program.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class ProgramController : ApiController
     {
         /// <summary>
@@ -78,7 +79,14 @@ namespace FSDTS.Controllers
         [FsdtsExceptionHandler]
         public IQueryable<Program> GetProgramsByOrgId(int Oid)
         {
-            return db.Program.Where(pr => pr.OrganizationId == Oid).OrderBy(pr => pr.ProgramName).AsQueryable();
+            if (Oid != null)
+            {
+                return db.Program.Where(pr => pr.OrganizationId == Oid).OrderBy(pr => pr.ProgramName).AsQueryable();
+            }
+            else
+            {
+                throw new NullReferenceException("Organization ID you have entered is not correct.");
+            }
         }
 
         /// <summary>

@@ -24,6 +24,7 @@ namespace FSDTS.Controllers
     /// MeasureController class.
     /// For CRUD operation related to Measure.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class MeasureController : ApiController
     {
         /// <summary>

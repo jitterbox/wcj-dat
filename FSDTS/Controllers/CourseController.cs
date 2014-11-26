@@ -20,11 +20,12 @@ namespace FSDTS.Controllers
     using FSDTS.Common;
     using FSDTS.Models;
     using log4net;
- 
+
     /// <summary>
     /// CourseController class.
     /// For CRUD operation related to Course.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class CourseController : ApiController
     {
         /// <summary>
@@ -48,7 +49,7 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <returns>List of Courses</returns>
         [FsdtsExceptionHandler]
-        public IQueryable<Course> GetCourse() 
+        public IQueryable<Course> GetCourse()
         {
             Log.Info(FsdtsConstants.GettingItemList);
             return this.db.Course.OrderBy(cr => cr.CourseName);
@@ -80,9 +81,17 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <param name="Oid">Integer Organization ID</param>
         /// <returns>List of Courses related to Organization ID</returns>
-        public IQueryable<Course> GetCoursesByOrgId(int Oid)
+        [FsdtsExceptionHandler]
+        public IQueryable<Course> GetCoursesByOrgId(int? Oid)
         {
-            return this.db.Course.Where(co => co.OrganizationId == Oid).AsQueryable();
+            if (Oid != null)
+            {
+                return this.db.Course.Where(co => co.OrganizationId == Oid).AsQueryable();
+            }
+            else
+            {
+                throw new NullReferenceException("Organization ID you have entered is not correct.");
+            }
         }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace FSDTS.Controllers
     /// CredentialController class.
     /// For CRUD operation related to Credential.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class CredentialController : ApiController
     {
         /// <summary>
@@ -79,9 +80,17 @@ namespace FSDTS.Controllers
         /// </summary>
         /// <param name="Oid"></param>
         /// <returns></returns>
-        public IQueryable<Credential> GetCredentialsByOrgId(int Oid)
+         [FsdtsExceptionHandler]
+        public IQueryable<Credential> GetCredentialsByOrgId(int? Oid)
         {
-            return db.Credential.Where(cr => cr.OrganizationId == Oid).AsQueryable();
+            if (Oid != null)
+            {
+                return db.Credential.Where(cr => cr.OrganizationId == Oid).AsQueryable();
+            }
+            else
+            {
+                throw new NullReferenceException("Organization ID you have entered is not correct.");
+            }
         }
 
         /// <summary>

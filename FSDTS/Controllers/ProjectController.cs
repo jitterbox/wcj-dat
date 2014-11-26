@@ -24,6 +24,7 @@ namespace FSDTS.Controllers
     /// ProjectController class.
     /// For CRUD operation related to Project.
     /// </summary>
+    [FsdtsExceptionHandler]
     public class ProjectController : ApiController
     {
         /// <summary>

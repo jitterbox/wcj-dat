@@ -72,6 +72,9 @@ namespace FSDTS.Common
             }
         }
 
+        /// <summary>
+        /// class to validate unique email and common groupings name.
+        /// </summary>
         public class UniqueAttribute : ValidationAttribute
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)

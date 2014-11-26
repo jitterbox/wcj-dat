@@ -23,6 +23,7 @@ namespace FSDTS.Controllers
     using FSDTS.Models;
     using log4net;
 
+    [FsdtsExceptionHandler]
     public class ProjectOrganizationController : ApiController
     {
         SqlConnection con = null;
