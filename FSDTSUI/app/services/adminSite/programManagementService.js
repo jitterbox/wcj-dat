@@ -86,7 +86,7 @@ function (httpHelper, maintenanceManagementService, $q, appConstants, userProfil
         var defer = $q.defer();
         serviceInstance.getcommonProgramGroupingsList().then(function (result) {
             commonProgramDDLDataSource = serviceInstance.commonProgramGroupingsInfoList.map(function (commonProgramObj) {
-                return { 'id': commonProgramObj.commonProgramsGroupingId, 'name': commonProgramObj.commonProgramGroupings }
+                return commonProgramObj.commonProgramGroupings;//{ 'id': commonProgramObj.commonProgramGroupings, 'name': commonProgramObj.commonProgramGroupings }
             });
             defer.resolve(commonProgramDDLDataSource);
         }, function (error) {
@@ -108,7 +108,7 @@ function (httpHelper, maintenanceManagementService, $q, appConstants, userProfil
                 'programId': serverResponseObj.ProgramId,
                 'name': serverResponseObj.ProgramName || '', //If ProgramName is null or undefine then initialized with empty string
                 'description': serverResponseObj.ProgramDescription || '',
-                'commonProgramName': serverResponseObj.CommonPrograms || '',
+                'selectedCommonProgram': serverResponseObj.CommonPrograms,
                 'status': serverResponseObj.ProgramStatus,
                 'organizationId': serverResponseObj.OrganizationId,
                 'editedOn': serverResponseObj.ProgramLastEditedOn,
@@ -130,7 +130,7 @@ function (httpHelper, maintenanceManagementService, $q, appConstants, userProfil
             postData = {
                 'ProgramName': programInfo.name,
                 'ProgramDescription': programInfo.description,
-                'CommonPrograms': programInfo.selectedCommonProgram.name,
+                'CommonPrograms': programInfo.selectedCommonProgram,
                 'ProgramStatus': programInfo.status,
                 'OrganizationId': userProfileService.profile.params.organizationId,
                 "programLastEditedOn": new Date().yyyymmdd(), //"2014-11-05T12:31:29.5629962+05:30",

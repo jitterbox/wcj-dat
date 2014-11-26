@@ -239,7 +239,7 @@ function ($routeProvider, $locationProvider, appConstants) {
 
 //Restrict unauthorized user to access restricted page directly
 //TODO: Need to be optimized depending upon the authentication and authorization model .(Discussion is pending)
-fsdtsApp.run(function ($rootScope, $location) {
+fsdtsApp.run(function ($rootScope, $location, userProfileService) {
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         var authorizedRoles;
         //Getting page restriction details
@@ -247,9 +247,9 @@ fsdtsApp.run(function ($rootScope, $location) {
             authorizedRoles = next.data.authorizedRoles;
         }
         if (authorizedRoles && authorizedRoles.length > 0) { //If its a restricted page
-            if ($rootScope.userProfile.loggedIn === true) { //User is loggedIn or not
+            if (userProfileService.profile.loggedIn === true) { //User is loggedIn or not
                 //Checking whether user have permission to access the page or not 
-                if (authorizedRoles.indexOf($rootScope.userProfile.credentials.userType) < 0) {
+                if (authorizedRoles.indexOf(userProfileService.profile.credentials.userType) < 0) {
                     $location.path('/login');
                 }
 
@@ -257,6 +257,18 @@ fsdtsApp.run(function ($rootScope, $location) {
                 $location.path('/login');
             }
         }
+
+        //if (authorizedRoles && authorizedRoles.length > 0) { //If its a restricted page
+        //    if ($rootScope.userProfile.loggedIn === true) { //User is loggedIn or not
+        //        //Checking whether user have permission to access the page or not 
+        //        if (authorizedRoles.indexOf($rootScope.userProfile.credentials.userType) < 0) {
+        //            $location.path('/login');
+        //        }
+
+        //    } else {
+        //        $location.path('/login');
+        //    }
+        //}
 
     });
 });

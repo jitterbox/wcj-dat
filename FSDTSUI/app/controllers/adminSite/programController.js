@@ -102,7 +102,6 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
     var loadCommonProgramDDL = function () {
         programManagementService.papulateCommonProgramDDL().then(function (result) {
             $scope.commonProgramGroupingsList = result;
-            console.log($scope.commonProgramGroupingsList);
         }, function (error) {
             showErrorWindow(error);
         });

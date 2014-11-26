@@ -14,8 +14,9 @@ fsdtsApp.constant('appConstants', {
         'PROJECT': 'http://192.168.15.90:8090/api/Project/',
         'PERIOD': 'http://192.168.15.90:8090/api/Period/',
         'USER': 'http://192.168.15.90:8090/api/User/',
-        'ADMIN_USER': 'http://192.168.15.90:8090/api/User/',
+        'ADMIN_USER': 'http://192.168.15.90:8090/Api/GetUserInfoByUserType/',
         'GET_USER': 'http://192.168.15.90:8090/api/GetUserInfoById',
+        'LOGIN_USER': 'http://192.168.15.90:8090/api/Login',
         'PARTICIPANT': 'http://192.168.15.90:8090/api/ProjectOrganization/',
         'MAINTAINANCE': 'http://192.168.15.90:8090/api/CommonProgramsGrouping/'
 
@@ -75,11 +76,11 @@ fsdtsApp.constant('appConstants', {
 //#region Application level variables
 fsdtsApp.run(function ($rootScope, userProfileService, $cookieStore) {
 
-    var userProfile = $cookieStore.get('userProfile');
-    if (userProfile) { //If user is already logedin
-        $rootScope.userProfile = userProfile;
-    } else {
-        $rootScope.userProfile = userProfileService.profile;
-    }
+    //var userProfile = $cookieStore.get('userProfile');
+    //if (userProfile) { //If user is already logedin
+    //    $rootScope.userProfile = userProfile;
+    //} else {
+    //    $rootScope.userProfile = userProfileService.profile;
+    //}
 });
 //#endregion

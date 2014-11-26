@@ -240,6 +240,12 @@ background-image: url('../images/error.png')
   background-color: #c9dde1;
 }
 
+.error-msg {
+margin: .5em 0;
+display: block;
+color: #dd4b39;
+line-height: 17px;
+}
 @media only screen and (min-width : 320px) and (max-width : 800px) {
 
     .panel-default h1, .panel-default h2 {

@@ -2,7 +2,6 @@
 *Used to provide all the functionality required for user module
     
 *Expose method :
-addprogram(userInfo)
 post data format :
 var postData = {
     "UserId": 1,
@@ -56,9 +55,9 @@ function (httpHelper, $q, appConstants, userProfileService) {
     serviceInstance.editUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
         if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) { //edit existing admin user
-            return httpHelper.patch(appConstants.API_END_POINTS.ADMIN_USER + userProfileService.profile.params.userId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.ADMIN_USER + userProfileService.profile.params.userId, postData);
         } else { //edit existing organization user
-            return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
         }
     };
 
@@ -74,7 +73,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
             return httpHelper.get(appConstants.API_END_POINTS.GET_USER + '?Uid=' + userId);
         } else {
             if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) { // get admin user detail
-                return httpHelper.get(appConstants.API_END_POINTS.ADMIN_USER);
+                return httpHelper.get(appConstants.API_END_POINTS.ADMIN_USER+'?UType=ADMIN');
             } else {// get organization user detail
                 return httpHelper.get(appConstants.API_END_POINTS.USER + '?Oid=' + userProfileService.profile.params.organizationId);
             }

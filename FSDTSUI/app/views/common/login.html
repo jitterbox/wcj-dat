@@ -48,21 +48,26 @@
             <div class="login-box animated fadeInDown">
                 <!--<div class="login-logo"></div>-->
                 <div class="login-body">
+                    <!-- START waiting window  -->
+                      <div class="container-popup" ng-show="showSpin" >
+                           <div class="popup">
+                              <img src="styles/images/spinImage.gif"/>
+                           </div>
+                       </div>
+                      <!-- END waiting window  -->
                     <div class="login-title">
                         <strong>Welcome</strong>, Please login</div>
                     <form class="form-horizontal" kendo-validator="validator" ng-submit="onLogin($event)">
                     <div class="form-group">
                         <div class="col-md-12 required" for="Username">
-                            <input type="text" placeholder="Username" class="form-control" name="Username"
-                                required data-required-msg="Please enter Username." 
-                                onblur="if(this.value=='')this.value='Username'" onfocus="if(this.value=='Username')this.value='' ">
+                            <input type="text" ng-model="userCredential.emailId" placeholder="Username" class="form-control" name="Username"
+                                required data-required-msg="Please enter Username." >
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12 required" for="Password">
-                            <input type="password" placeholder="Password" class="form-control"  name="Password"
-                                required data-required-msg="Please enter Password."
-                                onblur="if(this.value=='')this.value='Password'" onfocus="if(this.value=='Password')this.value='' ">
+                            <input type="password" ng-model="userCredential.password" placeholder="Password" class="form-control"  name="Password"
+                                required data-required-msg="Please enter Password.">
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,8 +75,8 @@
                             <a class="btn btn-link btn-block" href="#">Forgot your password?</a>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-info btn-block"  type="submit" value="Login">
-                                Log In</button>
+                            <button class="btn btn-info btn-block"  type="submit" value="Login">Log In</button>
+                            <span class="error-msg" ng-show="userCredential.invalidCredential"> Invalid username or password.</span>
                         </div>
                     </div>
                     </form>
