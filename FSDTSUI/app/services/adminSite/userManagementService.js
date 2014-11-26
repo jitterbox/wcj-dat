@@ -55,9 +55,9 @@ function (httpHelper, $q, appConstants, userProfileService) {
     serviceInstance.editUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.EDIT);
         if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) { //edit existing admin user
-            return httpHelper.put(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+            return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
         } else { //edit existing organization user
-            return httpHelper.put(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
+            return httpHelper.patch(appConstants.API_END_POINTS.USER + userProfileService.profile.params.userId, postData);
         }
     };
 
