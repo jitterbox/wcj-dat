@@ -60,7 +60,7 @@
                     <form class="form-horizontal" kendo-validator="validator" ng-submit="onLogin($event)">
                     <div class="form-group">
                         <div class="col-md-12 required" for="Username">
-                            <input type="text" ng-model="userCredential.emailId" placeholder="Username" class="form-control" name="Username"
+                            <input type="text" ng-model="userCredential.emailId" placeholder="Email Id" class="form-control" name="Username"
                                 required data-required-msg="Please enter Username." >
                         </div>
                     </div>
@@ -76,8 +76,8 @@
                         </div>
                         <div class="col-md-6">
                             <button class="btn btn-info btn-block"  type="submit" value="Login">Log In</button>
-                            <span class="error-msg" ng-show="userCredential.invalidCredential"> Invalid username or password.</span>
                         </div>
+                        <span class="error-msg" ng-show="userCredential.invalidCredential"> Invalid username or password.</span>
                     </div>
                     </form>
                 </div>

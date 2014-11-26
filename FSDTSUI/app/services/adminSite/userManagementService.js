@@ -40,7 +40,7 @@ function (httpHelper, $q, appConstants, userProfileService) {
     serviceInstance.addUser = function (userInfo) {
         var postData = getPostData(userInfo, appConstants.OPERATION_TYPE.ADD);
         if (userProfileService.profile.params.userType === appConstants.USER_TYPE.ADMINUSER) {//add existing admin user
-            return httpHelper.post(appConstants.API_END_POINTS.ADMIN_USER, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
         } else {//edit existing organization user
             return httpHelper.post(appConstants.API_END_POINTS.USER, postData);
         }
