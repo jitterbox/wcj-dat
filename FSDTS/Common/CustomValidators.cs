@@ -71,5 +71,38 @@ namespace FSDTS.Common
                 }
             }
         }
+
+        public class UniqueAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                FSDTSContext fsdtsContext = new FSDTSContext();
+
+                if (validationContext.DisplayName.Equals("UserEmail"))
+                {
+                    User user = new User();
+                    user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value.ToString());
+
+                    if (user != null)
+                    {
+                        return new ValidationResult(ErrorMessage);
+                    }
+
+                    return ValidationResult.Success;
+                }
+                else
+                {
+                    CommonProgramsGrouping commonProgramsGrouping = new CommonProgramsGrouping();
+                    commonProgramsGrouping = fsdtsContext.CommonGrouping.SingleOrDefault(cgp => cgp.CommonProgramsGroupingName == value.ToString());
+
+                    if (commonProgramsGrouping != null)
+                    {
+                        return new ValidationResult(ErrorMessage);
+                    }
+
+                    return ValidationResult.Success;
+                }
+            }
+        }
     }
 }
