@@ -78,8 +78,7 @@ fsdtsApp.directive('appHeader', ['appConstants', '$location','userProfileService
                 //console.log($scope); 
             },
             controller: function ($scope,$rootScope, $element, $attrs, $cookieStore, userProfileService) {
-                console.log(' $scope.mainMenuActions', $scope.mainMenuActions);
-                //TODO: Remove dummy code :  Actual logout code need to placed here as per the requirment
+                //Logout handler
                 $scope.onLogout = function () {
                     $scope.userProfile = userProfileService.resetUserProfile();
                     $rootScope.$broadcast(appConstants.EVENT_TYPE.USERPROFILE_CHANGE, $scope.userProfile);

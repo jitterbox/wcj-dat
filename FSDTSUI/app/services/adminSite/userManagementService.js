@@ -68,7 +68,6 @@ function (httpHelper, $q, appConstants, userProfileService) {
     * @return   promise
     */
     serviceInstance.getUserDetails = function (userId) {
-        console.log(userId); 
         if (userId) {//If not pass userId then it returns all user
             return httpHelper.get(appConstants.API_END_POINTS.GET_USER + '?Uid=' + userId);
         } else {
