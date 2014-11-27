@@ -35,11 +35,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
                  if ($scope.showAddButton === true) {
                      showConfirmWindow();
                  } else if ($scope.showAddButton === false) {
-                     if (isDirtyForm($scope.maintenanceInfo)) {//Check dirty form
                          showConfirmWindow();
-                     } else {
-                         showErrorWindow(['Edit form data before submit.']);
-                     }
                  }
              }
          } else {
@@ -74,24 +70,18 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          $scope.selectedMaintenance = null;
      };
 
-     var masterMaintenanceInfo;
      $scope.onActionClick = function (maintenance) {
          $scope.showAddButton = false;
          userProfileService.profile.params.commonProgramsGroupingId = maintenance.commonProgramsGroupingId; ;
          $scope.maintenanceInfo = {
              commonProgramGroupings: maintenance.commonProgramGroupings
          };
-         masterMaintenanceInfo = angular.copy($scope.maintenanceInfo);
      };
 
      //On cancel button click handler
      $scope.onCancel = function () {
          $scope.confirmWindowOption.actionType = "Cancel";
          $scope.confirmWindowOption.showConfirm = true;
-     };
-
-     var isDirtyForm = function (maintenanceInfo) {
-         return !angular.equals(maintenanceInfo, masterMaintenanceInfo);
      };
 
      //Showing error window
@@ -186,6 +176,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          }
          return hasDuplicate;
      };
+
      //used for initializing the controller
      var init = function () {
          //#region initialize scope variables
