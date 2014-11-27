@@ -48,16 +48,19 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 useExternalFilter: true,
                 search: ''
             };
-            $scope.pagingOptions = {
-                pageSizes: [10, 15, 20],
-                pageSize: 10,
-                currentPage: 1
-            };
+            
+            //Check for pagination option
+            if ($scope.customOptions && $scope.customOptions.pagingOptions) {//Custom pagination option
+                $scope.pagingOptions = $scope.customOptions.pagingOptions;
+            } else {//Take default configuration from config file
+                $scope.pagingOptions = appConstants.GRID_PAGING_OPTION;
+            }
+
             var defaultOptions = {
                 data: 'myData',
                 columnDefs: $scope.cols,
                 selectedItems: $scope.selectedItems,
-                enablePaging: true,
+                enablePaging: $scope.pagingOptions.enablePaging,
                 showFooter: true,
                 totalServerItems: 'totalServerItems',
                 pagingOptions: $scope.pagingOptions,
@@ -100,6 +103,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                       // $scope.$apply();
                 }
             };
+
             $scope.getPagedDataAsync = function (pageSize, page, searchText) {
                 //  setTimeout(function () {
                 var data;
@@ -127,7 +131,11 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
 
             $scope.$watch('papulateGrid', function (newVal, oldVal) {
                 //if (newVal !== oldVal) {
-                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+                if ($scope.pagingOptions.enablePaging === true) {// If paging is not enabled then pagesize is same as total number of record 
+                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+                } else {
+                    $scope.getPagedDataAsync($scope.gridData.length, 1);
+                }
                 //  }
             }, true);
             

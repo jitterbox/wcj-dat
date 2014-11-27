@@ -14,7 +14,7 @@ fsdtsApp.constant('appConstants', {
         'PROJECT': 'http://203.197.80.136/api/Project/',
         'PERIOD': 'http://203.197.80.136/api/Period/',
         'USER': 'http://203.197.80.136/api/User/',
-        'ADMIN_USER': 'http://203.197.80.136/api/GetUserInfoByUserType/',
+        'ADMIN_USER': 'http://203.197.80.136/api/GetUserInfoByUserType',
         'GET_USER': 'http://203.197.80.136/api/GetUserInfoById',
         'LOGIN_USER': 'http://203.197.80.136/api/Login',
         'PARTICIPANT': 'http://203.197.80.136/api/ProjectOrganization/',
@@ -70,7 +70,12 @@ fsdtsApp.constant('appConstants', {
     'EVENT_TYPE': {
         'USERPROFILE_CHANGE': 'userProfileChange',
     },
-
+    'GRID_PAGING_OPTION':{
+        'pageSizes': [10, 15, 20],
+        'pageSize': 10,
+        'currentPage': 1,
+        'enablePaging': false
+    }
 });
 //#endregion
 //#region Application level variables
