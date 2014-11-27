@@ -51,8 +51,11 @@ namespace FSDTS.Models
         /// <summary>
         /// Gets or sets UserPassword: Password of the user.
         /// </summary>
-        [MinLength(6, ErrorMessage = "Password should be at least 6 characters.")]
+        //[MinLength(6, ErrorMessage = "Password should be at least 6 characters.")]
+        //[MaxLength(10, ErrorMessage = "")]
         [DataType(DataType.Password)]
+        //[Required]
+        [FSDTS.Common.CustomValidators.ValidatePassword(ErrorMessage="Please enter a password with minimum 6 and maximum 10 characters with atleast 1 lowercase,1 uppercase and 1 numeric value.")]
         public string UserPassword { get; set; }
 
         /// <summary>

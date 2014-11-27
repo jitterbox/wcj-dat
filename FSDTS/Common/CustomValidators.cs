@@ -10,6 +10,8 @@ namespace FSDTS.Common
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using System.Configuration;
+    using System.Collections.Specialized;
     using FSDTS.Models;
 
     /// <summary>
@@ -105,6 +107,48 @@ namespace FSDTS.Common
 
                     return ValidationResult.Success;
                 }
+            }
+        }
+
+        public class ValidatePasswordAttribute : ValidationAttribute
+        {
+             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                string password = value.ToString();
+                int passwordLength = password.Length; 
+                int passwordMinimumCharacters = Convert.ToInt32(ConfigurationManager.AppSettings.Get("PasswordMinCharacters"));
+                int passwordMaximumCharacters = Convert.ToInt32(ConfigurationManager.AppSettings.Get("PasswordMaxCharacters"));
+                int upperCount = 0;
+                int lowerCount = 0;
+                int numberCount = 0;
+
+                if (!(passwordLength < passwordMinimumCharacters || passwordLength > passwordMaximumCharacters))
+                {
+                    for (int i = 0; i < passwordLength; i++)
+                    {
+                        if (password[i] >= 'A' && password[i] <= 'Z')
+                        {
+                            upperCount += 1;
+                        }
+                        else
+                        if (password[i] >= 'a' && password[i] <= 'z')
+                        {
+                            lowerCount += 1;
+                        }
+                        else
+                        if (password[i] >= '0' && password[i] <= '9')
+                        {
+                            numberCount += 1;
+                        }
+                    }
+                }  
+
+                if (upperCount == 0 || lowerCount == 0 || numberCount == 0)
+                {
+                    return new ValidationResult(ErrorMessage);
+                }
+
+                return ValidationResult.Success;
             }
         }
     }
