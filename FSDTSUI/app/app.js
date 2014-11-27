@@ -214,15 +214,25 @@ function ($routeProvider, $locationProvider, appConstants) {
             authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
-   when('/aboutUs', {
+    when('/forgotPassword', {
+        templateUrl: 'app/views/common/forgotPassword.html',
+        controller: 'authController'
+    }).
+    when('/resetPassword', {
+       templateUrl: 'app/views/common/resetPassword.html',
+       controller: 'authController'
+    }).
+    when('/aboutUs', {
        templateUrl: 'app/views/common/aboutUs.html',
        activePage: 'AboutUs',
        label: 'AboutUs'
-   }).when('/aboutIndustry', {
+    }).
+    when('/aboutIndustry', {
        templateUrl: 'app/views/common/aboutIndustry.html',
        activePage: 'About Industry',
        label: 'About Industry'
-   }).when('/welcome', {
+    }).
+    when('/welcome', {
        templateUrl: 'app/views/common/welcome.html',
        activePage: 'Welcome',
        label: 'Welcome',

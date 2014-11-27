@@ -18,7 +18,7 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                     //Hide spin window
                     $scope.showSpin = false;
                     setUserProfile(userProfile);
-                   // $scope.userCredential.invalidCredential = false;
+                    // $scope.userCredential.invalidCredential = false;
                     $location.path('/');
                 }, function (error) {
                     console.log();
@@ -32,6 +32,35 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
             }
         };
 
+        $scope.refreshCaptcha = function () {
+            if ($scope.forgotPassword) {
+                $scope.forgotPassword.captcha = drawCaptcha();
+            } else {
+                $scope.forgotPassword = { 'captcha': drawCaptcha() };
+            }
+        };
+
+        $scope.onSubmitForgotPassword = function () {
+            event.preventDefault();
+            if ($scope.validator.validate() && validateCaptcha()) {
+                $scope.validationClass = "valid";
+                //$scope.showSpin = true;
+            } else {
+                $scope.validationClass = "invalid";
+            }
+        };
+
+        var validateCaptcha = function () {
+            if (removeSpaces($scope.forgotPassword.captcha) === removeSpaces($scope.forgotPassword.rewriteCaptcha) ) {
+                $scope.forgotPassword.hasError = false;
+                return true;
+            } else {
+                $scope.forgotPassword.hasError = true;
+                $scope.forgotPassword.errorMessage = 'Invalid captcha';
+                return false;
+            }
+        };
+
         //Set login user profile
         var setUserProfile = function (userProfileObj) {
             userProfileService.setUserProfile(userProfileObj);
@@ -42,11 +71,12 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
 
         //used for initializing the controller
         var init = (function () {
-            $scope.userAuth = {'invalidCredential':false};
+            $scope.userAuth = { 'invalidCredential': false };
             $scope.errorWindowOption = {
                 showError: false,
                 errorMessage: null
             };
+            $scope.forgotPassword = { 'captcha': drawCaptcha() };
         })();
 
         //Remov all application level variables & handlers here
