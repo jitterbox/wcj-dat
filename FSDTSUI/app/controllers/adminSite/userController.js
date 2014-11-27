@@ -9,10 +9,18 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
     //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
-        if ($scope.validator.validate()) {  // code for validation
+        if ($scope.validator.validate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.userInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow(['Edit form data before submit.']);
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
@@ -38,11 +46,21 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         }
     };
 
+    var isDirtyForm = function (userInfo) {
+        return !angular.equals(userInfo, masterUserInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
         $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
+    };
+
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
     };
 
     //Reset the form control
@@ -93,13 +111,14 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         });
     };
 
+    var masterUserInfo;
     //Service call to get //Service call to get user details
     var getUser = function () {
         //Show spin window
         $scope.showSpin = true;
         userManagementService.getUserDetails(userProfileService.profile.params.userId).then(function (result) {
-            console.log(result);
             $scope.userInfo = userManagementService.populateUserModel(result);
+            masterUserInfo = angular.copy($scope.userInfo);
             //Show spin window
             $scope.showSpin = false;
         }, function (error) {

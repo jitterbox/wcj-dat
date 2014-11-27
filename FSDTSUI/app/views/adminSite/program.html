@@ -8,75 +8,88 @@
                         <!-- START CUSTOM CODE -->
                         <div class="block">
                             <!-- START waiting window  -->
-                             <div class="container-popup" ng-show="showSpin" >
-                                    <div class="popup">
-                                        <img src="styles/images/spinImage.gif"/>
-                                    </div>
-                             </div>
+                            <div class="container-popup" ng-show="showSpin">
+                                <div class="popup">
+                                    <img src="styles/images/spinImage.gif" />
+                                </div>
+                            </div>
                             <!-- END waiting window  -->
                             <form class="form-horizontal" kendo-validator="validator" ng-submit="onSubmit($event)">
-                                <!-- START confirm window  -->
-                                    <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
-                                <!-- END conform window  -->
-                                <error-window option="errorWindowOption"></error-window>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label required" for="Program Name">Program Name</label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" ng-model="programInfo.name" name="Program Name" 
-                                         pattern=".{1,100}" required data-required-msg="Please enter program name." 
-                                         validationMessage="Program name should be less than 100 characters."/>
-                                    </div>
-                                    </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label required" for="Program Description">Program Description</label>
-                                    <div class="col-md-6">
-                                        <textarea type="text" rows="5" class="form-control" ng-model="programInfo.description" name="Program Description"
-                                          pattern=".{1,500}" required  data-required-msg="Please enter program description." 
-                                        validationMessage="Program description should be less than 500 characters."></textarea>
-                                    </div>
-                                    </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Common Programs</label>
-                                    <div class="col-md-3">
-                                       <!-- <select ng-model="programInfo.selectedCommonProgram" ng-options="obj as obj.name for obj in commonProgramGroupingsList" class="form-control select dropdown">
+                            <!-- START confirm window  -->
+                            <confirm-window option="confirmWindowOption" action-handler="confirmActionHandler(actionType,isConfirmed)"></confirm-window>
+                            <!-- END conform window  -->
+                            <!-- START error window  -->
+                            <error-window option="errorWindowOption"></error-window>
+                            <!-- END error window  -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Program Name">
+                                    Program Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="programInfo.name" name="Program Name"
+                                        pattern=".{1,100}" required data-required-msg="Please enter program name." validationmessage="Program name should be less than 100 characters." />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required" for="Program Description">
+                                    Program Description</label>
+                                <div class="col-md-6">
+                                    <textarea type="text" rows="5" class="form-control" ng-model="programInfo.description"
+                                        name="Program Description" pattern=".{1,500}" required data-required-msg="Please enter program description."
+                                        validationmessage="Program description should be less than 500 characters."></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    Common Programs</label>
+                                <div class="col-md-3">
+                                    <!-- <select ng-model="programInfo.selectedCommonProgram" ng-options="obj as obj.name for obj in commonProgramGroupingsList" class="form-control select dropdown">
                                             <option value="" disabled selected>Select One (Optional)</option>
                                         </select>-->
-                                        <select ng-model="programInfo.selectedCommonProgram" ng-options="programName for programName in commonProgramGroupingsList" class="form-control select dropdown">
-                                            <option value="" disabled selected>Select One (Optional)</option>
-                                        </select>
-                                        <!--<span class="caret caretStyle"></span>-->
+                                    <select ng-model="programInfo.selectedCommonProgram" ng-options="programName for programName in commonProgramGroupingsList"
+                                        class="form-control select dropdown">
+                                        <option value="" disabled selected>Select One (Optional)</option>
+                                    </select>
+                                    <!--<span class="caret caretStyle"></span>-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    Status</label>
+                                <div class="col-md-8">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="iradio" name="iradio" ng-model="programInfo.status" value="Active" />
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="iradio" name="iradio" ng-model="programInfo.status" value="Inactive" />
+                                            Inactive (If Organization will no longer participate in any Projects)
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Status</label>
-                                    <div class="col-md-8">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="iradio" name="iradio" ng-model="programInfo.status" value="Active" />
-                                                Active
-                                            </label>
-                                        </div>
-
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="iradio" name="iradio" ng-model="programInfo.status" value="Inactive" />
-                                                Inactive (If Organization will no longer participate in any Projects)
-                                            </label>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="btn-group pull-right col-md-10">
+                                <button type="button" class="btn btn-primary" ng-click="onCancel()">
+                                    Cancel</button>
+                                <button type="submit" class="btn btn-primary">
+                                    Submit</button>
+                                <div class="col-md-1">
                                 </div>
-                                <div class="btn-group pull-right col-md-10">
-                                    <button type="button" class="btn btn-primary" ng-click="onCancel()">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <div class="col-md-1"></div>
-                                    <!-- Edited informations is only for edit operation-->
-                                    <div ng-if="actionType===OPERATION_TYPE.EDIT">
-                                        <label class="control-label editedName"><label class="normaltext">Last edited:</label> {{programInfo.editedOn | date:'MM/dd/yyyy'}}</label>
-                                        <label class="control-label editedName"><label class="normaltext">Last edited by:</label> {{programInfo.editedBy}}</label>
-                                    </div>
+                                <!-- Edited informations is only for edit operation-->
+                                <div ng-if="actionType===OPERATION_TYPE.EDIT">
+                                    <label class="control-label editedName">
+                                        <label class="normaltext">
+                                            Last edited:</label>
+                                        {{programInfo.editedOn | date:'MM/dd/yyyy'}}</label>
+                                    <label class="control-label editedName">
+                                        <label class="normaltext">
+                                            Last edited by:</label>
+                                        {{programInfo.editedBy}}</label>
                                 </div>
+                            </div>
                             </form>
-
                         </div>
                         <!-- END CUSTOM CODE -->
                     </div>

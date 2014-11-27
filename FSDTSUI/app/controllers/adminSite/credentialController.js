@@ -10,8 +10,16 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
         event.preventDefault();
         if ($scope.validator.validate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.credentialInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow(['Edit form data before submit.']);
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
@@ -37,11 +45,21 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
         }
     };
 
+    var isDirtyForm = function (credentialInfo) {
+        return !angular.equals(credentialInfo, masterCredentialInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
         $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
+    };
+
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
     };
 
     //Reset the form control
@@ -80,12 +98,14 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
         });
     };
 
+    var masterCredentialInfo;
     //Service call to get credential details
     var getCredential = function () {
         //Show spin window
         $scope.showSpin = true;
         credentialManagementService.getCredentialDetails(userProfileService.profile.params.credentialId).then(function (result) {
             $scope.credentialInfo = credentialManagementService.populateCredentialModel(result);
+            masterCredentialInfo = angular.copy($scope.credentialInfo);
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {
