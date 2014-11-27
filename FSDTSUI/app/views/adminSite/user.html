@@ -101,7 +101,9 @@
                                 Password</label>
                             <div class="col-md-4">
                                 <input type="password" id="password1" name="Password" class="form-control" ng-model="userInfo.password"
-                                    pattern=".{6,10}" required data-required-msg="Please enter password." validationmessage="Password length should be between 6 to 10 digit." />
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*).{8,}$" required data-required-msg="Please enter password." 
+                                    validationmessage="Please enter a password which is at least 8 
+                                    characters long and contains a lowercase character, an uppercase character and a number" />
                             </div>
                         </div>
                         <!-- ADMIN USER-->
