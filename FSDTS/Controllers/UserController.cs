@@ -25,7 +25,9 @@ namespace FSDTS.Controllers
     using FSDTS.Models;
     using log4net;
     using Microsoft.AspNet.Identity;
-   
+    using FSDTS.Business_Objects;
+    using System.Web;
+    
     /// <summary>
     /// UserController class.
     /// For CRUD operation related to User.
@@ -187,13 +189,13 @@ namespace FSDTS.Controllers
                 objuser.ManageUsers = Convert.ToBoolean(reader["ManageUsers"]);
                 objuser.ManageProjects = Convert.ToBoolean(reader["ManageProjects"]);
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
-                ////lstUser.Add(objuser);
+                //lstUser.Add(objuser);
             }
 
             cmd.Dispose();
             con.Dispose();
             return objuser;
-            ////return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+            //return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
         }
 
         /// <summary>
@@ -274,12 +276,11 @@ namespace FSDTS.Controllers
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
-
             cmd.Dispose();
             con.Dispose();
             return lstUser;
             
-            ////return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+            //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
         /// <summary>
@@ -304,9 +305,8 @@ namespace FSDTS.Controllers
                 Log.Error("In PutUser method: User sending id as: " + user.UserId + ". BadRequest");
                 return BadRequest();
             }
-
-            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-            user.UserPassword = EncryptedPassword;
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            //user.UserPassword = EncryptedPassword;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -342,9 +342,17 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+<<<<<<< Updated upstream
 
-            var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
-            doc.UserPassword = EncryptedPassword;
+
+           
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
+>>>>>>> Stashed changes
+=======
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
+>>>>>>> Stashed changes
 
             user.Patch(doc);
             objContext.Entry(doc).State = EntityState.Modified;
@@ -372,8 +380,8 @@ namespace FSDTS.Controllers
                 }
 
                 Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
-                var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-                user.UserPassword = EncryptedPassword;
+                //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+                //user.UserPassword = EncryptedPassword;
                 db.User.Add(user);
                 Log.Info(FsdtsConstants.UpdatingDatabase);
                 db.SaveChanges();
@@ -438,33 +446,45 @@ namespace FSDTS.Controllers
         /// <param name="userName">string userName</param>
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
+=======
+        [ResponseType(typeof(User))]
+>>>>>>> Stashed changes
         [FsdtsExceptionHandler]
-        public HttpResponseMessage Login(string userName, string userPassword)
+        [Route("Api/Login")]
+        [HttpPost]
+        public HttpResponseMessage Login(string uname, string pwd)
         {
             HttpResponse response = HttpContext.Current.Response;
-            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userName));
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(uname));
 
             if (user != null)
             {
-                if (user.UserEmail.Equals(userName))
+                if (user.UserEmail.Equals(uname))
                 {
+
                     //// if(UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
                     if (user.UserPassword.Equals(userPassword)) 
+=======
+                    //if (UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userobj.UserPassword)))
+                    if (user.UserPassword.Equals(pwd))
                     {
-                        response.Write("Success");
+                        //response.Write("Success");
+                        return Request.CreateResponse(user);
+
                     }
                     else
                     {
-                        response.Write("Wrong Password");
+                        //response.Write("Wrong Password");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
                     }
                 }
             }
             else
             {
-                response.Write("User not found");
+                //response.Write("User not found");
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return null;
         }
     }
 }
