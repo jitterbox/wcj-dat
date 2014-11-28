@@ -55,7 +55,7 @@ namespace FSDTS.Models
         //[MaxLength(10, ErrorMessage = "")]
         [DataType(DataType.Password)]
         //[Required]
-        [FSDTS.Common.CustomValidators.ValidatePassword(ErrorMessage="Please enter a password with minimum 6 and maximum 10 characters with atleast 1 lowercase,1 uppercase and 1 numeric value.")]
+        //[FSDTS.Common.CustomValidators.ValidatePassword(ErrorMessage="Please enter a password with minimum 6 and maximum 10 characters with atleast 1 lowercase,1 uppercase and 1 numeric value.")]
         public string UserPassword { get; set; }
 
         /// <summary>

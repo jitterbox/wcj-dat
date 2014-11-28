@@ -381,6 +381,7 @@ namespace FSDTS.Controllers
         //// POST api/User
         [ResponseType(typeof(User))]
         [FsdtsExceptionHandler]
+        [HttpPost]
         public IHttpActionResult PostUser(User user)
         {
                 if (!ModelState.IsValid)
@@ -459,10 +460,7 @@ namespace FSDTS.Controllers
 
         [ResponseType(typeof(User))]
         [FsdtsExceptionHandler]
-<<<<<<< Updated upstream
-=======
         [Route("Api/Login")]
-        [HttpPost]
         [HttpPost]
         public HttpResponseMessage Login(User userobj)
         {
@@ -495,16 +493,27 @@ namespace FSDTS.Controllers
             return null;
         }
 
-        public HttpResponseMessage PostForgotPassword(string userEmailId, string userFirstName)
+        [Route("api/ForgotPassword")]
+        public HttpResponseMessage ForgotPassword(User userObj)
         {
-            User user = db.User.SingleOrDefault(usr => usr.UserEmail == userEmailId && usr.UserFirstName == userFirstName);
-            HttpResponse response = HttpContext.Current.Response;; // = new HttpResponse();
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail == userObj.UserEmail && usr.UserFirstName == userObj.UserFirstName);
+            HttpResponse response = HttpContext.Current.Response;
             if (user != null)
             {
-                response.Write("Success");
-                string uniqueCode = UserBO.GetUniqueKey(user);
                 string url = Convert.ToString(ConfigurationManager.AppSettings.Get("ForgotPasswordLink"));
-                // FsdtsCommonMethods.SendEmail("mandar1330ge@gmail.com", "test mail", FsdtsConstants.MailBody + uniqueCode);
+                if (user.VerificationNo == userObj.VerificationNo)
+                {
+                    string uniqueCode = UserBO.GetUniqueKey(user);
+                    response.Write("Success");
+                    url += uniqueCode;
+                    FsdtsCommonMethods.SendEmail(user.UserEmail, "test mail", url);
+                    user.VerificationNo = uniqueCode;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    response.Write("Invalid request");
+                }
             }
             else
             {
