@@ -75,9 +75,9 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
             if ($route && $route.current && $route.current.$$route && $route.current.$$route.data && $route.current.$$route.data.actionType) {
                 if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.LOGIN) {//Initialization for login
                     $scope.userAuth = { 'invalidCredential': false };
-                } else if ($route.current.$$route.data.actionType === appConstants.FORGOTPASSWORD) {//Initalization for forgot password
+                } else if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.FORGOTPASSWORD) {//Initalization for forgot password
                     $scope.forgotPassword = { 'captcha': drawCaptcha() };
-                } else if ($route.current.$$route.data.actionType === appConstants.RESETPASSWORD) {//Initialization for reset password
+                } else if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.RESETPASSWORD) {//Initialization for reset password
                 }
             }
             console.log($route);
