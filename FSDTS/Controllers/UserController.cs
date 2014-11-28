@@ -107,6 +107,12 @@ namespace FSDTS.Controllers
 
             if (UType != null)
             {
+                reader = cmd.ExecuteReader();
+            }
+            else
+            {
+                throw new NullReferenceException("User Type you have entered is not correct.");
+            }
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -137,6 +143,7 @@ namespace FSDTS.Controllers
             con.Dispose();
             return lstUser;
             ////return db.ProjectOrganization.Where(p => p.IsDeleted == false).AsQueryable();
+
         }
 
         [Route("Api/GetUserInfoById")]
@@ -377,7 +384,6 @@ namespace FSDTS.Controllers
         [ResponseType(typeof(User))]
         [HttpPost]
         [FsdtsExceptionHandler]
-        [HttpPost]
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
@@ -526,17 +532,34 @@ namespace FSDTS.Controllers
                 }
                 else
                 response.Write("Invalid Request");
-
-
             }
             else
             {
                 response.Write("Failure");
             }
 
-
-
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [FsdtsExceptionHandler]
+        [AcceptVerbs("PATCH")]
+        [Route("Api/ResetPassword")]
+        public HttpResponseMessage ResetPassword(int id, Delta<User> user)
+        {
+            FSDTSContext objContext = new FSDTSContext();
+            User userObj = objContext.User.SingleOrDefault(p => p.UserId == id);
+            if (userObj == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            //userObj.UserPassword = user.
+            user.Patch(userObj);
+            objContext.Entry(userObj).State = EntityState.Modified;
+            ////objContext.SaveChanges();
+            db.SaveChanges();
+            objContext.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 }
