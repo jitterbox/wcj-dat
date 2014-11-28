@@ -214,6 +214,7 @@ namespace FSDTS.Controllers
             }
 
             Log.Info(FsdtsConstants.ItemWithSpecificID + id + ": " + FsdtsEnums.SearchByIDResult.Success);
+          
             return Ok(user);
         }
 
@@ -439,29 +440,51 @@ namespace FSDTS.Controllers
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
         [FsdtsExceptionHandler]
-        public HttpResponseMessage Login(string userName, string userPassword)
+        public HttpResponseMessage Login(User userobj)
         {
             HttpResponse response = HttpContext.Current.Response;
-            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userName));
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userobj.UserEmail));
 
             if (user != null)
             {
-                if (user.UserEmail.Equals(userName))
+                if (user.UserEmail.Equals(userobj.UserEmail))
                 {
-                    //// if(UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
-                    if (user.UserPassword.Equals(userPassword)) 
+                    //if (UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userobj.UserPassword)))
+                    if (user.UserPassword.Equals(userobj.UserPassword))
                     {
-                        response.Write("Success");
+                        //response.Write("Success");
+                        return Request.CreateResponse(user);
+
                     }
                     else
                     {
-                        response.Write("Wrong Password");
+                        //response.Write("Wrong Password");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
                     }
                 }
             }
             else
             {
-                response.Write("User not found");
+                //response.Write("User not found");
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return null;
+        }
+
+        public HttpResponseMessage PostForgotPassword(string userEmailId, string userFirstName)
+        {
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail == userEmailId && usr.UserFirstName == userFirstName);
+            HttpResponse response = HttpContext.Current.Response;; // = new HttpResponse();
+            if (user != null)
+            {
+                response.Write("Success");
+                string uniqueCode = UserBO.GetUniqueKey(user);
+                string url = Convert.ToString(ConfigurationManager.AppSettings.Get("ForgotPasswordLink"));
+                // FsdtsCommonMethods.SendEmail("mandar1330ge@gmail.com", "test mail", FsdtsConstants.MailBody + uniqueCode);
+            }
+            else
+            {
+                response.Write("Failure");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);

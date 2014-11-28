@@ -102,5 +102,23 @@ namespace FSDTS.Business_Objects
 
             return UTF8Encoding.GetString(decryptedData);
         }
+
+        public static string GetUniqueKey(User user)
+        {
+            UserBO userBO = new UserBO();
+            string vcode = userBO.GenerateVerificationCode(user.UserId.ToString(), user.UserFirstName.ToString());
+            return vcode;
+        }
+
+        public string GenerateVerificationCode(string userid, string firstname)
+        {
+            Random random = new Random();
+            string vcode;
+
+            string fname = firstname.Substring(0, 1);
+            vcode = fname.ToString() + random.Next(100, 10000).ToString() + userid.ToString();
+
+            return vcode;
+        }
     }
 }
