@@ -77,8 +77,8 @@ namespace FSDTS.Controllers
             return db.User.OrderBy(user => user.UserLastName);
         }
 
-        [Route("Api/GetUserInfo")]
-        public List<User> GetUserInfo()
+        [Route("Api/GetUserInfoByUserType")]
+        public List<User> GetUserInfoByUserType(string UType)
         {
             cmd = new SqlCommand();
             List<User> lstUser = new List<User>();
@@ -94,8 +94,25 @@ namespace FSDTS.Controllers
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "FSDTD_GetUserInfo";
-            
-            reader = cmd.ExecuteReader();
+
+            SqlParameter param = new SqlParameter();
+            param.Direction = ParameterDirection.Input;
+            param.DbType = DbType.String;
+            param.ParameterName = "@UserType";
+            param.Precision = 10;
+            param.SqlDbType = SqlDbType.Text;
+            param.SqlValue = UType;
+            param.Value = UType;
+            cmd.Parameters.Add(param);
+
+            if (UType != null)
+            {
+                reader = cmd.ExecuteReader();
+            }
+            else
+            {
+                throw new NullReferenceException("User Type you have entered is not correct.");
+            }
             while (reader.Read())
             {
                 objuser = new User();
@@ -341,17 +358,11 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-<<<<<<< Updated upstream
-
-
            
             //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
             //doc.UserPassword = EncryptedPassword;
->>>>>>> Stashed changes
-=======
             //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
             //doc.UserPassword = EncryptedPassword;
->>>>>>> Stashed changes
 
             user.Patch(doc);
             objContext.Entry(doc).State = EntityState.Modified;
@@ -445,10 +456,14 @@ namespace FSDTS.Controllers
         /// <param name="userName">string userName</param>
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
-=======
+
         [ResponseType(typeof(User))]
->>>>>>> Stashed changes
         [FsdtsExceptionHandler]
+<<<<<<< Updated upstream
+=======
+        [Route("Api/Login")]
+        [HttpPost]
+        [HttpPost]
         public HttpResponseMessage Login(User userobj)
         {
             HttpResponse response = HttpContext.Current.Response;

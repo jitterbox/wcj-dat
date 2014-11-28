@@ -82,11 +82,11 @@ namespace FSDTS.Common
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
                 FSDTSContext fsdtsContext = new FSDTSContext();
-
+                User userFromObject = (User) validationContext.ObjectInstance;
                 if (validationContext.DisplayName.Equals("UserEmail"))
                 {
                     User user = new User();
-                    user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value.ToString());
+                    user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value.ToString() && usr.UserId != userFromObject.UserId);
 
                     if (user != null)
                     {
