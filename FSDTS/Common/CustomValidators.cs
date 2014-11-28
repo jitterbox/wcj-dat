@@ -91,14 +91,17 @@ namespace FSDTS.Common
                 User userFromObject = (User) validationContext.ObjectInstance;
                 if (validationContext.DisplayName.Equals("UserEmail"))
                 {
-                    User user = new User();
-                    user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value.ToString() && usr.UserId != userFromObject.UserId);
-
-                    if (user != null)
+                    if (value != null)
                     {
-                        return new ValidationResult(ErrorMessage);
-                    }
+                        User user = new User();
+                        user = fsdtsContext.User.SingleOrDefault(usr => usr.UserEmail == value.ToString() && usr.UserId != userFromObject.UserId);
 
+                        if (user != null)
+                        {
+                            return new ValidationResult(ErrorMessage);
+                        }
+                        
+                    }
                     return ValidationResult.Success;
                 }
                 else
