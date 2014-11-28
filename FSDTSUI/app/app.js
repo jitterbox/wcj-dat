@@ -224,7 +224,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             'actionType': appConstants.OPERATION_TYPE.FORGOTPASSWORD
         }
     }).
-    when('/resetPassword', {
+    when('/resetPassword/:authCode/:userId', {
        templateUrl: 'app/views/common/resetPassword.html',
        controller: 'authController',
        data: {

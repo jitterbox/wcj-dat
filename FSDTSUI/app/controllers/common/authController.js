@@ -3,8 +3,8 @@ Is used to provide all event handling logic for authentication and authorization
 
 */
 'use strict';
-fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileService', '$location', '$cookieStore', 'appConstants', 'authService','$route',
-    function ($scope, $rootScope, userProfileService, $location, $cookieStore, appConstants, authService, $route) {
+fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileService', '$location', '$cookieStore', 'appConstants', 'authService', '$route', '$routeParams',
+    function ($scope, $rootScope, userProfileService, $location, $cookieStore, appConstants, authService, $route, $routeParams) {
         var userProfileChangeEvent;
         //On login button click handler
         $scope.onLogin = function () {
@@ -31,38 +31,124 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                 $scope.validationClass = "invalid";
             }
         };
+
         //Generate new captcha code
         $scope.refreshCaptcha = function () {
-            if ($scope.forgotPassword) {
-                $scope.forgotPassword.captcha = drawCaptcha();
+            if ($scope.forgotPasswordInfo) {
+                $scope.forgotPasswordInfo.captcha = drawCaptcha();
             } else {
-                $scope.forgotPassword = { 'captcha': drawCaptcha() };
+                $scope.forgotPasswordInfo = { 'captcha': drawCaptcha() };
             }
         };
+
         //On forgot password button click handler
         $scope.onSubmitForgotPassword = function () {
             event.preventDefault();
             if ($scope.validator.validate() && validateCaptcha()) {
                 $scope.validationClass = "valid";
-                //$scope.showSpin = true;
+                forgotPassword();
             } else {
                 $scope.validationClass = "invalid";
             }
         };
+
         //On reset password button click handler
-        $scope.onSubmitRestPassword= function () {
+        $scope.onSubmitRestPassword = function () {
+            event.preventDefault();
+            if ($scope.validator.validate() ) {
+                $scope.validationClass = "valid";
+                resetPassword();
+            } else {
+                $scope.validationClass = "invalid";
+            }
+
+            
         };
+
+        var resetPassword = function () {
+            $scope.showSpin = true;
+            authService.resetPassword($scope.resetPasswordInfo).then(function (result) {
+                //Hide spin window
+                $scope.showSpin = false;
+                $scope.resetPasswordInfo.showMessage = true;
+                $scope.resetPasswordInfo.message = appConstants.ERROR_MESSAGES.RESETPASSWORD.SUCCESS;
+                //$location.path('/login');
+
+                //if (result === 'Success') {
+                //    $scope.forgotPasswordInfo.showMessage = true;
+                //    $scope.forgotPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.SUCCESS;
+                //    $location.path('/login');
+                //}
+                //else if (result === 'Failure') {
+                //    $scope.forgotPasswordInfo.showMessage = true;
+                //    $scope.forgotPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.FAILURE;
+                //}
+
+            }, function (error) {
+                $scope.showSpin = false;
+                $scope.resetPasswordInfo.showMessage = true;
+                $scope.resetPasswordInfo.message = appConstants.ERROR_MESSAGES.RESETPASSWORD.FAILURE;
+                console.log(error);
+            });
+        };
+
+        var forgotPassword = function () {
+            $scope.showSpin = true;
+            authService.forgotPassword($scope.forgotPasswordInfo).then(function (result) {
+
+                //Hide spin window
+                $scope.showSpin = false;
+
+                if (result === 'Success') {
+                    $scope.forgotPasswordInfo.showMessage = true;
+                    $scope.forgotPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.SUCCESS;
+                } else if (result === 'Failure') {
+                    $scope.forgotPasswordInfo.showMessage = true;
+                    $scope.forgotPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.FAILURE;
+                }
+
+            }, function (error) {
+                $scope.showSpin = false;
+                $scope.forgotPasswordInfo.showMessage = false;
+                $scope.forgotPasswordInfo.message = error;
+                console.log(error);
+            });
+        };
+
         //Validate captcha code
         var validateCaptcha = function () {
-            if (removeSpaces($scope.forgotPassword.captcha) === removeSpaces($scope.forgotPassword.rewriteCaptcha) ) {
-                $scope.forgotPassword.showMessage = false;
+            if (removeSpaces($scope.forgotPasswordInfo.captcha) === removeSpaces($scope.forgotPasswordInfo.rewriteCaptcha)) {
+                $scope.forgotPasswordInfo.showMessage = false;
                 return true;
             } else {
-                $scope.forgotPassword.showMessage = true;
-                $scope.forgotPassword.message = 'Invalid captcha';
+                $scope.forgotPasswordInfo.showMessage = true;
+                $scope.forgotPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.FAILURE.INVALIDCAPTCHA;
                 return false;
             }
         };
+
+        //Validate reset password auth code
+        var validateAuthCode = function (authCode) {
+            $scope.showSpin = true;
+            authService.validateAuthCode(authCode).then(function (result) {
+                //Hide spin window
+                $scope.showSpin = false;
+                if (result === 'Success') {
+                    $scope.resetPasswordInfo.authCode = authCode;
+                }
+                else if (result === 'Failure') {
+                    $scope.resetPasswordInfo.showMessage = true;
+                    $scope.resetPasswordInfo.message = appConstants.ERROR_MESSAGES.FORGOTPASSWORD.INVALIDURL;
+                }
+
+            }, function (error) {
+                $scope.showSpin = false;
+                $scope.resetPasswordInfo.showMessage = true;
+                $scope.resetPasswordInfo.message = error;
+                console.log(error);
+            });
+        };
+
         //Set login user profile
         var setUserProfile = function (userProfileObj) {
             userProfileService.setUserProfile(userProfileObj);
@@ -76,11 +162,15 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                 if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.LOGIN) {//Initialization for login
                     $scope.userAuth = { 'invalidCredential': false };
                 } else if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.FORGOTPASSWORD) {//Initalization for forgot password
-                    $scope.forgotPassword = { 'captcha': drawCaptcha() };
+                    $scope.forgotPasswordInfo = { 'captcha': drawCaptcha() };
                 } else if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.RESETPASSWORD) {//Initialization for reset password
+                    $scope.resetPasswordInfo = {};
+                    var authCode = $routeParams.authCode;
+                    $scope.resetPasswordInfo.authCode = authCode;
+                    $scope.resetPasswordInfo.userId = $routeParams.userId
+                    validateAuthCode(authCode);
                 }
             }
-            console.log($route);
             $scope.errorWindowOption = {
                 showError: false,
                 errorMessage: null
