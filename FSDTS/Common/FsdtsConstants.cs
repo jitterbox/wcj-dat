@@ -64,11 +64,11 @@ namespace FSDTS.Common
 
         #region Fields used for Notification (Email) functionality
 
-        public const string SenderEmailId = "webauth@extentia.com"; //// extentia1@gmail.com
+        public const string SenderEmailId = "extentia1@gmail.com"; ////  "webauth@extentia.com"
 
-        public const string SenderPassword = "!^EhP@authsite291"; //// Mobile1234
+        public const string SenderPassword = "Mobile1234"; //// Mobile1234  !^EhP@authsite291
 
-        public const string SMTPHost = "mail.extentia.com"; //// smtp.gmail.com
+        public const string SMTPHost = "smtp.gmail.com"; //// smtp.gmail.com  mail.extentia.com
 
         public const int SMTPPort = 587;
 
