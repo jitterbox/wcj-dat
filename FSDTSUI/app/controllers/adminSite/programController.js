@@ -46,6 +46,7 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         }
     };
 
+    //Check dirty form
     var isDirtyForm = function (programInfo) {
         return !angular.equals(programInfo, masterProgramInfo);
     };

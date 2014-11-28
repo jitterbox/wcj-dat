@@ -2,8 +2,9 @@
  AppLevel controller i.e. something that is accessible from every page
 */
 'use strict';
-fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$cookieStore', 'userProfileService', '$location', '$route', '$timeout', 
+fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$cookieStore', 'userProfileService', '$location', '$route', '$timeout',
     function ($scope, $rootScope, appConstants, $cookieStore, userProfileService, $location, $route, $timeout) {
+
         //#region App level variables initialization
         $scope.USER_ROLES = appConstants.USER_ROLES;
         $scope.OPERATION_TYPE = appConstants.OPERATION_TYPE;
@@ -112,10 +113,6 @@ fsdtsApp.controller('appController', ['$scope', '$rootScope', 'appConstants', '$
             }
             catch (err) {
             }
-            // console.log('$location.path()', $location.path());
-            //BreadcrumbService.generateBreadcrumbs();
-            // var routes = $route.routes;
-            //var pathElements = $location.path().split('/');
         });
         $scope.filterDuplicateBreadcrumb = function (label) {
             var breadcrumbs = [];

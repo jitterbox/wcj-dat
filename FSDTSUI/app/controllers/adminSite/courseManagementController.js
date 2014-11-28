@@ -6,8 +6,9 @@ Is used to provide all event handling logic for course management view i.e cours
 fsdtsApp.controller('courseManagementController', ['$scope', 'appConstants', 'courseManagementService', '$location','userProfileService',
 function ($scope, appConstants, courseManagementService, $location, userProfileService) {
 
-    //TODO: Optimization : Dummy implementation need to be removed
+    //#region Scope variable declaration
     $scope.courseList = [];
+    //#endregion
     //#region Grid initialization
     $scope.columnDefs = [{ field: 'name', displayName: 'Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'course\')">{{row.getProperty(\'name\')}}</a></div>' },
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align' }];
@@ -16,8 +17,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
     //#endregion
 
     //On select action from grid
-    $scope.onActionClick = function (actionObject) {
-        
+    $scope.onActionClick = function (actionObject) {   
         //#region Update user parameters
         var params = userProfileService.getUserParams();
         params.courseId = actionObject.selectedRow.courseId;
@@ -36,6 +36,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.showSpin = false;
     };
 
+    //Service call to populate course list
     var populateCourseList = function (courseList) {
         angular.forEach(courseList, function (course) {
             $scope.courseList.push(courseManagementService.populateCourseModel(course));
@@ -46,7 +47,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         }
     };
 
-    //Get all programs
+    //Get all courses
     var getAllCourses = function () {
         //Show spin window
         $scope.showSpin = true;
@@ -67,6 +68,5 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         };
         getAllCourses();
     } ();
-
 } 
 ]);

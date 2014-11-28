@@ -43,13 +43,14 @@ function (appConstants, $location, userProfileService) {
         replace: true,
         transclude: false,
         link: function ($scope, elem, attr, ctrl) {
-           // console.log($scope);
         },
         controller: function ($scope, $attrs) {
+            //on ok handler
             $scope.onOkHandler = function () {
                 $scope.option.showConfirm=false;
                 $scope.actionHandler({'actionType':$scope.option.actionType,'isConfirmed':true});
             };
+            //on cancel handler
             $scope.OnCancelHandler = function () {
                 $scope.option.showConfirm=false;
                 $scope.actionHandler({'actionType':$scope.option.actionType,'isConfirmed':false});

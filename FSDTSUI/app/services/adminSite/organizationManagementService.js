@@ -88,8 +88,11 @@ fsdtsApp.factory('organizationManagementService', ['httpHelper', '$q', 'appConst
             return organizationInfo;
         };
 
-        /**
-        * Create the post data required by service 
+        /** Create the post data required by service for add/edit/get organization 
+        * Method:   getPostData
+        * Access:   Private 
+        * @param    organizationInfo object
+        * @return   postData object
         */
         var getPostData = function (organizationInfo, actionType) {
             var postData = null;

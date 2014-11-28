@@ -45,6 +45,7 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         }
     };
 
+    //Check dirty form
     var isDirtyForm = function (courseInfo) {
         return !angular.equals(courseInfo, masterCourseInfo);
     };

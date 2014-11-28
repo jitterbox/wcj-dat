@@ -5,8 +5,8 @@ Is used to provide all event handling logic for organization view i.e organizati
 'use strict';
 fsdtsApp.controller('organizationController', ['$scope', '$routeParams', 'appConstants', 'organizationManagementService', '$location', 'userProfileService',
 function ($scope, $routeParams, appConstants, organizationManagementService, $location, userProfileService) {
-    //TODO : need to be optimized
 
+    //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
         if ($scope.validator.validate()) {  //code for validation
@@ -46,6 +46,7 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
         }
     };
 
+    //Check dirty form
     var isDirtyForm = function (organizationInfo) {
         return !angular.equals(organizationInfo, masterOrganizationInfo);
     };
@@ -123,8 +124,8 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
             showError: false,
             errorMessage: null
         };
-
         //#endregion
+
         //All the special initalization for Add/Edit goes here
         if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
             $scope.organizationInfo = {

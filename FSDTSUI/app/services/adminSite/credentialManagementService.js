@@ -5,7 +5,7 @@
     addCredential(endPoint,postData)
     post data format :
     var postData = {
-            "CredentialName": "Course-1",
+            "CredentialName": "Credential-1",
             "CredentialDescription": "sample string 3",
             "CredentialStatus": true,
             "OrganizationsId": 1
@@ -64,6 +64,12 @@ fsdtsApp.factory('credentialManagementService', ['httpHelper', '$q', 'appConstan
             return credentialInfo;
         };
 
+        /** Create the post data required by service for add/edit/get credential 
+        * Method:   getPostData
+        * Access:   Private 
+        * @param    credentialInfo object
+        * @return   postData object
+        */
         var getPostData = function (credentialInfo, actionType) {
             var postData = null;
             try {

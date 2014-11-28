@@ -5,10 +5,11 @@ Is used to provide all event handling logic for organization management view i.e
 'use strict';
 fsdtsApp.controller('organizationManagementController', ['$scope', 'appConstants', '$location', 'organizationManagementService', 'userProfileService',
 function ($scope, appConstants, $location, organizationManagementService, userProfileService) {
-    
-    $scope.organizationList = [];
-    //#region Grid initialization
 
+    //#region Scope variable declaration
+    $scope.organizationList = [];
+    //#endregion
+    //#region Grid initialization
     var actionColumn = '<div  class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'programManagement\')">Programs</a> |' +
                                    '<a href="" ng-click="onActionClick(row.entity,\'courseManagement\')">Courses</a> |' +
                                    '<a href="" ng-click="onActionClick(row.entity,\'credentialManagement\')">Credentials</a> |' +
@@ -23,7 +24,6 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-
         //#region Update user parameters
         var params = userProfileService.getUserParams();
         params.organizationId = actionObject.selectedRow.organizationId;
@@ -76,11 +76,12 @@ function ($scope, appConstants, $location, organizationManagementService, userPr
 
     //Used for initializing the controller
     var init = function () {
+        //#region initialize scope variables
         $scope.errorWindowOption = {
             showError: false,
             errorMessage: null
         };
-
+        //#endregion
         getAllOrganizations();
     }();
 
