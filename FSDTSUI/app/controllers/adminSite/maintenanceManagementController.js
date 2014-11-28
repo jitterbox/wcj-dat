@@ -1,28 +1,17 @@
 ﻿/**
-Is used to provide all event handling logic for user management view i.e periodManagement.html
+Is used to provide all event handling logic for user management view i.e maintenceManagement.html
 
 */
 'use strict';
 fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams', 'appConstants', 'maintenanceManagementService', '$location', 'userProfileService',
  function ($scope, $routeParams, appConstants, maintenanceManagementService, $location, userProfileService) {
 
-     //TODO: Optimization : Dummy implementation need to be removed
+     //#region Scope variable declaration
      $scope.maintenanceList = [];
      $scope.selectedMaintenance = null;
      $scope.maintenanceInfo = {};
      $scope.showAddButton = true;
-
-     //Submit button click handler
-     //     $scope.onSubmit = function (event) {
-     //         event.preventDefault();
-     //         if ($scope.validator.validate()) {  // code for validation
-     //             $scope.validationClass = "valid";
-     //             $scope.confirmWindowOption.actionType = "Submit";
-     //             $scope.confirmWindowOption.showConfirm = true;
-     //         } else {
-     //             $scope.validationClass = "invalid";
-     //         }
-     //     };
+     //#endregion
 
      //Submit button click handler
      $scope.onSubmit = function (event) {
@@ -70,6 +59,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          $scope.selectedMaintenance = null;
      };
 
+     //on edit button click handler
      $scope.onActionClick = function (maintenance) {
          $scope.showAddButton = false;
          userProfileService.profile.params.commonProgramsGroupingId = maintenance.commonProgramsGroupingId; ;
@@ -124,7 +114,6 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
      var addMaintenance = function () {
          //Show spin window
          $scope.showSpin = true;
-
          maintenanceManagementService.addMaintenance($scope.maintenanceInfo).then(function (result) {
              //Hide spin window
              $scope.showSpin = false;
@@ -149,14 +138,14 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          });
      };
 
+     //Service call to populate maitenance list 
      var populateMaintenanceList = function (maintenanceList) {
          angular.forEach(maintenanceList, function (maintenance) {
              $scope.maintenanceList.push(maintenanceManagementService.populateMaintenanceModel(maintenance));
          });
      };
 
-
-     //Get all periods
+     //Get all Maintenace
      var getAllMaintenances = function () {
          maintenanceManagementService.getMaintenanceDetails().then(function (result) {
              populateMaintenanceList(result);
@@ -165,12 +154,12 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          });
      };
 
+     //restrict duplicate common program groupings
      var checkDuplicateGrouping = function (groupName) {
          var hasDuplicate = false;
          var maintenanceList = $scope.maintenanceList.map(function (maintenanceObj) {
              return maintenanceObj.commonProgramGroupings
          });
-
          if (maintenanceList.indexOf(groupName) >= 0) {
              hasDuplicate = true;
          }

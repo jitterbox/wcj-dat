@@ -7,8 +7,9 @@ Is used to provide all event handling logic for credential management view i.e c
 fsdtsApp.controller('credentialManagementController', ['$scope', 'appConstants', 'credentialManagementService', '$location', 'userProfileService',
 function ($scope, appConstants, credentialManagementService, $location, userProfileService) {
 
-    //TODO: Optimization : Dummy implementation need to be removed
+    //#region Scope variable declaration
     $scope.credentialList = [];
+    //#endregion
     //#region Grid initialization
     $scope.columnDefs = [{ field: 'name', displayName: 'Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'credential\')">{{row.getProperty(\'name\')}}</a></div>' },
                          { field: 'status', displayName: 'Status', width: 80, cellClass: 'gridColumn-align' }];
@@ -18,7 +19,6 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
 
     //On select action from grid
     $scope.onActionClick = function (actionObject) {
-       
         //#region Update user parameters
         var params = userProfileService.getUserParams();
         params.credentialId = actionObject.selectedRow.credentialId;
@@ -37,6 +37,7 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
         $scope.showSpin = false;
     };
 
+    //Service call to populate credential list
     var populateCredentialList = function (credentialList) {
         angular.forEach(credentialList, function (credential) {
             $scope.credentialList.push(credentialManagementService.populateCredentialModel(credential));
@@ -47,7 +48,7 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
         }
     };
 
-    //Get all programs
+    //Get all credentials
     var getAllCredentials = function () {
         //Show spin window
         $scope.showSpin = true;
@@ -62,11 +63,12 @@ function ($scope, appConstants, credentialManagementService, $location, userProf
 
     //Used for initializing the controller
     var init = function () {
+        //#region initialize scope variables
         $scope.errorWindowOption = {
             showError: false,
             errorMessage: null
         };
-
+        //#endregion
         getAllCredentials();
     }();
 

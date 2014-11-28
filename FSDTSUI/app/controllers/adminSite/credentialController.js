@@ -37,7 +37,7 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
             //code for submit
             if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) { //Add Credential
                 addCredential();
-            } else {//Edit course
+            } else {//Edit credential
                 editCredential();
             }
         } else if ((actionType === 'Cancel') && (isConfirmed === true)) { //code for Credential
@@ -45,6 +45,7 @@ function ($scope, $routeParams, appConstants, credentialManagementService, $loca
         }
     };
 
+    //Check dirty form
     var isDirtyForm = function (credentialInfo) {
         return !angular.equals(credentialInfo, masterCredentialInfo);
     };

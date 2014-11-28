@@ -1,12 +1,14 @@
 ﻿/** Controller descriptions
-Is used to provide all event handling logic for course management view i.e courseManagement.html
+Is used to provide all event handling logic for project management view i.e projectManagement.html
 
 */
 'use strict';
 fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'projectManagementService', '$location', 'userProfileService',
     function ($scope, appConstants, projectManagementService, $location, userProfileService) {
 
+        //#region Scope variable declaration
         $scope.projectList = [];
+        //#endregion
         //#region Grid initialization
         var actionColumn = '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'periodManagement\')" >Periods </a> |' +
                                   '<a href="" ng-click="onActionClick(row.entity,\'participantManagement\')">Participants </a> |' +
@@ -21,8 +23,7 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
         //#endregion
 
         //On select action from grid
-        $scope.onActionClick = function (actionObject) {
-            
+        $scope.onActionClick = function (actionObject) {     
             //#region Update user parameters
             var params = userProfileService.getUserParams();
             params.projectId = actionObject.selectedRow.projectId;
@@ -44,13 +45,6 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
             }
         };
 
-        //On select program from grid
-        //$scope.onProjectSelect = function (selectedProject) {
-        //    $scope.userProfile.params.projectId = selectedProject.projectId;
-        //    //redirect to edit project UI
-        //    $location.path('/project/2');
-        //};
-
         //Showing error window
         var showErrorWindow = function (errorMessages) {
             $scope.errorWindowOption.showError = true;
@@ -58,6 +52,7 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
             $scope.showSpin = false;
         };
 
+        //Service call to populate project list
         var populateProjectList = function (projectList) {
             angular.forEach(projectList, function (project) {
                 $scope.projectList.push(projectManagementService.populateProjectModel(project));
@@ -67,6 +62,7 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
                 $scope.papulateGrid = !$scope.papulateGrid;
             }
         };
+
         //Get all projects
         var getAllProjects = function () {
             //Show spin window
@@ -81,10 +77,12 @@ fsdtsApp.controller('projectManagementController', ['$scope', 'appConstants', 'p
         };
         //used for initializing the controller
         var init = function () {
+            //#region initialize scope variables
             $scope.errorWindowOption = {
                 showError: false,
                 errorMessage: null
             };
+            //#endregion
             getAllProjects();
         } ();
 

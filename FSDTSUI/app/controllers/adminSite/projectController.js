@@ -58,6 +58,7 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
 
     };
 
+    //Check dirty form
     var isDirtyForm= function (projectInfo) {
         return !angular.equals(projectInfo, masterProjectInfo);
     };
@@ -131,20 +132,19 @@ function ($scope, appConstants, $routeParams, projectManagementService, $locatio
         });
     };
 
-    //Return year list from current year to current year+10 
+    //Return year list from current year to current year+10 and current year to current year-5
     var getYearList = function () {
-        var currentDate = new Date();
-        var currentYear = currentDate.getFullYear();
+       // var currentDate = new Date();
+        //var currentYear = currentDate.getFullYear()-5;
         var yearList = [];
-        for (var i = 0; i < 10; i++) {
-            yearList.push((currentYear + i).toString());
+        for (var i = appConstants.YEAR.startYear; i <= appConstants.YEAR.endYear; i++) {
+            yearList.push((i).toString());
         }
         return yearList;
     };
 
     //Used for initializing the controller
     var init = (function () {
-
         //#region initialize scope variables
         $scope.yearList = getYearList();
         $scope.actionType = $routeParams.actionType;

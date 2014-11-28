@@ -13,10 +13,6 @@
 fsdtsApp.factory('authService', ['httpHelper', '$q','appConstants',
     function (httpHelper, $q, appConstants) {
         var serviceInstance = {};
-
-        serviceInstance.getUserProfile = function () {
-        };
-
         serviceInstance.logIn = function (userCredential) {
             var postData = getPostData(userCredential);
            // return httpHelper.post(appConstants.API_END_POINTS.LOGIN_USER, postData);
@@ -33,10 +29,14 @@ fsdtsApp.factory('authService', ['httpHelper', '$q','appConstants',
 
             return defer.promise;
         };
-
         serviceInstance.logOut = function () {
         };
-
+        serviceInstance.forgotPassword = function () {
+        };
+        serviceInstance.validateResetPasswordURL = function () {
+        };
+        serviceInstance.resetPassword = function () {
+        };
         var getPostData = function (userCredential) {
             var postData=null;
             if (userCredential) {
@@ -48,7 +48,6 @@ fsdtsApp.factory('authService', ['httpHelper', '$q','appConstants',
 
             return postData;
         };
-
         var getUserProfile = function (userProfileServerModel) {
             
             var profile = {};
@@ -79,7 +78,6 @@ fsdtsApp.factory('authService', ['httpHelper', '$q','appConstants',
 
             return profile;
         };
-
         return serviceInstance;
     }
 ]);

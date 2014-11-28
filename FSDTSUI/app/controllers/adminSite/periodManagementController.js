@@ -6,18 +6,20 @@ Is used to provide all event handling logic for user management view i.e periodM
 fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'appConstants', 'periodManagementService', '$location', 'userProfileService',
  function ($scope, $routeParams, appConstants, periodManagementService, $location, userProfileService) {
 
-     //TODO: Optimization : Dummy implementation need to be removed
+     //#region Scope variable declaration
      $scope.value = " ";
      $scope.periodList = [];
      $scope.periodStartDate = [];
      $scope.selectedPeriod = null;
      $scope.periodInfo = {};
+     //#endregion
 
      //Submit button click handler
      $scope.onSubmit = function (event) {
          event.preventDefault();
          if ($scope.validator.validate() && customVlaidate()) {  // code for validation
              $scope.validationClass = "valid";
+             //checkDuplicatePeriod($scope.periodInfo.deadlineDate);
              $scope.confirmWindowOption.actionType = "Submit";
              $scope.confirmWindowOption.showConfirm = true;
          } else {
@@ -113,6 +115,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          });
      };
 
+     //Service call to populate period list
      var populatePeriodList = function (periodList) {
          angular.forEach(periodList, function (period) {
              $scope.periodList.push(periodManagementService.populatePeriodModel(period));
@@ -136,6 +139,19 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          }
          return yearList;
      };
+
+     //restrict duplicate common program groupings
+//     var checkDuplicateGrouping = function (groupName) {
+//         console.log(groupName);
+//         //         var hasDuplicate = false;
+//         //         var maintenanceList = $scope.maintenanceList.map(function (maintenanceObj) {
+//         //             return maintenanceObj.commonProgramGroupings
+//         //         });
+//         //         if (maintenanceList.indexOf(groupName) >= 0) {
+//         //             hasDuplicate = true;
+//         //         }
+//         //         return hasDuplicate;
+//     };
 
      //used for initializing the controller
      var init = function () {

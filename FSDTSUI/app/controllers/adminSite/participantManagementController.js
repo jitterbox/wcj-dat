@@ -87,6 +87,7 @@ function ($scope, appConstants, courseManagementService, $location, userProfileS
         $scope.showSpin = false;
     };
 
+    //custom validation
     var customValidate = function () {
         var isValid = true;
         if ($scope.participantInfo.selectedTrackingItem) {

@@ -46,6 +46,7 @@ function ($scope, $routeParams, appConstants, userManagementService, $location, 
         }
     };
 
+    //Check dirty form
     var isDirtyForm = function (userInfo) {
         return !angular.equals(userInfo, masterUserInfo);
     };

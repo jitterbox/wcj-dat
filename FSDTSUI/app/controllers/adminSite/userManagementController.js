@@ -5,7 +5,10 @@ Is used to provide all event handling logic for user management view i.e userMan
 fsdtsApp.controller('userManagementController', ['$scope', 'appConstants', 'userManagementService', '$location', 'userProfileService','$routeParams',
 function ($scope, appConstants, userManagementService, $location, userProfileService, $routeParams) {
 
+    //#region initialize scope variables
     $scope.userList = [];
+    //#endregion
+
     //#region Grid initialization
     $scope.columnDefs = [{ field: 'lastname', displayName: 'Last Name', cellTemplate: '<div class="ngCellText"><a href="" ng-click="onActionClick(row.entity,\'user\')">{{row.getProperty(\'lastname\')}}</a></div>' },
                          { field: 'firstname', displayName: 'First Name' },

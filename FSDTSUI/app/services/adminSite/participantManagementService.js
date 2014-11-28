@@ -157,7 +157,7 @@ fsdtsApp.factory('participantManagementService', ['httpHelper', 'organizationMan
             return trackingItemList;
         };
 
-        /** Create the post data required by service for add/edit/get course 
+        /** Create the post data required by service for add/edit/get participant 
        * Method:   getPostData
        * Access:   Private 
        * @param    participantInfo object
