@@ -77,8 +77,8 @@ namespace FSDTS.Controllers
             return db.User.OrderBy(user => user.UserLastName);
         }
 
-        [Route("Api/GetUserInfo")]
-        public List<User> GetUserInfo()
+        [Route("Api/GetUserInfoByUserType")]
+        public List<User> GetUserInfoByUserType(string UType)
         {
             cmd = new SqlCommand();
             List<User> lstUser = new List<User>();
@@ -94,8 +94,25 @@ namespace FSDTS.Controllers
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "FSDTD_GetUserInfo";
-            
-            reader = cmd.ExecuteReader();
+
+            SqlParameter param = new SqlParameter();
+            param.Direction = ParameterDirection.Input;
+            param.DbType = DbType.String;
+            param.ParameterName = "@UserType";
+            param.Precision = 10;
+            param.SqlDbType = SqlDbType.Text;
+            param.SqlValue = UType;
+            param.Value = UType;
+            cmd.Parameters.Add(param);
+
+            if (UType != null)
+            {
+                reader = cmd.ExecuteReader();
+            }
+            else
+            {
+                throw new NullReferenceException("User Type you have entered is not correct.");
+            }
             while (reader.Read())
             {
                 objuser = new User();
@@ -214,6 +231,7 @@ namespace FSDTS.Controllers
             }
 
             Log.Info(FsdtsConstants.ItemWithSpecificID + id + ": " + FsdtsEnums.SearchByIDResult.Success);
+          
             return Ok(user);
         }
 
@@ -274,12 +292,11 @@ namespace FSDTS.Controllers
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
-
             cmd.Dispose();
             con.Dispose();
             return lstUser;
             
-            ////return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+            //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
         /// <summary>
@@ -304,9 +321,8 @@ namespace FSDTS.Controllers
                 Log.Error("In PutUser method: User sending id as: " + user.UserId + ". BadRequest");
                 return BadRequest();
             }
-
-            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-            user.UserPassword = EncryptedPassword;
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            //user.UserPassword = EncryptedPassword;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -342,9 +358,11 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-
-            var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
-            doc.UserPassword = EncryptedPassword;
+           
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
 
             user.Patch(doc);
             objContext.Entry(doc).State = EntityState.Modified;
@@ -372,8 +390,8 @@ namespace FSDTS.Controllers
                 }
 
                 Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
-                var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-                user.UserPassword = EncryptedPassword;
+                //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+                //user.UserPassword = EncryptedPassword;
                 db.User.Add(user);
                 Log.Info(FsdtsConstants.UpdatingDatabase);
                 db.SaveChanges();
@@ -438,30 +456,59 @@ namespace FSDTS.Controllers
         /// <param name="userName">string userName</param>
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
+
+        [ResponseType(typeof(User))]
         [FsdtsExceptionHandler]
-        public HttpResponseMessage Login(string userName, string userPassword)
+<<<<<<< Updated upstream
+=======
+        [Route("Api/Login")]
+        [HttpPost]
+        [HttpPost]
+        public HttpResponseMessage Login(User userobj)
         {
             HttpResponse response = HttpContext.Current.Response;
-            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userName));
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail.Equals(userobj.UserEmail));
 
             if (user != null)
             {
-                if (user.UserEmail.Equals(userName))
+                if (user.UserEmail.Equals(userobj.UserEmail))
                 {
-                    //// if(UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userPassword)))
-                    if (user.UserPassword.Equals(userPassword)) 
+                    //if (UserBO.SymmetricDecryptData(user.UserPassword).Equals(UserBO.SymmetricDecryptData(userobj.UserPassword)))
+                    if (user.UserPassword.Equals(userobj.UserPassword))
                     {
-                        response.Write("Success");
+                        //response.Write("Success");
+                        return Request.CreateResponse(user);
+
                     }
                     else
                     {
-                        response.Write("Wrong Password");
+                        //response.Write("Wrong Password");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
                     }
                 }
             }
             else
             {
-                response.Write("User not found");
+                //response.Write("User not found");
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return null;
+        }
+
+        public HttpResponseMessage PostForgotPassword(string userEmailId, string userFirstName)
+        {
+            User user = db.User.SingleOrDefault(usr => usr.UserEmail == userEmailId && usr.UserFirstName == userFirstName);
+            HttpResponse response = HttpContext.Current.Response;; // = new HttpResponse();
+            if (user != null)
+            {
+                response.Write("Success");
+                string uniqueCode = UserBO.GetUniqueKey(user);
+                string url = Convert.ToString(ConfigurationManager.AppSettings.Get("ForgotPasswordLink"));
+                // FsdtsCommonMethods.SendEmail("mandar1330ge@gmail.com", "test mail", FsdtsConstants.MailBody + uniqueCode);
+            }
+            else
+            {
+                response.Write("Failure");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
