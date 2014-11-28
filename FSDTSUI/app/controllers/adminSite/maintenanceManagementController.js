@@ -13,12 +13,31 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
      $scope.showAddButton = true;
 
      //Submit button click handler
+     //     $scope.onSubmit = function (event) {
+     //         event.preventDefault();
+     //         if ($scope.validator.validate()) {  // code for validation
+     //             $scope.validationClass = "valid";
+     //             $scope.confirmWindowOption.actionType = "Submit";
+     //             $scope.confirmWindowOption.showConfirm = true;
+     //         } else {
+     //             $scope.validationClass = "invalid";
+     //         }
+     //     };
+
+     //Submit button click handler
      $scope.onSubmit = function (event) {
          event.preventDefault();
-         if ($scope.validator.validate()) {  // code for validation
+         if ($scope.validator.validate()) {  //code for validation
              $scope.validationClass = "valid";
-             $scope.confirmWindowOption.actionType = "Submit";
-             $scope.confirmWindowOption.showConfirm = true;
+             if (checkDuplicateGrouping($scope.maintenanceInfo.commonProgramGroupings)) {
+                 showErrorWindow(['Common Programs Groupings name should not be duplicate']);
+             } else {
+                 if ($scope.showAddButton === true) {
+                     showConfirmWindow();
+                 } else if ($scope.showAddButton === false) {
+                         showConfirmWindow();
+                 }
+             }
          } else {
              $scope.validationClass = "invalid";
          }
@@ -68,8 +87,14 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
      //Showing error window
      var showErrorWindow = function (errorMessage) {
          $scope.errorWindowOption.showError = true;
-         $scope.errorWindowOption.errorMessage = errorMessage;
+         $scope.errorWindowOption.errorMessages = errorMessage;
          $scope.showSpin = false;
+     };
+
+     //Show confirm window
+     var showConfirmWindow = function () {
+         $scope.confirmWindowOption.actionType = "Submit";
+         $scope.confirmWindowOption.showConfirm = true;
      };
 
      //Reset the form control
@@ -99,6 +124,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
      var addMaintenance = function () {
          //Show spin window
          $scope.showSpin = true;
+
          maintenanceManagementService.addMaintenance($scope.maintenanceInfo).then(function (result) {
              //Hide spin window
              $scope.showSpin = false;
@@ -111,7 +137,6 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
 
      //Service call to delete maintenance
      var deleteMaintenance = function (selectedMaintenance) {
-         console.log(selectedMaintenance);
          //Show spin window
          $scope.showSpin = true;
          maintenanceManagementService.deleteMaintenance(selectedMaintenance).then(function (result) {
@@ -130,14 +155,26 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          });
      };
 
+
      //Get all periods
      var getAllMaintenances = function () {
          maintenanceManagementService.getMaintenanceDetails().then(function (result) {
-             console.log(result);
              populateMaintenanceList(result);
          }, function (error) {
              showErrorWindow(error);
          });
+     };
+
+     var checkDuplicateGrouping = function (groupName) {
+         var hasDuplicate = false;
+         var maintenanceList = $scope.maintenanceList.map(function (maintenanceObj) {
+             return maintenanceObj.commonProgramGroupings
+         });
+
+         if (maintenanceList.indexOf(groupName) >= 0) {
+             hasDuplicate = true;
+         }
+         return hasDuplicate;
      };
 
      //used for initializing the controller
@@ -151,7 +188,7 @@ fsdtsApp.controller('maintenanceManagementController', ['$scope', '$routeParams'
          };
          $scope.errorWindowOption = {
              showError: false,
-             errorMessage: null
+             errorMessages: null
          };
          //#endregion
          getAllMaintenances();

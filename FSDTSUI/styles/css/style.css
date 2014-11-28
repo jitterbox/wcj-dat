@@ -226,14 +226,13 @@
 }
 
 .errorWindow {
-margin: 10px 0px;
-padding:27px 10px 15px 83px;
+float: left;
+margin: 4px 0 0 0;
+width: 64px;
+height: 57px;
 background-repeat: no-repeat;
-background-position: 10px center;
-font-size:13px;
-font-weight:normal;
-word-wrap:break-word;
-background-image: url('../images/error.png')
+background-position: 2px -4px;
+background-image: url('../images/error.png');
 }
 
 .selectedRow {

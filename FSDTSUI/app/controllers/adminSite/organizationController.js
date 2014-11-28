@@ -7,18 +7,24 @@ fsdtsApp.controller('organizationController', ['$scope', '$routeParams', 'appCon
 function ($scope, $routeParams, appConstants, organizationManagementService, $location, userProfileService) {
     //TODO : need to be optimized
 
-    //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
-        if ($scope.validator.validate()) { // code for validation
+        if ($scope.validator.validate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.organizationInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow(['Edit form data before submit.']);
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
     };
-
 
     //On cancel button click handler
     $scope.onCancel = function () {
@@ -40,11 +46,21 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
         }
     };
 
+    var isDirtyForm = function (organizationInfo) {
+        return !angular.equals(organizationInfo, masterOrganizationInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
         $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
+    };
+
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
     };
 
     //Service call to add organization
@@ -73,12 +89,14 @@ function ($scope, $routeParams, appConstants, organizationManagementService, $lo
         });
     };
 
+    var masterOrganizationInfo;
     //Service call to get organization detail
     var getOrganization = function () {
         //Show spin window
         $scope.showSpin = true;
         organizationManagementService.getOrganizationDetails(userProfileService.profile.params.organizationId).then(function (result) {
             $scope.organizationInfo = organizationManagementService.populateOrganizationModel(result);
+            masterOrganizationInfo = angular.copy($scope.organizationInfo);
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {

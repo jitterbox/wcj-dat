@@ -12,6 +12,7 @@ namespace FSDTS.Business_Objects
     using System.Security.Cryptography;
     using System.Web;
     using System.Web.Http;
+    using FSDTS.Common;
     using FSDTS.Models;
 
     /// <summary>
@@ -25,11 +26,14 @@ namespace FSDTS.Business_Objects
         /// </summary>
         private FSDTSContext db = new FSDTSContext();
 
+
+
         /// <summary>
         /// SymmetricEncryptData method of UserBO class.
         /// </summary>
         /// <param name="clearText">string clearText</param>
         /// <returns>Encrypted string</returns>
+        [FsdtsExceptionHandler]
         public static string SymmetricEncryptData(string clearText)
         {
             ////create a byte array to store the encrypted result.
@@ -63,12 +67,14 @@ namespace FSDTS.Business_Objects
 
             return Convert.ToBase64String(encryptedText);
         }
-
         /// <summary>
         /// SymmetricDecryptData method of UserBO class.
         /// </summary>
         /// <param name="cypherText">string cypherText</param>
         /// <returns>Decrypted string</returns>
+
+        [FsdtsExceptionHandler]
+
         public static string SymmetricDecryptData(string cypherText)
         {
             ////create a byte array to store the encrypted result.

@@ -6,17 +6,21 @@ Is used to provide all event handling logic for program view i.e program.html
 fsdtsApp.controller('programController', ['$scope', 'appConstants', '$routeParams', '$location', 'programManagementService', 'userProfileService',
 function ($scope, appConstants, $routeParams, $location, programManagementService, userProfileService) {
 
-    //#region Scope variable declaration
-    $scope.commonProgramGroupingsList = [];
-    //#endregion
-
     //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
         if ($scope.validator.validate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.programInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow(['Edit form data before submit.']);
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
@@ -42,11 +46,21 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         }
     };
 
+    var isDirtyForm = function (programInfo) {
+        return !angular.equals(programInfo, masterProgramInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
         $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
+    };
+
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
     };
 
     //Reset the form control
@@ -85,12 +99,14 @@ function ($scope, appConstants, $routeParams, $location, programManagementServic
         });
     };
 
+    var masterProgramInfo;
     //Service call to get program details
     var getProgram = function () {
         //Show spin window
         $scope.showSpin = true;
         programManagementService.getProgramDetails(userProfileService.profile.params.programId).then(function (result) {
             $scope.programInfo = programManagementService.populateProgramModel(result);
+            masterProgramInfo = angular.copy($scope.programInfo);
             //Hide spin window
             $scope.showSpin = false;
         }, function (error) {

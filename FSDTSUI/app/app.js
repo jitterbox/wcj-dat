@@ -15,6 +15,9 @@ function ($routeProvider, $locationProvider, appConstants) {
     when('/login', {
         templateUrl: 'app/views/common/login.html',
         controller: 'authController',
+        data: {
+            'actionType': appConstants.OPERATION_TYPE.LOGIN
+        },
         activePage: 'loginPage',
         label: 'login'
     }).
@@ -214,15 +217,31 @@ function ($routeProvider, $locationProvider, appConstants) {
             authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
-   when('/aboutUs', {
+    when('/forgotPassword', {
+        templateUrl: 'app/views/common/forgotPassword.html',
+        controller: 'authController',
+        data: {
+            'actionType': appConstants.OPERATION_TYPE.FORGOTPASSWORD
+        }
+    }).
+    when('/resetPassword', {
+       templateUrl: 'app/views/common/resetPassword.html',
+       controller: 'authController',
+       data: {
+           'actionType': appConstants.OPERATION_TYPE.RESETPASSWORD
+       }
+    }).
+    when('/aboutUs', {
        templateUrl: 'app/views/common/aboutUs.html',
        activePage: 'AboutUs',
        label: 'AboutUs'
-   }).when('/aboutIndustry', {
+    }).
+    when('/aboutIndustry', {
        templateUrl: 'app/views/common/aboutIndustry.html',
        activePage: 'About Industry',
        label: 'About Industry'
-   }).when('/welcome', {
+    }).
+    when('/welcome', {
        templateUrl: 'app/views/common/welcome.html',
        activePage: 'Welcome',
        label: 'Welcome',

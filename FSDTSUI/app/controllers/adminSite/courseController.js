@@ -4,17 +4,25 @@ Is used to provide all event handling logic for course view i.e course.html
 'use strict';
 fsdtsApp.controller('courseController', ['$scope', '$routeParams', 'appConstants', 'courseManagementService', '$location', 'userProfileService',
 function ($scope, $routeParams, appConstants, courseManagementService, $location, userProfileService) {
+
     //Submit button click handler
     $scope.onSubmit = function (event) {
         event.preventDefault();
-        if ($scope.validator.validate()) {  // code for validation
+        if ($scope.validator.validate()) {  //code for validation
             $scope.validationClass = "valid";
-            $scope.confirmWindowOption.actionType = "Submit";
-            $scope.confirmWindowOption.showConfirm = true;
+            if ($routeParams.actionType === appConstants.OPERATION_TYPE.ADD) {
+                showConfirmWindow();
+            } else if ($routeParams.actionType === appConstants.OPERATION_TYPE.EDIT) {
+                if (isDirtyForm($scope.courseInfo)) {//Check dirty form
+                    showConfirmWindow();
+                } else {
+                    showErrorWindow(['Edit form data before submit.']);
+                }
+            }
+
         } else {
             $scope.validationClass = "invalid";
         }
-        
     };
 
     //On cancel button click handler
@@ -37,11 +45,21 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         }
     };
 
+    var isDirtyForm = function (courseInfo) {
+        return !angular.equals(courseInfo, masterCourseInfo);
+    };
+
     //Showing error window
     var showErrorWindow = function (errorMessages) {
         $scope.errorWindowOption.showError = true;
         $scope.errorWindowOption.errorMessages = errorMessages;
         $scope.showSpin = false;
+    };
+
+    //Show confirm window
+    var showConfirmWindow = function () {
+        $scope.confirmWindowOption.actionType = "Submit";
+        $scope.confirmWindowOption.showConfirm = true;
     };
 
     //Reset the form control
@@ -80,12 +98,14 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         });
     };
 
+    var masterCourseInfo;
     //Service call to get course details
     var getCourse = function () {
         //Show spin window
         $scope.showSpin = true;
         courseManagementService.getCourseDetails(userProfileService.profile.params.courseId).then(function (result) {
             $scope.courseInfo = courseManagementService.populateCourseModel(result);
+            masterCourseInfo = angular.copy($scope.courseInfo);
             //Show spin window
             $scope.showSpin = false;
         }, function (error) {
@@ -103,8 +123,8 @@ function ($scope, $routeParams, appConstants, courseManagementService, $location
         };
 
         $scope.errorWindowOption = {
-            showError:false,
-            errorMessage:null
+            showError: false,
+            errorMessage: null
         };
         //#endregion
 

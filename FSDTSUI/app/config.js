@@ -46,7 +46,10 @@ fsdtsApp.constant('appConstants', {
     'OPERATION_TYPE': {
         'ADD': '1',
         'EDIT': '2',
-        'DELETE': '3'
+        'DELETE': '3',
+        'LOGIN': 4,
+        'FORGOTPASSWORD': 5,
+        'RESETPASSWORD':6
     },
     'USER_ROLES': {
         'ALL': '*',

@@ -275,12 +275,11 @@ namespace FSDTS.Controllers
                 objuser.ManageOrganizations = Convert.ToBoolean(reader["ManageOrganizations"]);
                 lstUser.Add(objuser);
             }
-
             cmd.Dispose();
             con.Dispose();
             return lstUser;
             
-            ////return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
+            //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
         /// <summary>
@@ -305,9 +304,8 @@ namespace FSDTS.Controllers
                 Log.Error("In PutUser method: User sending id as: " + user.UserId + ". BadRequest");
                 return BadRequest();
             }
-
-            var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-            user.UserPassword = EncryptedPassword;
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            //user.UserPassword = EncryptedPassword;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -343,9 +341,17 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+<<<<<<< Updated upstream
 
-            var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
-            doc.UserPassword = EncryptedPassword;
+
+           
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
+>>>>>>> Stashed changes
+=======
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
+            //doc.UserPassword = EncryptedPassword;
+>>>>>>> Stashed changes
 
             user.Patch(doc);
             objContext.Entry(doc).State = EntityState.Modified;
@@ -373,8 +379,8 @@ namespace FSDTS.Controllers
                 }
 
                 Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
-                var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-                user.UserPassword = EncryptedPassword;
+                //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+                //user.UserPassword = EncryptedPassword;
                 db.User.Add(user);
                 Log.Info(FsdtsConstants.UpdatingDatabase);
                 db.SaveChanges();
@@ -439,6 +445,9 @@ namespace FSDTS.Controllers
         /// <param name="userName">string userName</param>
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
+=======
+        [ResponseType(typeof(User))]
+>>>>>>> Stashed changes
         [FsdtsExceptionHandler]
         public HttpResponseMessage Login(User userobj)
         {

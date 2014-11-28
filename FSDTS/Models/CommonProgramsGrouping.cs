@@ -23,7 +23,7 @@ namespace FSDTS.Models
         /// <summary>
         /// Gets or sets common grouping name.
         /// </summary>
-         [FSDTS.Common.CustomValidators.Unique(ErrorMessage = "Common grouping name already exists.")]
+         //[FSDTS.Common.CustomValidators.Unique(ErrorMessage = "Common grouping name already exists.")]
         public string CommonProgramsGroupingName { get; set; }
 
         /// <summary>

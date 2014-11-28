@@ -8,6 +8,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using FSDTS.Controllers;
+using FSDTS.Models;
+using System.Web;
+using System.Net.Http;
 
 namespace FSDTS.Providers
 {
@@ -35,6 +39,10 @@ namespace FSDTS.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
+            UserController obj = new UserController();
+
+            HttpResponseMessage response = obj.Login(context.UserName, context.Password);
 
             using (UserManager<IdentityUser> userManager = _userManagerFactory())
             {

@@ -13,15 +13,15 @@ action-handler="onActionClick(actionObject)">
 */
 
 'use strict';
-fsdtsApp.directive('customGrid', ['appConstants', '$location', 'userProfileService','$compile','$timeout',
-function (appConstants, $location, userProfileService, $compile, $timeout) {
+fsdtsApp.directive('customGrid', ['appConstants','$compile', '$timeout',
+function (appConstants,$compile, $timeout) {
     return {
 
         restrict: 'E',
         template: '<div>\
                     <!--Grid window-->\
                     <div  >\
-                        <div class="searchbtn"><input type="text" ng-model="filterOptions.search" placeholder="Search by {{searchPlaceHolder}}" class="form-control" /></div>\
+                        <div class="searchbtn"><input type="text" ng-model="filterOptions.search" placeholder="{{searchPlaceHolder}}" class="form-control" /></div>\
                         <div class="gridStyle" ng-grid="gridOptions" ></div>\
                     </div>\
                   </div>',
@@ -41,14 +41,17 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
             // console.log($scope);
         },
         controller: function ($scope, $attrs, $element) {
-            $scope.searchPlaceHolder = 'Name';
+
+            //#region Grid initialization
+
+            $scope.searchPlaceHolder = 'Search...';//'Name';
             $scope.totalServerItems = 0;
             $scope.filterOptions = {
                 filterText: "",
                 useExternalFilter: true,
                 search: ''
             };
-            
+
             //Check for pagination option
             if ($scope.customOptions && $scope.customOptions.pagingOptions) {//Custom pagination option
                 $scope.pagingOptions = $scope.customOptions.pagingOptions;
@@ -77,7 +80,8 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
             if ($scope.customOptions && $scope.customOptions.searchPlaceHolder) {
                 $scope.searchPlaceHolder = $scope.customOptions.searchPlaceHolder;
             }
-
+            //#endregion
+            //#region Grid data loading and pagination
             $scope.setPagingData = function (data, page, pageSize) {
                 var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
                 $scope.myData = pagedData;
@@ -87,7 +91,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 //    $timeout(function () {
                 //        $element.find('.noRecordFoundMsg').remove();
                 //    }, 0)
-                    
+
                 //} else {
                 //    var msg = 'No matching records found';//(attrs.showEmptyMsg) ? attrs.showEmptyMsg : 'Nothing to display';
                 //    var template = "<p class='noRecordFoundMsg'  ng-hide='data.length'>" + msg + "</p>";
@@ -100,7 +104,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 //}
 
                 if (!$scope.$$phase) {
-                      // $scope.$apply();
+                    // $scope.$apply();
                 }
             };
 
@@ -109,15 +113,24 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 var data;
                 if (searchText) {
                     var ft = searchText.toLowerCase();
-                    
+
                     data = $scope.gridData.filter(function (item) {
-                        //Custom search by column
-                        if ($scope.customOptions && $scope.customOptions.searchByColumn) {
-                            return (JSON.stringify(item[$scope.customOptions.searchByColumn]).toLowerCase().indexOf(ft) != -1);
+                        //#region free text searching
+                        for (var i = 0; i < $scope.cols.length; ++i) {
+                            if ($scope.cols[i].field && JSON.stringify(item[$scope.cols[i].field]).toLowerCase().indexOf(ft) != -1) {
+                                return true;
+                            }
                         }
+                        return false;
+                        //#endregion
+
+                        //Custom search by column
+                        //if ($scope.customOptions && $scope.customOptions.searchByColumn) {
+                        //    return (JSON.stringify(item[$scope.customOptions.searchByColumn]).toLowerCase().indexOf(ft) != -1);
+                        //}
 
                         //By default seach by column is name
-                        return (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1);
+                        //return (JSON.stringify(item.name).toLowerCase().indexOf(ft) != -1);
                     });
                     $scope.setPagingData(data, page, pageSize);
                     //  });
@@ -128,7 +141,8 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 }
                 //  }, 10);
             };
-
+            //#endregion
+            //#region Grid event listener
             $scope.$watch('papulateGrid', function (newVal, oldVal) {
                 //if (newVal !== oldVal) {
                 if ($scope.pagingOptions.enablePaging === true) {// If paging is not enabled then pagesize is same as total number of record 
@@ -138,7 +152,7 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 }
                 //  }
             }, true);
-            
+
             $scope.$watch('pagingOptions', function (newVal, oldVal) {
                 if (newVal !== oldVal) {
                     $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -147,13 +161,18 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
 
             $scope.$watch('filterOptions', function (newVal, oldVal) {
                 if (newVal !== oldVal) {
-                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                    if ($scope.pagingOptions.enablePaging === true) {// If paging is not enabled then pagesize is same as total number of record 
+                        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                    } else {
+                        $scope.getPagedDataAsync($scope.gridData.length, 1, $scope.filterOptions.filterText);
+                    }
                 }
             }, true);
 
             $scope.$watch('filterOptions.search', function (value) {
                 $scope.gridOptions.filterOptions.filterText = value;
             });
+            //#endregion
 
             //OnAction button click handler
             $scope.onActionClick = function (selectedRow, actionName) {
@@ -161,14 +180,11 @@ function (appConstants, $location, userProfileService, $compile, $timeout) {
                 //Call to callBack method
                 $scope.actionHandler({ 'actionObject': actionObject });
             };
-
             //OnRow
             $scope.rowSelection = function () {
                 //Need to be implemented as required 
             };
-
         }
-
     };
 }
 ]);
