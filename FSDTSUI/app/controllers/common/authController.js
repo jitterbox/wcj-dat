@@ -3,8 +3,8 @@ Is used to provide all event handling logic for authentication and authorization
 
 */
 'use strict';
-fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileService', '$location', '$cookieStore', 'appConstants', 'authService',
-    function ($scope, $rootScope, userProfileService, $location, $cookieStore, appConstants, authService) {
+fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileService', '$location', '$cookieStore', 'appConstants', 'authService','$route',
+    function ($scope, $rootScope, userProfileService, $location, $cookieStore, appConstants, authService, $route) {
         var userProfileChangeEvent;
         //On login button click handler
         $scope.onLogin = function () {
@@ -31,7 +31,7 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                 $scope.validationClass = "invalid";
             }
         };
-
+        //Generate new captcha code
         $scope.refreshCaptcha = function () {
             if ($scope.forgotPassword) {
                 $scope.forgotPassword.captcha = drawCaptcha();
@@ -39,7 +39,7 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                 $scope.forgotPassword = { 'captcha': drawCaptcha() };
             }
         };
-
+        //On forgot password button click handler
         $scope.onSubmitForgotPassword = function () {
             event.preventDefault();
             if ($scope.validator.validate() && validateCaptcha()) {
@@ -49,18 +49,20 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
                 $scope.validationClass = "invalid";
             }
         };
-
+        //On reset password button click handler
+        $scope.onSubmitRestPassword= function () {
+        };
+        //Validate captcha code
         var validateCaptcha = function () {
             if (removeSpaces($scope.forgotPassword.captcha) === removeSpaces($scope.forgotPassword.rewriteCaptcha) ) {
-                $scope.forgotPassword.hasError = false;
+                $scope.forgotPassword.showMessage = false;
                 return true;
             } else {
-                $scope.forgotPassword.hasError = true;
-                $scope.forgotPassword.errorMessage = 'Invalid captcha';
+                $scope.forgotPassword.showMessage = true;
+                $scope.forgotPassword.message = 'Invalid captcha';
                 return false;
             }
         };
-
         //Set login user profile
         var setUserProfile = function (userProfileObj) {
             userProfileService.setUserProfile(userProfileObj);
@@ -68,17 +70,22 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
             $scope.userProfile.credentials.userType = userProfileService.profile.credentials.userType; // Used by appHeader directive
             userProfileChangeEvent = $rootScope.$broadcast(appConstants.EVENT_TYPE.USERPROFILE_CHANGE, userProfileObj);
         };
-
         //used for initializing the controller
         var init = (function () {
-            $scope.userAuth = { 'invalidCredential': false };
+            if ($route && $route.current && $route.current.$$route && $route.current.$$route.data && $route.current.$$route.data.actionType) {
+                if ($route.current.$$route.data.actionType === appConstants.OPERATION_TYPE.LOGIN) {//Initialization for login
+                    $scope.userAuth = { 'invalidCredential': false };
+                } else if ($route.current.$$route.data.actionType === appConstants.FORGOTPASSWORD) {//Initalization for forgot password
+                    $scope.forgotPassword = { 'captcha': drawCaptcha() };
+                } else if ($route.current.$$route.data.actionType === appConstants.RESETPASSWORD) {//Initialization for reset password
+                }
+            }
+            console.log($route);
             $scope.errorWindowOption = {
                 showError: false,
                 errorMessage: null
             };
-            $scope.forgotPassword = { 'captcha': drawCaptcha() };
         })();
-
         //Remov all application level variables & handlers here
         $scope.$on("$destroy", function () {
             //Remove the evant handler

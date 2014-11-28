@@ -15,6 +15,9 @@ function ($routeProvider, $locationProvider, appConstants) {
     when('/login', {
         templateUrl: 'app/views/common/login.html',
         controller: 'authController',
+        data: {
+            'actionType': appConstants.OPERATION_TYPE.LOGIN
+        },
         activePage: 'loginPage',
         label: 'login'
     }).
@@ -216,11 +219,17 @@ function ($routeProvider, $locationProvider, appConstants) {
     }).
     when('/forgotPassword', {
         templateUrl: 'app/views/common/forgotPassword.html',
-        controller: 'authController'
+        controller: 'authController',
+        data: {
+            'actionType': appConstants.OPERATION_TYPE.FORGOTPASSWORD
+        }
     }).
     when('/resetPassword', {
        templateUrl: 'app/views/common/resetPassword.html',
-       controller: 'authController'
+       controller: 'authController',
+       data: {
+           'actionType': appConstants.OPERATION_TYPE.RESETPASSWORD
+       }
     }).
     when('/aboutUs', {
        templateUrl: 'app/views/common/aboutUs.html',
