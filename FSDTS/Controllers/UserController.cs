@@ -25,7 +25,7 @@ namespace FSDTS.Controllers
     using FSDTS.Models;
     using log4net;
     using Microsoft.AspNet.Identity;
-   
+
     /// <summary>
     /// UserController class.
     /// For CRUD operation related to User.
@@ -231,7 +231,7 @@ namespace FSDTS.Controllers
             }
 
             Log.Info(FsdtsConstants.ItemWithSpecificID + id + ": " + FsdtsEnums.SearchByIDResult.Success);
-          
+
             return Ok(user);
         }
 
@@ -295,7 +295,7 @@ namespace FSDTS.Controllers
             cmd.Dispose();
             con.Dispose();
             return lstUser;
-            
+
             //return db.User.Where(usr => usr.OrganizationId == Oid).OrderBy(usr => usr.UserLastName).AsQueryable();
         }
 
@@ -358,7 +358,7 @@ namespace FSDTS.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-           
+
             //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
             //doc.UserPassword = EncryptedPassword;
             //var EncryptedPassword = UserBO.SymmetricEncryptData(doc.UserPassword);
@@ -384,20 +384,20 @@ namespace FSDTS.Controllers
         [HttpPost]
         public IHttpActionResult PostUser(User user)
         {
-                if (!ModelState.IsValid)
-                {
-                    Log.Error(FsdtsConstants.InvalidModelState);
-                    return BadRequest(ModelState);
-                }
+            if (!ModelState.IsValid)
+            {
+                Log.Error(FsdtsConstants.InvalidModelState);
+                return BadRequest(ModelState);
+            }
 
-                Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
-                //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
-                //user.UserPassword = EncryptedPassword;
-                db.User.Add(user);
-                Log.Info(FsdtsConstants.UpdatingDatabase);
-                db.SaveChanges();
+            Log.Info(FsdtsConstants.AddingNewItem + user.UserId.ToString());
+            //var EncryptedPassword = UserBO.SymmetricEncryptData(user.UserPassword);
+            //user.UserPassword = EncryptedPassword;
+            db.User.Add(user);
+            Log.Info(FsdtsConstants.UpdatingDatabase);
+            db.SaveChanges();
 
-                return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
 
         /// <summary>
@@ -496,12 +496,20 @@ namespace FSDTS.Controllers
         [Route("api/ForgotPassword")]
         public HttpResponseMessage ForgotPassword(User userObj)
         {
-            User user = db.User.SingleOrDefault(usr => usr.UserEmail == userObj.UserEmail && usr.UserFirstName == userObj.UserFirstName);
+            User user;
+            if (userObj.UserEmail != null)
+            {
+                user = db.User.SingleOrDefault(usr => usr.UserEmail == userObj.UserEmail && usr.UserFirstName == userObj.UserFirstName);
+            }
+            else
+            {
+                user = db.User.SingleOrDefault(usr => usr.VerificationNo == userObj.VerificationNo);
+            }
             HttpResponse response = HttpContext.Current.Response;
             if (user != null)
             {
                 string url = Convert.ToString(ConfigurationManager.AppSettings.Get("ForgotPasswordLink"));
-                if (user.VerificationNo == userObj.VerificationNo)
+                if (userObj.VerificationNo == null)
                 {
                     string uniqueCode = UserBO.GetUniqueKey(user);
                     response.Write("Success");
@@ -510,15 +518,28 @@ namespace FSDTS.Controllers
                     user.VerificationNo = uniqueCode;
                     db.SaveChanges();
                 }
-                else
+                else if (user.VerificationNo == userObj.VerificationNo)
                 {
-                    response.Write("Invalid request");
+                    user.VerificationNo = null;
+                    db.SaveChanges();
+                    //string uniqueCode = UserBO.GetUniqueKey(user);
+                    response.Write("Success");
+                    //url += uniqueCode;
+                    //FsdtsCommonMethods.SendEmail(user.UserEmail, "test mail", url);
+                    //user.VerificationNo = uniqueCode;
+                    //db.SaveChanges();
                 }
+                else
+                response.Write("Invalid Request");
+
+
             }
             else
             {
                 response.Write("Failure");
             }
+
+
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
