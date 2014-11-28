@@ -19,7 +19,7 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
          event.preventDefault();
          if ($scope.validator.validate() && customVlaidate()) {  // code for validation
              $scope.validationClass = "valid";
-             checkDuplicatePeriod($scope.periodInfo.deadlineDate);
+             //checkDuplicatePeriod($scope.periodInfo.deadlineDate);
              $scope.confirmWindowOption.actionType = "Submit";
              $scope.confirmWindowOption.showConfirm = true;
          } else {
@@ -141,17 +141,17 @@ fsdtsApp.controller('periodManagementController', ['$scope', '$routeParams', 'ap
      };
 
      //restrict duplicate common program groupings
-     var checkDuplicateGrouping = function (groupName) {
-         console.log(groupName);
-         //         var hasDuplicate = false;
-         //         var maintenanceList = $scope.maintenanceList.map(function (maintenanceObj) {
-         //             return maintenanceObj.commonProgramGroupings
-         //         });
-         //         if (maintenanceList.indexOf(groupName) >= 0) {
-         //             hasDuplicate = true;
-         //         }
-         //         return hasDuplicate;
-     };
+//     var checkDuplicateGrouping = function (groupName) {
+//         console.log(groupName);
+//         //         var hasDuplicate = false;
+//         //         var maintenanceList = $scope.maintenanceList.map(function (maintenanceObj) {
+//         //             return maintenanceObj.commonProgramGroupings
+//         //         });
+//         //         if (maintenanceList.indexOf(groupName) >= 0) {
+//         //             hasDuplicate = true;
+//         //         }
+//         //         return hasDuplicate;
+//     };
 
      //used for initializing the controller
      var init = function () {
