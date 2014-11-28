@@ -14,13 +14,13 @@ fsdtsApp.constant('appConstants', {
         'PROJECT': 'http://203.197.80.136/api/Project/',
         'PERIOD': 'http://203.197.80.136/api/Period/',
         'USER': 'http://203.197.80.136/api/User/',
-        'ADMIN_USER': 'http://203.197.80.136/api/GetUserInfoByUserType',
-        'GET_USER': 'http://203.197.80.136/api/GetUserInfoById',
+        'ADMIN_USER': 'http://192.168.15.90:8090/api/GetUserInfoByUserType',
+        'GET_USER': 'http://192.168.15.90:8090/api/GetUserInfoById',
         'LOGIN_USER': 'http://203.197.80.136/api/Login',
         'PARTICIPANT': 'http://203.197.80.136/api/ProjectOrganization/',
-        'MAINTAINANCE': 'http://203.197.80.136/api/CommonProgramsGrouping/',
-        'FORGOTPASSWORD': 'http://203.197.80.136/api/ForgotPassword',
-        'RESETPASSWORD': 'http://203.197.80.136/api/ResetPassword'
+        'MAINTENANCE': 'http://192.168.15.90:8090/api/CommonProgramsGrouping/',
+        'FORGOTPASSWORD': 'http://192.168.15.90:8090/api/ForgotPassword',
+        'RESETPASSWORD': 'http://192.168.15.90:8090/api/ResetPassword'
 
         //        'COURSE': 'http://203.197.80.136/api/course/',
         //        'PROGRAM': 'http://203.197.80.136/api/Program/',
@@ -32,7 +32,7 @@ fsdtsApp.constant('appConstants', {
         //        'ADMIN_USER': 'http://203.197.80.136/api/User/',
         //        'GET_USER': 'http://203.197.80.136/api/GetUserInfoById',
         //        'PARTICIPANT': 'http://203.197.80.136/api/ProjectOrganization/',
-        //        'MAINTAINANCE': 'http://203.197.80.136/api/CommonProgramsGrouping/'
+        //        'MAINTENANCE': 'http://203.197.80.136/api/CommonProgramsGrouping/'
 
         //External end point
         //'COURSE': 'http://203.197.80.136/api/course/',

@@ -30,7 +30,7 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
         */
         serviceInstance.addMaintenance = function (maintenanceInfo) {
             var postData = getPostData(maintenanceInfo, appConstants.OPERATION_TYPE.ADD);
-            return httpHelper.post(appConstants.API_END_POINTS.MAINTAINANCE, postData);
+            return httpHelper.post(appConstants.API_END_POINTS.MAINTENANCE, postData);
         };
 
         /** Edit existing Maintenance 
@@ -41,7 +41,7 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
         */
         serviceInstance.editMaintenance = function (maintenanceInfo) {
             var postData = getPostData(maintenanceInfo, appConstants.OPERATION_TYPE.EDIT);
-            return httpHelper.put(appConstants.API_END_POINTS.MAINTAINANCE + userProfileService.profile.params.commonProgramsGroupingId, postData);
+            return httpHelper.put(appConstants.API_END_POINTS.MAINTENANCE + userProfileService.profile.params.commonProgramsGroupingId, postData);
         };
 
 
@@ -52,7 +52,7 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
         */
         serviceInstance.deleteMaintenance = function (maintenanceInfo) {
             var postData = getPostData(maintenanceInfo, appConstants.OPERATION_TYPE.DELETE);
-            return httpHelper.patch(appConstants.API_END_POINTS.MAINTAINANCE + maintenanceInfo.commonProgramsGroupingId, postData);
+            return httpHelper.patch(appConstants.API_END_POINTS.MAINTENANCE + maintenanceInfo.commonProgramsGroupingId, postData);
         };
 
         /** Return Maintenance details by commonProgramsGroupingId
@@ -63,11 +63,11 @@ fsdtsApp.factory('maintenanceManagementService', ['httpHelper', 'appConstants', 
         */
         serviceInstance.getMaintenanceDetails = function (commonProgramsGroupingId) {
             if (commonProgramsGroupingId) {
-                return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE + commonProgramsGroupingId);
+                return httpHelper.get(appConstants.API_END_POINTS.MAINTENANCE + commonProgramsGroupingId);
             } else {
-                return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE);
+                return httpHelper.get(appConstants.API_END_POINTS.MAINTENANCE);
             }
-            //return httpHelper.get(appConstants.API_END_POINTS.MAINTAINANCE + userProfileService.profile.params.commonProgramsGroupingId);
+            //return httpHelper.get(appConstants.API_END_POINTS.MAINTENANCE + userProfileService.profile.params.commonProgramsGroupingId);
         };
 
         /** Return client  maintenance data model by mapping to the server data model
