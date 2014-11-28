@@ -28,7 +28,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Course'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/credential/:actionType', {
@@ -38,7 +38,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Credential'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/program/:actionType', {
@@ -58,7 +58,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Organization'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/courseManagement', {
@@ -78,7 +78,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Credentials'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/programManagement', {
@@ -131,7 +131,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'User'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/project/:actionType', {
@@ -153,7 +153,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Reporting Periods'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/participantManagement', {
@@ -163,7 +163,7 @@ function ($routeProvider, $locationProvider, appConstants) {
             breadcrumb: {
                 label: 'Participants'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/measureManagement', {
@@ -172,7 +172,7 @@ function ($routeProvider, $locationProvider, appConstants) {
         activePage: 'Measure Management',
         label: 'Measure Management',
         data: {
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/reportManagement', {
@@ -181,7 +181,7 @@ function ($routeProvider, $locationProvider, appConstants) {
         activePage: 'Report Management',
         label: 'Report Management',
         data: {
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/measure/:actionType', {
@@ -190,7 +190,7 @@ function ($routeProvider, $locationProvider, appConstants) {
         activePage: 'Measure',
         label: 'Measure',
         data: {
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/maintenanceManagement', {
@@ -203,7 +203,7 @@ function ($routeProvider, $locationProvider, appConstants) {
                 menuType: 'parent',
                 label: 'Maintenance'
             },
-            authorizedRoles: []
+            authorizedRoles: [appConstants.USER_ROLES.ADMIN, appConstants.USER_ROLES.USER]
         }
     }).
     when('/adminUser/:userType', {

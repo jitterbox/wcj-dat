@@ -107,12 +107,7 @@ namespace FSDTS.Controllers
 
             if (UType != null)
             {
-                reader = cmd.ExecuteReader();
-            }
-            else
-            {
-                throw new NullReferenceException("User Type you have entered is not correct.");
-            }
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 objuser = new User();
@@ -380,6 +375,7 @@ namespace FSDTS.Controllers
         /// <returns>IHttpActionResult with StatusCode</returns>
         //// POST api/User
         [ResponseType(typeof(User))]
+        [HttpPost]
         [FsdtsExceptionHandler]
         [HttpPost]
         public IHttpActionResult PostUser(User user)
@@ -457,7 +453,6 @@ namespace FSDTS.Controllers
         /// <param name="userName">string userName</param>
         /// <param name="userPassword">string userPassword</param>
         /// <returns>HttpResponseMessage Success/Failure</returns>
-
         [ResponseType(typeof(User))]
         [FsdtsExceptionHandler]
         [Route("Api/Login")]

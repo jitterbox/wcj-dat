@@ -7,11 +7,11 @@ namespace FSDTS.Common
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.ComponentModel.DataAnnotations;
+    using System.Configuration;
     using System.Linq;
     using System.Web;
-    using System.Configuration;
-    using System.Collections.Specialized;
     using FSDTS.Models;
 
     /// <summary>
@@ -79,6 +79,12 @@ namespace FSDTS.Common
         /// </summary>
         public class UniqueAttribute : ValidationAttribute
         {
+            /// <summary>
+            /// IsValid method of UniqueAttribute class.
+            /// </summary>
+            /// <param name="value">object value</param>
+            /// <param name="validationContext">ValidationContext validationContext</param>
+            /// <returns>ValidationResult success or failure.</returns>
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
                 FSDTSContext fsdtsContext = new FSDTSContext();
@@ -113,8 +119,17 @@ namespace FSDTS.Common
             }
         }
 
+        /// <summary>
+        /// Class to validate password complexity.
+        /// </summary>
         public class ValidatePasswordAttribute : ValidationAttribute
         {
+            /// <summary>
+            /// IsValid method of ValidatePasswordAttribute class.
+            /// </summary>
+            /// <param name="value">object value</param>
+            /// <param name="validationContext">ValidationContext validationContext</param>
+            /// <returns>ValidationResult success or failure.</returns>
              protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
                 string password = value.ToString();
