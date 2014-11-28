@@ -142,6 +142,8 @@ namespace FSDTS.Models
         public bool ManageUsers { get; set; }
         public bool ManageProjects { get; set; }
         public bool ManageOrganizations { get; set; }
+
+        public string VerificationNo { get; set; }
        
     }
 }

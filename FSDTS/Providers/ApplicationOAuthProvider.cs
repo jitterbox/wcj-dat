@@ -40,9 +40,9 @@ namespace FSDTS.Providers
         {
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            UserController obj = new UserController();
+            //UserController obj = new UserController();
 
-            HttpResponseMessage response = obj.Login(context.UserName, context.Password);
+            //HttpResponseMessage response = obj.Login(context.UserName, context.Password);
 
             using (UserManager<IdentityUser> userManager = _userManagerFactory())
             {

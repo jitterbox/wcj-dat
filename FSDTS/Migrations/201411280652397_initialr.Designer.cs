@@ -7,13 +7,13 @@ namespace FSDTS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class initialf : IMigrationMetadata
+    public sealed partial class initialr : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialf));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialr));
         
         string IMigrationMetadata.Id
         {
-            get { return "201411210713476_initialf"; }
+            get { return "201411280652397_initialr"; }
         }
         
         string IMigrationMetadata.Source
