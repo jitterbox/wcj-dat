@@ -7,11 +7,10 @@ fsdtsApp.controller('authController', ['$scope', '$rootScope', 'userProfileServi
     function ($scope, $rootScope, userProfileService, $location, $cookieStore, appConstants, authService, $route, $routeParams) {
         var userProfileChangeEvent;
         //On login button click handler
-        $scope.onLogin = function () {
+        $scope.onLogin = function (event) {
             event.preventDefault();
             if ($scope.validator.validate()) {  // code for validation
                 $scope.validationClass = "valid";
-
                 //Show spin window
                 $scope.showSpin = true;
                 authService.logIn($scope.userCredential).then(function (userProfile) {
