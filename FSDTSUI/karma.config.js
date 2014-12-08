@@ -20,11 +20,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+       'atlantPlugins/html/js/plugins/jquery/jquery.min.js',
        'scripts/lib/angular.min.js',
        'scripts/lib/angular-mocks.js',
        'scripts/lib/angular-route.min.js',
-       'app/**/*.js',
-       'test/spec/tSpec.js'
+       'scripts/lib/underscore-min.js',
+       'app/*.js',
+       'app/controllers/common/homeController.js',
+       //'app/services/adminSite/*.js',
+       //'app/services/authentication/*.js',
+       //'app/services/utils/*.js',
+       'test/spec/*.js'
     ],
 
 
@@ -66,7 +72,11 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-
+    plugins: [
+    'karma-chrome-launcher',
+    'karma-jasmine',
+    'karma-ng-html2js-preprocessor'
+    ],
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
